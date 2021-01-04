@@ -5,7 +5,7 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Form, Button, Input } from 'semantic-ui-react';
 
 //import registerContract from '../ethereum/register'; // import SC instance
 
@@ -14,9 +14,20 @@ class registrationPage extends Component {
     constructor(props) { // might not be needed 
         super(props);
         this.state = {
-           selectManufacturer: false,
-           selectSortingFacility: false,
-           selectBuyer: false
+            selectManufacturer: false,
+            selectSortingFacility: false,
+            selectBuyer: false,
+            manufacturerName: '',
+            manufacturerAddr: '',
+            manufacturerLocation: '',
+            buyerName: '',
+            buyerAddr: '',
+            buyerLocation: '',
+            buyerBusiness: '',
+            sellerName: '',
+            sellerAddr: '',
+            sellerLocation: '',
+            sortingMachines: []
         };
     }
 
@@ -27,7 +38,22 @@ class registrationPage extends Component {
 
     render() {
 
-        const { selectManufacturer,selectSortingFacility, selectBuyer } = this.state
+        const {
+            selectManufacturer,
+            selectSortingFacility,
+            selectBuyer,
+            manufacturerName,
+            manufacturerAddr,
+            manufacturerLocation,
+            buyerName,
+            buyerAddr,
+            buyerLocation,
+            buyerBusiness,
+             sellerName,
+            sellerAddr,
+            sellerLocation,
+            sortingMachines} = this.state
+
 
         return (
 
@@ -38,13 +64,87 @@ class registrationPage extends Component {
                 />
                 <h2>Select a stakeholder to register:</h2>
                 <Menu widths={3}>
-                    <Menu.Item name='Manufacturer' onClick={() => this.setState({ selectManufacturer: true,selectSortingFacility: false, selectBuyer: false  })} > Manufacturer</Menu.Item>
-                    <Menu.Item name='SortingFacility' onClick={() => this.setState({  selectSortingFacility: true, selectManufacturer: false,selectBuyer: false    })} > Sorting Facility</Menu.Item>
-                    <Menu.Item name='Buyer' onClick={() => this.setState({ selectBuyer: true, selectSortingFacility: false,selectManufacturer: false  })} > Buyer </Menu.Item>
+                    <Menu.Item name='Manufacturer' onClick={() => this.setState({ selectManufacturer: true, selectSortingFacility: false, selectBuyer: false })} > Manufacturer</Menu.Item>
+                    <Menu.Item name='SortingFacility' onClick={() => this.setState({ selectSortingFacility: true, selectManufacturer: false, selectBuyer: false })} > Sorting Facility</Menu.Item>
+                    <Menu.Item name='Buyer' onClick={() => this.setState({ selectBuyer: true, selectSortingFacility: false, selectManufacturer: false })} > Buyer </Menu.Item>
                 </Menu>
 
-                {selectManufacturer && (<h3> send help!</h3>)}
+                {selectManufacturer && (
 
+                    <Form>
+                        <Form.Field width={6}>
+                            <label>Manufacturer Name</label>
+                            <Input value={this.state.manufacturerName}
+                                onChange={event => this.setState({ manufacturerName: event.target.value })} />
+                        </Form.Field>
+                        <Form.Field width={6}>
+                            <label>Manufacturer Address</label>
+                            <Input value={this.state.manufacturerAddr}
+                            icon = "ethereum"
+                                onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
+                        </Form.Field>
+                        <Form.Field width={6}>
+                            <label>Manufacturer Location</label>
+                            <Input value={this.state.manufacturerLocation}
+                                onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
+                        </Form.Field>
+                        <Button type='submit'>Register</Button>
+                    </Form>
+
+                )}
+
+                {selectBuyer && (
+                     <Form>
+                     <Form.Field width={6}>
+                         <label>Buyer Name</label>
+                         <Input value={this.state.buyerName}
+                             onChange={event => this.setState({ buyerName: event.target.value })} />
+                     </Form.Field>
+                     <Form.Field width={6}>
+                         <label>Buyer Address</label>
+                         <Input value={this.state.buyerAddr}
+                         icon = "ethereum"
+                             onChange={event => this.setState({ buyerAddr: event.target.value })} />
+                     </Form.Field>
+                     <Form.Field width={6}>
+                         <label>Buyer Business Type</label>
+                         <Input value={this.state.BuyerBusiness}
+                             onChange={event => this.setState({ buyerBusiness: event.target.value })} />
+                     </Form.Field>
+                     <Form.Field width={6}>
+                         <label>Buyer Location</label>
+                         <Input value={this.state.buyerLocation}
+                             onChange={event => this.setState({ buyerLocation: event.target.value })} />
+                     </Form.Field>
+                     <Button type='submit'>Register</Button>
+                 </Form>
+
+                )}
+
+                {selectSortingFacility&& (
+
+                    <Form>
+                    <Form.Field width={6}>
+                        <label>Sorting Facility Name</label>
+                        <Input value={this.state.sellerName}
+                            onChange={event => this.setState({ sellerName: event.target.value })} />
+                    </Form.Field>
+                    <Form.Field width={6}>
+                        <label>Sorting Facility Address</label>
+                        <Input value={this.state.sellerAddr}
+                        icon = "ethereum"
+                            onChange={event => this.setState({ sellerAddr: event.target.value })} />
+                    </Form.Field>
+                    <Form.Field width={6}>
+                        <label>Sorting Facility Location</label>
+                        <Input value={this.state.sellerLocation}
+                            onChange={event => this.setState({ sellerLocation: event.target.value })} />
+                    </Form.Field>
+                    <Button type='submit'>Register</Button>
+                </Form>
+
+
+                )}
 
 
             </div>
