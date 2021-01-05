@@ -9,6 +9,7 @@ window.ethereum.enable().catch(error => {
   // User denied account access
  console.log(error)
 })
+
 //current provider is the provider injected by MetaMask 
 let web3;
 
