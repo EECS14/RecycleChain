@@ -37,14 +37,20 @@ class registrationPage extends Component {
     renderInputs(value) {
         const inputs = [];
         for (let i = 0; i < value; i++) {
-            inputs.push(<div> <Input value={this.state.sortingMachines[i]} 
-                onChange={event => this.setState({ sortingMachines: event.target.value })}
-                icon="ethereum"/> 
-                </div>)
+            inputs.push(<div>
+                <Input value={this.state.sortingMachines[i]}
+                    onChange={(event) => {
+                        const newSortingMachines = [...this.state.sortingMachines];
+                        newSortingMachines[i] = event.target.value;
+                        this.setState({ sortingMachines: newSortingMachines })
+                    }}
+                    icon="ethereum" />
+            </div>
+            )
 
-                 for (let i = 0; i < value; i++){
-                    console.log(this.state.sortingMachines[i]); 
-                }
+            for (let i = 0; i < value; i++) {
+                console.log(this.state.sortingMachines[i]);
+            }
         }
         return inputs;
     }
@@ -155,14 +161,14 @@ class registrationPage extends Component {
                             <Input value={this.state.sellerLocation}
                                 onChange={event => this.setState({ sellerLocation: event.target.value })} />
                         </Form.Field>
-                        
+
                         <Form.Field width={6}>
-                        <label>Sorting Machines Address</label>
+                            <label>Sorting Machines Address</label>
                             <input type="number" name="quantity" min="1" max="7" onChange={(value) => this.handleOnChange(value)} />
                             <div>
                                 {this.renderInputs(this.state.inputSize)}
                             </div>
-                            </Form.Field>
+                        </Form.Field>
 
                         <Button type='submit'>Register</Button>
                     </Form>
