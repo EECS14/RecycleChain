@@ -5,9 +5,9 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Menu, Form, Button, Input, Transition } from 'semantic-ui-react';
-
-//import registerContract from '../ethereum/register'; // import SC instance
+import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
+import web3 from '../ethereum/web3'; 
+import registerContract from '../ethereum/register'; // import SC instance
 
 class registrationPage extends Component {
 
@@ -28,10 +28,12 @@ class registrationPage extends Component {
             sellerAddr: '',
             sellerLocation: '',
             sortingMachines: [],
-            inputSize: 0
+            inputSize: 0, 
+            errorMessage:''
         };
     }
 
+    // Dynamic fields appear based on number of sorting machines 
     handleOnChange(value) { this.setState({ inputSize: value.target.value }); }
 
     renderInputs(value) {
@@ -54,6 +56,27 @@ class registrationPage extends Component {
         }
         return inputs;
     }
+
+    //Register a Manufactuerer & interact with the register SC
+    onRegisterM = async (event) => {
+        
+        event.preventDefault(); // prevents the browser from submitting the form immediately
+
+        const accounts = await web3.eth.getAccounts(); 
+        try{
+        await registerContract.methods
+        .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
+        .send({from: accounts[0]}); 
+        } catch (err){
+            this.setState({ errorMessage: err.message});
+
+         }
+
+    };
+
+
+
+
 
     render() {
 
@@ -92,7 +115,7 @@ class registrationPage extends Component {
 
                 {selectManufacturer && (
 
-                    <Form>
+                    <Form onSubmit= {this.onRegisterM} error={!!this.state.errorMessage}>
                         <Form.Field width={6}>
                             <label>Manufacturer Name</label>
                             <Input value={this.state.manufacturerName}
@@ -109,6 +132,9 @@ class registrationPage extends Component {
                             <Input value={this.state.manufacturerLocation}
                                 onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
                         </Form.Field>
+
+                        <Message error header="Error!" content={this.state.errorMessage} />
+
                         <Button type='submit'>Register</Button>
                     </Form>
 
@@ -164,7 +190,7 @@ class registrationPage extends Component {
 
                         <Form.Field width={6}>
                             <label>Sorting Machines Address</label>
-                            <input type="number" name="quantity" min="1" max="7" onChange={(value) => this.handleOnChange(value)} />
+                            <input type="number" name="quantity" min="1" max="7"  placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
                             <div>
                                 {this.renderInputs(this.state.inputSize)}
                             </div>
