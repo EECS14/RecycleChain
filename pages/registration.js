@@ -32,6 +32,10 @@ class registrationPage extends Component {
             inputSize: 0,
             errorMessage: '',
             hasNoError: false,
+            errorMessage1: '',
+            hasNoError1: false,
+            errorMessage2: '',
+            hasNoError2: false
         };
     }
 
@@ -60,26 +64,74 @@ class registrationPage extends Component {
     }
 
     //Register a Manufactuerer & interact with the register SC
-    onRegisterM = async (event) => {
+    onRegisterManu = async (event) => {
 
         event.preventDefault(); // prevents the browser from submitting the form immediately
 
         const accounts = await web3.eth.getAccounts();
 
         try {
-           
+
             await registerContract.methods
                 .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
                 .send({ from: accounts[0] });
         } catch (err) {
             this.setState({ errorMessage: err.message });
-            this.setState({ hasError: false});
+            this.setState({ hasError: false });
         }
 
         // if errorMsg is empty, registration is successful
-        if(!this.state.errorMessage)
-        this.setState({ hasNoError: true});
+        if (!this.state.errorMessage)
+            this.setState({ hasNoError: true });
     };
+
+
+    //Register a buyer & interact with the register SC
+    onRegisterBuyer = async (event) => {
+
+        event.preventDefault();
+
+        const accounts = await web3.eth.getAccounts();
+
+        try {
+
+            await registerContract.methods
+                .registerBuyer(this.state.buyerAddr, this.state.buyerName, this.state.buyerLocation, this.state.buyerBusiness)
+                .send({ from: accounts[0] });
+        } catch (err) {
+            this.setState({ errorMessage1: err.message });
+            this.setState({ hasError1: false });
+        }
+
+        // if errorMsg is empty, registration is successful
+        if (!this.state.errorMessage1)
+            this.setState({ hasNoError1: true });
+    };
+
+    //Register a sorting facility & interact with the register SC
+    onRegisterSeller = async (event) => {
+
+        event.preventDefault();
+
+        const accounts = await web3.eth.getAccounts();
+
+        try {
+
+            await registerContract.methods
+                .registerSeller(this.state.sellerAddr, this.state.sellerLocation, this.state.sellerName, this.state.sortingMachines)
+                .send({ from: accounts[0] });
+        } catch (err) {
+            this.setState({ errorMessage2: err.message });
+            this.setState({ hasError2: false });
+        }
+
+        // if errorMsg is empty, registration is successful
+        if (!this.state.errorMessage2)
+            this.setState({ hasNoError2: true });
+    };
+
+
+
 
 
     render() {
@@ -100,9 +152,7 @@ class registrationPage extends Component {
             sellerName,
             sellerAddr,
             sellerLocation,
-            sortingMachines,
-            hasError } = this.state
-
+            sortingMachines } = this.state
 
         return (
 
@@ -124,7 +174,7 @@ class registrationPage extends Component {
                 {selectManufacturer && (
 
                     <div className='ManuForm' >
-                        <Form onSubmit={this.onRegisterM} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+                        <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                             <Form.Field width={6}>
                                 <label>Manufacturer Name</label>
                                 <Input value={this.state.manufacturerName}
@@ -157,7 +207,7 @@ class registrationPage extends Component {
                 )}
 
                 {selectBuyer && (
-                    <Form>
+                    <Form onSubmit={this.onRegisterBuyer} error={!!this.state.errorMessage1} success={this.state.hasNoError1} >
                         <Form.Field width={6}>
                             <label>Buyer Name</label>
                             <Input value={this.state.buyerName}
@@ -179,6 +229,11 @@ class registrationPage extends Component {
                             <Input value={this.state.buyerLocation}
                                 onChange={event => this.setState({ buyerLocation: event.target.value })} />
                         </Form.Field>
+
+                        <Message error header="Error!" content={this.state.errorMessage1} />
+
+                        <Message success header="Success!" content="Buyer registered successfully!" />
+
                         <Button type='submit'>Register</Button>
                     </Form>
 
@@ -186,7 +241,7 @@ class registrationPage extends Component {
 
                 {selectSortingFacility && (
 
-                    <Form>
+                    <Form onSubmit={this.onRegisterSeller} error={!!this.state.errorMessage2} success={this.state.hasNoError2}>
                         <Form.Field width={6}>
                             <label>Sorting Facility Name</label>
                             <Input value={this.state.sellerName}
@@ -211,6 +266,10 @@ class registrationPage extends Component {
                                 {this.renderInputs(this.state.inputSize)}
                             </div>
                         </Form.Field>
+
+                        <Message error header="Error!" content={this.state.errorMessage2} />
+
+                        <Message success header="Success!" content="Seller registered successfully!" />
 
                         <Button type='submit'>Register</Button>
                     </Form>
