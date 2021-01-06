@@ -10,6 +10,7 @@ window.ethereum.enable().catch(error => {
  console.log(error)
 })
 
+
 //current provider is the provider injected by MetaMask 
 let web3;
 

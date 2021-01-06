@@ -6,8 +6,9 @@ To run the app, use the command npm run dev
 
 import React, { Component } from 'react';
 import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
-import web3 from '../ethereum/web3'; 
+import web3 from '../ethereum/web3';
 import registerContract from '../ethereum/register'; // import SC instance
+const getRevertReason = require('eth-revert-reason');
 
 class registrationPage extends Component {
 
@@ -28,8 +29,9 @@ class registrationPage extends Component {
             sellerAddr: '',
             sellerLocation: '',
             sortingMachines: [],
-            inputSize: 0, 
-            errorMessage:''
+            inputSize: 0,
+            errorMessage: '',
+            hasNoError: false,
         };
     }
 
@@ -59,23 +61,25 @@ class registrationPage extends Component {
 
     //Register a Manufactuerer & interact with the register SC
     onRegisterM = async (event) => {
-        
+
         event.preventDefault(); // prevents the browser from submitting the form immediately
 
-        const accounts = await web3.eth.getAccounts(); 
-        try{
-        await registerContract.methods
-        .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
-        .send({from: accounts[0]}); 
-        } catch (err){
-            this.setState({ errorMessage: err.message});
+        const accounts = await web3.eth.getAccounts();
 
-         }
+        try {
+           
+            await registerContract.methods
+                .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
+                .send({ from: accounts[0] });
+        } catch (err) {
+            this.setState({ errorMessage: err.message });
+            this.setState({ hasError: false});
+        }
 
+        // if errorMsg is empty, registration is successful
+        if(!this.state.errorMessage)
+        this.setState({ hasNoError: true});
     };
-
-
-
 
 
     render() {
@@ -96,10 +100,12 @@ class registrationPage extends Component {
             sellerName,
             sellerAddr,
             sellerLocation,
-            sortingMachines } = this.state
+            sortingMachines,
+            hasError } = this.state
 
 
         return (
+
 
             <div className="Selection ">
                 <h1>Welcome to Registration Page</h1>
@@ -113,30 +119,40 @@ class registrationPage extends Component {
                     <Menu.Item name='Buyer' onClick={() => this.setState({ selectBuyer: true, selectSortingFacility: false, selectManufacturer: false })} > Buyer </Menu.Item>
                 </Menu>
 
+
+
                 {selectManufacturer && (
 
-                    <Form onSubmit= {this.onRegisterM} error={!!this.state.errorMessage}>
-                        <Form.Field width={6}>
-                            <label>Manufacturer Name</label>
-                            <Input value={this.state.manufacturerName}
-                                onChange={event => this.setState({ manufacturerName: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Manufacturer Address</label>
-                            <Input value={this.state.manufacturerAddr}
-                                icon="ethereum"
-                                onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Manufacturer Location</label>
-                            <Input value={this.state.manufacturerLocation}
-                                onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
-                        </Form.Field>
+                    <div className='ManuForm' >
+                        <Form onSubmit={this.onRegisterM} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+                            <Form.Field width={6}>
+                                <label>Manufacturer Name</label>
+                                <Input value={this.state.manufacturerName}
+                                    onChange={event => this.setState({ manufacturerName: event.target.value })} />
+                            </Form.Field>
+                            <Form.Field width={6}>
+                                <label>Manufacturer Address</label>
+                                <Input value={this.state.manufacturerAddr}
+                                    icon="ethereum"
+                                    onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
+                            </Form.Field>
+                            <Form.Field width={6}>
+                                <label>Manufacturer Location</label>
+                                <Input value={this.state.manufacturerLocation}
+                                    onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
+                            </Form.Field>
 
-                        <Message error header="Error!" content={this.state.errorMessage} />
+                            <Message error header="Error!" content={this.state.errorMessage} />
 
-                        <Button type='submit'>Register</Button>
-                    </Form>
+
+                            <Message success header="Success!" content="Manufactuerer registered successfully!" />
+
+
+                            <Button type='submit'>Register</Button>
+                        </Form>
+
+
+                    </div>
 
                 )}
 
@@ -190,7 +206,7 @@ class registrationPage extends Component {
 
                         <Form.Field width={6}>
                             <label>Sorting Machines Address</label>
-                            <input type="number" name="quantity" min="1" max="7"  placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
+                            <input type="number" name="quantity" min="1" max="7" placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
                             <div>
                                 {this.renderInputs(this.state.inputSize)}
                             </div>
