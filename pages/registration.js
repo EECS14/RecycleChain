@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import registerContract from '../ethereum/register'; // import SC instance
-const getRevertReason = require('eth-revert-reason');
 
 class registrationPage extends Component {
 
