@@ -35,7 +35,8 @@ class registrationPage extends Component {
             errorMessage1: '',
             hasNoError1: false,
             errorMessage2: '',
-            hasNoError2: false
+            hasNoError2: false, 
+            loading: false
         };
     }
 
@@ -70,6 +71,8 @@ class registrationPage extends Component {
 
         const accounts = await web3.eth.getAccounts();
 
+        this.setState({loading: true, errorMessage: ''});
+
         try {
 
             await registerContract.methods
@@ -83,6 +86,8 @@ class registrationPage extends Component {
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
+
+            this.setState({loading: false});
     };
 
 
@@ -92,6 +97,8 @@ class registrationPage extends Component {
         event.preventDefault();
     
         const accounts = await web3.eth.getAccounts();
+
+        this.setState({loading: true, errorMessage1: ''});
 
         try {
             await registerContract.methods
@@ -105,6 +112,8 @@ class registrationPage extends Component {
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage1)
             this.setState({ hasNoError1: true });
+
+            this.setState({loading: false});
     };
 
     //Register a sorting facility & interact with the register SC
@@ -113,6 +122,8 @@ class registrationPage extends Component {
         event.preventDefault();
 
         const accounts = await web3.eth.getAccounts();
+
+        this.setState({loading: true, errorMessage2: ''});
 
         try {
 
@@ -127,6 +138,8 @@ class registrationPage extends Component {
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage2)
             this.setState({ hasNoError2: true });
+
+            this.setState({loading: false});
     };
 
 
@@ -197,7 +210,7 @@ class registrationPage extends Component {
                             <Message success header="Success!" content="Manufactuerer registered successfully!" />
 
 
-                            <Button type='submit'>Register</Button>
+                            <Button loading={this.state.loading} type='submit'>Register</Button>
                         </Form>
 
 
@@ -233,7 +246,7 @@ class registrationPage extends Component {
 
                         <Message success header="Success!" content="Buyer registered successfully!" />
 
-                        <Button type='submit'>Register</Button>
+                        <Button loading={this.state.loading} type='submit'>Register</Button>
                     </Form>
 
                 )}
@@ -270,7 +283,7 @@ class registrationPage extends Component {
 
                         <Message success header="Success!" content="Seller registered successfully!" />
 
-                        <Button type='submit'>Register</Button>
+                        <Button  loading={this.state.loading} type='submit'>Register</Button>
                     </Form>
 
                 )}
