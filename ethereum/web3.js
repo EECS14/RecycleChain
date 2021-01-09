@@ -5,6 +5,7 @@ Primary provider is MetaMask
 import Web3 from 'web3'; 
 
 //Connect metamask to the webapp 
+
 window.ethereum.enable().catch(error => {
   // User denied account access
  console.log(error)
