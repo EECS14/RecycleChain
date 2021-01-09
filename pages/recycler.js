@@ -5,11 +5,19 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking'; // import SC instance
 
 class recyclerPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            rewards:0
+        };
+    }
+
 
 
 
@@ -17,7 +25,14 @@ class recyclerPage extends Component {
 
         return (
             <div>
-                <h1>Hello Drug Dealers</h1>
+                <h1>Welcome to Recycler's Page</h1>
+                <link rel="stylesheet"
+                    href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+                />
+
+                <Card header='Rewards' description={this.state.rewards} meta='ETH' centered='true'/>
+
+                
             </div>
 
         );

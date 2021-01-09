@@ -9,3 +9,5 @@ const routes = require ('next-routes')();
 //routes.add('...','...'); 
 
 module.exports = routes; 
+
+// Look at video 178 on how to do routing 

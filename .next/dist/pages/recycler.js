@@ -52,10 +52,15 @@ To run the app, use the command npm run dev
 var recyclerPage = function (_Component) {
     (0, _inherits3.default)(recyclerPage, _Component);
 
-    function recyclerPage() {
+    function recyclerPage(props) {
         (0, _classCallCheck3.default)(this, recyclerPage);
 
-        return (0, _possibleConstructorReturn3.default)(this, (recyclerPage.__proto__ || (0, _getPrototypeOf2.default)(recyclerPage)).apply(this, arguments));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (recyclerPage.__proto__ || (0, _getPrototypeOf2.default)(recyclerPage)).call(this, props));
+
+        _this.state = {
+            rewards: 0
+        };
+        return _this;
     }
 
     (0, _createClass3.default)(recyclerPage, [{
@@ -65,14 +70,24 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 19
+                    lineNumber: 27
                 }
             }, _react2.default.createElement('h1', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 20
+                    lineNumber: 28
                 }
-            }, 'Hello Drug Dealers'));
+            }, 'Welcome to Recycler\'s Page'), _react2.default.createElement('link', { rel: 'stylesheet',
+                href: '//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css',
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 29
+                }
+            }), _react2.default.createElement(_semanticUiReact.Card, { header: 'Rewards', description: this.state.rewards, meta: 'ETH', centered: 'true', __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 33
+                }
+            }));
         }
     }]);
 
@@ -84,4 +99,4 @@ var recyclerPage = function (_Component) {
 
 
 exports.default = recyclerPage;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiTWVudSIsIkZvcm0iLCJCdXR0b24iLCJJbnB1dCIsIk1lc3NhZ2UiLCJ3ZWIzIiwidHJhY2tpbmdDb250cmFjdCIsInJlY3ljbGVyUGFnZSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNLEFBQU0sQUFBUSxBQUFPOztBQUNwQyxBQUFPLEFBQVU7Ozs7QSxBQUNqQixBQUFPLEFBQXNCOzs7Ozs7O0FBVDdCOzs7Ozs7QUFTcUQ7O0ksQUFFL0M7Ozs7Ozs7Ozs7O2lDQUlPLEFBRUw7O21DQUNJLGNBQUE7OzhCQUFBO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ksY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBRlIsQUFDSSxBQUNJLEFBSVg7Ozs7O0EsQUFac0I7O0FBZ0IzQjtBQUNBLEFBQ0E7OztrQkFBQSxBQUFlIiwiZmlsZSI6InJlY3ljbGVyLmpzP2VudHJ5Iiwic291cmNlUm9vdCI6Ii9Vc2Vycy9laW1hbmFsd2FoaGFiaS9EZXNrdG9wL1JlY3ljbGVDaGFpbiJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiQ2FyZCIsIndlYjMiLCJ0cmFja2luZ0NvbnRyYWN0IiwicmVjeWNsZXJQYWdlIiwicHJvcHMiLCJzdGF0ZSIsInJld2FyZHMiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBTUEsQUFBTyxBQUFTOzs7O0FBQ2hCLEFBQVM7O0FBQ1QsQUFBTyxBQUFVOzs7O0EsQUFDakIsQUFBTyxBQUFzQjs7Ozs7OztBQVQ3Qjs7Ozs7O0FBU3FEOztJLEFBRS9DOzBDQUVGOzswQkFBQSxBQUFZLE9BQU87NENBQUE7O3NKQUFBLEFBQ1QsQUFDTjs7Y0FBQSxBQUFLO3FCQUZVLEFBRWYsQUFBYSxBQUNEO0FBREMsQUFDVDtlQUVQOzs7OztpQ0FLUSxBQUVMOzttQ0FDSSxjQUFBOzs4QkFBQTtnQ0FBQSxBQUNJO0FBREo7QUFBQSxhQUFBLGtCQUNJLGNBQUE7OzhCQUFBO2dDQUFBO0FBQUE7QUFBQSxlQURKLEFBQ0ksQUFDQSx3RUFBTSxLQUFOLEFBQVUsQUFDTjtzQkFESixBQUNTOzs4QkFEVDtnQ0FGSixBQUVJLEFBSUE7QUFKQTtnQ0FJQSxBQUFDLHVDQUFLLFFBQU4sQUFBYSxXQUFVLGFBQWEsS0FBQSxBQUFLLE1BQXpDLEFBQStDLFNBQVMsTUFBeEQsQUFBNkQsT0FBTSxVQUFuRSxBQUE0RTs4QkFBNUU7Z0NBUFIsQUFDSSxBQU1JLEFBTVg7QUFOVzs7Ozs7O0EsQUFyQlc7O0FBK0IzQjtBQUNBLEFBQ0E7OztrQkFBQSxBQUFlIiwiZmlsZSI6InJlY3ljbGVyLmpzP2VudHJ5Iiwic291cmNlUm9vdCI6Ii9Vc2Vycy9laW1hbmFsd2FoaGFiaS9EZXNrdG9wL1JlY3ljbGVDaGFpbiJ9
