@@ -144,8 +144,6 @@ class registrationPage extends Component {
 
 
 
-
-
     render() {
 
         console.log(this.state.inputSize);
@@ -185,7 +183,7 @@ class registrationPage extends Component {
 
                 {selectManufacturer && (
 
-                    <div className='ManuForm' >
+                    
                         <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                             <Form.Field width={6}>
                                 <label>Manufacturer Name</label>
@@ -213,8 +211,6 @@ class registrationPage extends Component {
                             <Button loading={this.state.loading} type='submit'>Register</Button>
                         </Form>
 
-
-                    </div>
 
                 )}
 
