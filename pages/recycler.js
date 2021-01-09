@@ -5,8 +5,8 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Card, Table } from 'semantic-ui-react';
-//if(!config.isServer) { var QrReader = require('react-qr-reader'); }
+import { Card, Table, Button } from 'semantic-ui-react';
+var QrReader = require('react-qr-reader');
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking'; // import SC instance
 
@@ -16,9 +16,9 @@ class recyclerPage extends Component {
         super(props);
         this.state = {
             rewards: 0,
-            bottleAddr: '',
             bottleStatus: '',
-            result: ''
+            result: '',
+            qr: false
         };
 
 
@@ -35,6 +35,14 @@ class recyclerPage extends Component {
     handleError = err => {
         console.error(err)
     }
+
+    onScan = async (event) => {
+        event.preventDefault();
+        if (this.state.qr === false)
+            this.setState({ qr: true });
+        else
+            this.setState({ qr: false });
+    };
 
 
     renderQRReader() {
@@ -66,6 +74,8 @@ class recyclerPage extends Component {
 
     render() {
 
+        const {qr} = this.state
+
         return (
             <div>
                 <h1>Welcome to Recycler's Page</h1>
@@ -80,16 +90,13 @@ class recyclerPage extends Component {
 
                 <div className="Scanner">
                     <h2>Dispose a Plastic Bottle </h2>
-                    <Button className="QrReader" onClick={(
-                    <div>
-                        <QrReader
-                            delay={300}
-                            onError={this.handleError}
-                            onScan={this.handleScan}
-                            style={{ width: '100%' }}
-                        />
-                        <p>{this.state.result}</p>
-                    </div>)} > Scan QR Code</Button>
+                    <Button className="QrReader" onClick={this.onScan} > Scan QR Code</Button>
+                    <div> {this.state.qr === true && this.state.result === '' ? <QrReader
+                        delay={this.state.delay}
+                        onError={this.handleError}
+                        onScan={this.handleScan}
+                        style={{ width: "25%" }}
+                    /> : ''} </div>
                 </div>
 
                 <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>

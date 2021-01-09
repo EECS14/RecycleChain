@@ -4,6 +4,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -47,13 +55,15 @@ Contact used here: an instance of tracking.sol
 To run the app, use the command npm run dev
 */
 
-//if(!config.isServer) { var QrReader = require('react-qr-reader'); }
+var QrReader = require('react-qr-reader');
 // import SC instance
 
 var recyclerPage = function (_Component) {
     (0, _inherits3.default)(recyclerPage, _Component);
 
     function recyclerPage(props) {
+        var _this2 = this;
+
         (0, _classCallCheck3.default)(this, recyclerPage);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (recyclerPage.__proto__ || (0, _getPrototypeOf2.default)(recyclerPage)).call(this, props));
@@ -70,11 +80,33 @@ var recyclerPage = function (_Component) {
             console.error(err);
         };
 
+        _this.onScan = function () {
+            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event) {
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                event.preventDefault();
+                                if (_this.state.qr === false) _this.setState({ qr: true });else _this.setState({ qr: false });
+
+                            case 2:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, _this2);
+            }));
+
+            return function (_x) {
+                return _ref.apply(this, arguments);
+            };
+        }();
+
         _this.state = {
             rewards: 0,
-            bottleAddr: '',
             bottleStatus: '',
-            result: ''
+            result: '',
+            qr: false
         };
 
         return _this;
@@ -86,7 +118,7 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 42
+                    lineNumber: 50
                 }
             }, _react2.default.createElement(QrReader, {
                 delay: 300,
@@ -95,12 +127,12 @@ var recyclerPage = function (_Component) {
                 style: { width: '100%' },
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 43
+                    lineNumber: 51
                 }
             }), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 49
+                    lineNumber: 57
                 }
             }, this.state.result));
         }
@@ -111,118 +143,114 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement(_semanticUiReact.Table.Row, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 58
+                    lineNumber: 66
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Cell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 59
+                    lineNumber: 67
                 }
             }, 'John'), _react2.default.createElement(_semanticUiReact.Table.Cell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 60
+                    lineNumber: 68
                 }
             }, 'Completed'));
         }
     }, {
         key: 'render',
         value: function render() {
+            var qr = this.state.qr;
 
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
+                    lineNumber: 80
                 }
             }, _react2.default.createElement('h1', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 71
+                    lineNumber: 81
                 }
             }, 'Welcome to Recycler\'s Page'), _react2.default.createElement('link', { rel: 'stylesheet',
                 href: '//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css',
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 72
+                    lineNumber: 82
                 }
             }), _react2.default.createElement(_semanticUiReact.Card, { header: 'Rewards', description: this.state.rewards, meta: 'ETH', centered: 'true', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 76
+                    lineNumber: 86
                 }
             }), _react2.default.createElement('br', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 88
                 }
             }), _react2.default.createElement('br', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 79
+                    lineNumber: 89
                 }
             }), _react2.default.createElement('div', { className: 'Scanner', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 81
+                    lineNumber: 91
                 }
             }, _react2.default.createElement('h2', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 82
+                    lineNumber: 92
                 }
-            }, 'Dispose a Plastic Bottle '), _react2.default.createElement(Button, { className: 'QrReader', onClick: _react2.default.createElement('div', {
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 84
-                    }
-                }, _react2.default.createElement(QrReader, {
-                    delay: 300,
-                    onError: this.handleError,
-                    onScan: this.handleScan,
-                    style: { width: '100%' },
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 85
-                    }
-                }), _react2.default.createElement('p', {
-                    __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 91
-                    }
-                }, this.state.result)), __source: {
+            }, 'Dispose a Plastic Bottle '), _react2.default.createElement(_semanticUiReact.Button, { className: 'QrReader', onClick: this.onScan, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 83
+                    lineNumber: 93
                 }
-            }, ' Scan QR Code')), _react2.default.createElement('div', { className: 'BottleTable', style: { 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }, __source: {
+            }, ' Scan QR Code'), _react2.default.createElement('div', {
+                __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 95
+                    lineNumber: 94
+                }
+            }, ' ', this.state.qr === true && this.state.result === '' ? _react2.default.createElement(QrReader, {
+                delay: this.state.delay,
+                onError: this.handleError,
+                onScan: this.handleScan,
+                style: { width: "25%" },
+                __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 94
+                }
+            }) : '', ' ')), _react2.default.createElement('div', { className: 'BottleTable', style: { 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 102
                 }
             }, _react2.default.createElement(_semanticUiReact.Table, { unstackable: true, size: 'small', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 96
+                    lineNumber: 103
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Header, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 97
+                    lineNumber: 104
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Row, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 98
+                    lineNumber: 105
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.HeaderCell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 99
+                    lineNumber: 106
                 }
             }, 'Plasitc Bottle Address'), _react2.default.createElement(_semanticUiReact.Table.HeaderCell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 100
+                    lineNumber: 107
                 }
             }, 'Status'))), _react2.default.createElement(_semanticUiReact.Table.Body, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 104
+                    lineNumber: 111
                 }
             }, this.renderBottlesTable()))));
         }
@@ -236,4 +264,4 @@ var recyclerPage = function (_Component) {
 
 
 exports.default = recyclerPage;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiQ2FyZCIsIlRhYmxlIiwid2ViMyIsInRyYWNraW5nQ29udHJhY3QiLCJyZWN5Y2xlclBhZ2UiLCJwcm9wcyIsImhhbmRsZVNjYW4iLCJkYXRhIiwic2V0U3RhdGUiLCJyZXN1bHQiLCJoYW5kbGVFcnJvciIsImNvbnNvbGUiLCJlcnJvciIsImVyciIsInN0YXRlIiwicmV3YXJkcyIsImJvdHRsZUFkZHIiLCJib3R0bGVTdGF0dXMiLCJ3aWR0aCIsInJlbmRlckJvdHRsZXNUYWJsZSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNOztBQUVmLEFBQU8sQUFBVTs7OztBLEFBQ2pCLEFBQU8sQUFBc0I7Ozs7Ozs7QUFWN0I7Ozs7OztBQVFBO0FBRXFEOztJLEFBRS9DOzBDQUVGOzswQkFBQSxBQUFZLE9BQU87NENBQUE7O3NKQUFBLEFBQ1Q7O2NBRFMsQUFZbkIsYUFBYSxnQkFBUSxBQUNqQjtnQkFBQSxBQUFJLE1BQU0sQUFDTjtzQkFBQSxBQUFLOzRCQUFMLEFBQWMsQUFDRixBQUVmO0FBSGlCLEFBQ1Y7QUFHWDtBQWxCa0I7O2NBQUEsQUFvQm5CLGNBQWMsZUFBTyxBQUNqQjtvQkFBQSxBQUFRLE1BQVIsQUFBYyxBQUNqQjtBQXRCa0IsQUFFZjs7Y0FBQSxBQUFLO3FCQUFRLEFBQ0EsQUFDVDt3QkFGUyxBQUVHLEFBQ1o7MEJBSFMsQUFHSyxBQUNkO29CQU5XLEFBRWYsQUFBYSxBQUlEO0FBSkMsQUFDVDs7ZUFPUDs7Ozs7eUNBZWdCLEFBQ2I7bUNBQ0ksY0FBQTs7OEJBQUE7Z0NBQUEsQUFDSTtBQURKO0FBQUEsYUFBQSxnQ0FDSSxBQUFDO3VCQUFELEFBQ1csQUFDUDt5QkFBUyxLQUZiLEFBRWtCLEFBQ2Q7d0JBQVEsS0FIWixBQUdpQixBQUNiO3VCQUFPLEVBQUUsT0FKYixBQUlXLEFBQVM7OzhCQUpwQjtnQ0FESixBQUNJLEFBTUE7QUFOQTtBQUNJLGdDQUtKLGNBQUE7OzhCQUFBO2dDQUFBLEFBQUk7QUFBSjtBQUFBLG9CQUFJLEFBQUssTUFSakIsQUFDSSxBQU9JLEFBQWUsQUFJMUI7Ozs7NkNBRW9CLEFBRWpCOzttQ0FDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0EseUJBQUMsY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQTtBQUFBO0FBQUEsZUFIUixBQUNJLEFBRUksQUFLWDs7OztpQ0FFUSxBQUVMOzttQ0FDSSxjQUFBOzs4QkFBQTtnQ0FBQSxBQUNJO0FBREo7QUFBQSxhQUFBLGtCQUNJLGNBQUE7OzhCQUFBO2dDQUFBO0FBQUE7QUFBQSxlQURKLEFBQ0ksQUFDQSx3RUFBTSxLQUFOLEFBQVUsQUFDTjtzQkFESixBQUNTOzs4QkFEVDtnQ0FGSixBQUVJLEFBSUE7QUFKQTtnQ0FJQSxBQUFDLHVDQUFLLFFBQU4sQUFBYSxXQUFVLGFBQWEsS0FBQSxBQUFLLE1BQXpDLEFBQStDLFNBQVMsTUFBeEQsQUFBNkQsT0FBTSxVQUFuRSxBQUE0RTs4QkFBNUU7Z0NBTkosQUFNSSxBQUVBO0FBRkE7Ozs4QkFFQTtnQ0FSSixBQVFJLEFBQ0E7QUFEQTtBQUFBOzs4QkFDQTtnQ0FUSixBQVNJLEFBRUE7QUFGQTtBQUFBLGdDQUVBLGNBQUEsU0FBSyxXQUFMLEFBQWU7OEJBQWY7Z0NBQUEsQUFDSTtBQURKOytCQUNJLGNBQUE7OzhCQUFBO2dDQUFBO0FBQUE7QUFBQSxlQURKLEFBQ0ksQUFDQSw4Q0FBQyxjQUFELFVBQVEsV0FBUixBQUFrQixZQUFXLHlCQUM3QixjQUFBOztrQ0FBQTtvQ0FBQSxBQUNJO0FBREo7QUFBQSxpQkFBQSxnQ0FDSSxBQUFDOzJCQUFELEFBQ1csQUFDUDs2QkFBUyxLQUZiLEFBRWtCLEFBQ2Q7NEJBQVEsS0FIWixBQUdpQixBQUNiOzJCQUFPLEVBQUUsT0FKYixBQUlXLEFBQVM7O2tDQUpwQjtvQ0FESixBQUNJLEFBTUE7QUFOQTtBQUNJLG9DQUtKLGNBQUE7O2tDQUFBO29DQUFBLEFBQUk7QUFBSjtBQUFBLHdCQUFJLEFBQUssTUFSYixBQUNBLEFBT0ksQUFBZTs4QkFSbkI7Z0NBQUE7QUFBQTtlQWJSLEFBV0ksQUFFSSxBQVlKLG1DQUFBLGNBQUEsU0FBSyxXQUFMLEFBQWUsZUFBYyxPQUFPLEVBQUUsU0FBRixBQUFXLE9BQU8sZUFBbEIsQUFBaUMsUUFBUSxnQkFBN0UsQUFBb0MsQUFBeUQ7OEJBQTdGO2dDQUFBLEFBQ0k7QUFESjsrQkFDSSxBQUFDLHdDQUFNLGFBQVAsTUFBbUIsTUFBbkIsQUFBd0I7OEJBQXhCO2dDQUFBLEFBQ0k7QUFESjsrQkFDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0k7QUFESjtBQUFBLCtCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUEsQUFDSTtBQURKO0FBQUEsK0JBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0EsMkNBQUMsY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQTtBQUFBO0FBQUEsZUFKWixBQUNJLEFBQ0ksQUFFSSxBQUlSLDZCQUFDLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUEsQUFDSztBQURMO0FBQUEsb0JBbkNoQixBQUNJLEFBeUJJLEFBQ0ksQUFRSSxBQUNLLEFBQUssQUFVN0I7Ozs7O0EsQUF0R3NCOztBQTBHM0I7QUFDQSxBQUNBOzs7a0JBQUEsQUFBZSIsImZpbGUiOiJyZWN5Y2xlci5qcz9lbnRyeSIsInNvdXJjZVJvb3QiOiIvVXNlcnMvZWltYW5hbHdhaGhhYmkvRGVza3RvcC9SZWN5Y2xlQ2hhaW4ifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiQ2FyZCIsIlRhYmxlIiwiQnV0dG9uIiwiUXJSZWFkZXIiLCJyZXF1aXJlIiwid2ViMyIsInRyYWNraW5nQ29udHJhY3QiLCJyZWN5Y2xlclBhZ2UiLCJwcm9wcyIsImhhbmRsZVNjYW4iLCJkYXRhIiwic2V0U3RhdGUiLCJyZXN1bHQiLCJoYW5kbGVFcnJvciIsImNvbnNvbGUiLCJlcnJvciIsImVyciIsIm9uU2NhbiIsImV2ZW50IiwicHJldmVudERlZmF1bHQiLCJzdGF0ZSIsInFyIiwicmV3YXJkcyIsImJvdHRsZVN0YXR1cyIsIndpZHRoIiwiZGVsYXkiLCJyZW5kZXJCb3R0bGVzVGFibGUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNLEFBQU87O0FBRXRCLEFBQU8sQUFBVTs7OztBLEFBQ2pCLEFBQU8sQUFBc0I7Ozs7Ozs7QUFWN0I7Ozs7OztBQVFBLElBQUksV0FBSixBQUFJLEFBQVc7QUFFc0M7O0ksQUFFL0M7MENBRUY7OzBCQUFBLEFBQVksT0FBTztxQkFBQTs7NENBQUE7O3NKQUFBLEFBQ1Q7O2NBRFMsQUFZbkIsYUFBYSxnQkFBUSxBQUNqQjtnQkFBQSxBQUFJLE1BQU0sQUFDTjtzQkFBQSxBQUFLOzRCQUFMLEFBQWMsQUFDRixBQUVmO0FBSGlCLEFBQ1Y7QUFHWDtBQWxCa0I7O2NBQUEsQUFvQm5CLGNBQWMsZUFBTyxBQUNqQjtvQkFBQSxBQUFRLE1BQVIsQUFBYyxBQUNqQjtBQXRCa0I7O2NBQUEsQUF3Qm5CLHFCQXhCbUI7Z0dBd0JWLGlCQUFBLEFBQU8sT0FBUDs4RUFBQTs4QkFBQTt5REFBQTtpQ0FDTDtzQ0FBQSxBQUFNLEFBQ047b0NBQUksTUFBQSxBQUFLLE1BQUwsQUFBVyxPQUFmLEFBQXNCLE9BQ2xCLE1BQUEsQUFBSyxTQUFTLEVBQUUsSUFEcEIsQUFDSSxBQUFjLEFBQU0sYUFFcEIsTUFBQSxBQUFLLFNBQVMsRUFBRSxJQUxmLEFBS0QsQUFBYyxBQUFNOztpQ0FMbkI7aUNBQUE7Z0RBQUE7O0FBQUE7NEJBQUE7QUF4QlU7O2lDQUFBO3dDQUFBO0FBQUE7QUFFZjs7Y0FBQSxBQUFLO3FCQUFRLEFBQ0EsQUFDVDswQkFGUyxBQUVLLEFBQ2Q7b0JBSFMsQUFHRCxBQUNSO2dCQU5XLEFBRWYsQUFBYSxBQUlMO0FBSkssQUFDVDs7ZUFPUDs7Ozs7eUNBdUJnQixBQUNiO21DQUNJLGNBQUE7OzhCQUFBO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsZ0NBQ0ksQUFBQzt1QkFBRCxBQUNXLEFBQ1A7eUJBQVMsS0FGYixBQUVrQixBQUNkO3dCQUFRLEtBSFosQUFHaUIsQUFDYjt1QkFBTyxFQUFFLE9BSmIsQUFJVyxBQUFTOzs4QkFKcEI7Z0NBREosQUFDSSxBQU1BO0FBTkE7QUFDSSxnQ0FLSixjQUFBOzs4QkFBQTtnQ0FBQSxBQUFJO0FBQUo7QUFBQSxvQkFBSSxBQUFLLE1BUmpCLEFBQ0ksQUFPSSxBQUFlLEFBSTFCOzs7OzZDQUVvQixBQUVqQjs7bUNBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNJO0FBREo7QUFBQSxhQUFBLGtCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLHlCQUFDLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBSFIsQUFDSSxBQUVJLEFBS1g7Ozs7aUNBRVE7Z0JBQUEsQUFFRSxLQUFNLEtBRlIsQUFFYSxNQUZiLEFBRUUsQUFFUDs7bUNBQ0ksY0FBQTs7OEJBQUE7Z0NBQUEsQUFDSTtBQURKO0FBQUEsYUFBQSxrQkFDSSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0Esd0VBQU0sS0FBTixBQUFVLEFBQ047c0JBREosQUFDUzs7OEJBRFQ7Z0NBRkosQUFFSSxBQUlBO0FBSkE7Z0NBSUEsQUFBQyx1Q0FBSyxRQUFOLEFBQWEsV0FBVSxhQUFhLEtBQUEsQUFBSyxNQUF6QyxBQUErQyxTQUFTLE1BQXhELEFBQTZELE9BQU0sVUFBbkUsQUFBNEU7OEJBQTVFO2dDQU5KLEFBTUksQUFFQTtBQUZBOzs7OEJBRUE7Z0NBUkosQUFRSSxBQUNBO0FBREE7QUFBQTs7OEJBQ0E7Z0NBVEosQUFTSSxBQUVBO0FBRkE7QUFBQSxnQ0FFQSxjQUFBLFNBQUssV0FBTCxBQUFlOzhCQUFmO2dDQUFBLEFBQ0k7QUFESjsrQkFDSSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0EsOENBQUEsQUFBQyx5Q0FBTyxXQUFSLEFBQWtCLFlBQVcsU0FBUyxLQUF0QyxBQUEyQzs4QkFBM0M7Z0NBQUE7QUFBQTtlQUZKLEFBRUksQUFDQSxrQ0FBQSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFBTyxVQUFBLEFBQUssTUFBTCxBQUFXLE9BQVgsQUFBa0IsUUFBUSxLQUFBLEFBQUssTUFBTCxBQUFXLFdBQXJDLEFBQWdELG1DQUFLLEFBQUM7dUJBQ2xELEtBQUEsQUFBSyxNQUQ0QyxBQUN0QyxBQUNsQjt5QkFBUyxLQUYrQyxBQUUxQyxBQUNkO3dCQUFRLEtBSGdELEFBRzNDLEFBQ2I7dUJBQU8sRUFBRSxPQUorQyxBQUlqRCxBQUFTOzs4QkFKd0M7Z0NBQXJELEFBQXFEO0FBQUE7QUFDeEQsYUFEd0QsSUFBNUQsQUFLSyxJQW5CYixBQVdJLEFBR0ksQUFRSix1QkFBQSxjQUFBLFNBQUssV0FBTCxBQUFlLGVBQWMsT0FBTyxFQUFFLFNBQUYsQUFBVyxPQUFPLGVBQWxCLEFBQWlDLFFBQVEsZ0JBQTdFLEFBQW9DLEFBQXlEOzhCQUE3RjtnQ0FBQSxBQUNJO0FBREo7K0JBQ0ksQUFBQyx3Q0FBTSxhQUFQLE1BQW1CLE1BQW5CLEFBQXdCOzhCQUF4QjtnQ0FBQSxBQUNJO0FBREo7K0JBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNJO0FBREo7QUFBQSwrQkFDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0k7QUFESjtBQUFBLCtCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLDJDQUFDLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBSlosQUFDSSxBQUNJLEFBRUksQUFJUiw2QkFBQyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0s7QUFETDtBQUFBLG9CQWhDaEIsQUFDSSxBQXNCSSxBQUNJLEFBUUksQUFDSyxBQUFLLEFBVTdCOzs7OztBLEFBN0dzQjs7QUFpSDNCO0FBQ0EsQUFDQTs7O2tCQUFBLEFBQWUiLCJmaWxlIjoicmVjeWNsZXIuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiL1VzZXJzL2VpbWFuYWx3YWhoYWJpL0Rlc2t0b3AvUmVjeWNsZUNoYWluIn0=
