@@ -90,11 +90,10 @@ class registrationPage extends Component {
     onRegisterBuyer = async (event) => {
 
         event.preventDefault();
-
+    
         const accounts = await web3.eth.getAccounts();
 
         try {
-
             await registerContract.methods
                 .registerBuyer(this.state.buyerAddr, this.state.buyerName, this.state.buyerLocation, this.state.buyerBusiness)
                 .send({ from: accounts[0] });

@@ -10,23 +10,18 @@ var _web2 = _interopRequireDefault(_web);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//Connect metamask to the webapp 
-
-window.ethereum.enable().catch(function (error) {
-  // User denied account access
-  console.log(error);
-});
-
 //current provider is the provider injected by MetaMask 
+var web3 = void 0;
+
+//typeof is used to check if window is defined 
 /*
 Purpose: import this file to get access to web3
 Primary provider is MetaMask 
 */
-var web3 = void 0;
-
-//typeof is used to check if window is defined 
 if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   // We are in the browser and metamask is running.
+  //Connect metamask to the webapp 
+  window.ethereum.enable();
   web3 = new _web2.default(window.web3.currentProvider);
 } else {
   // We are on the server *OR* the user is not running metamask
@@ -35,4 +30,4 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
 }
 
 exports.default = web3;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImV0aGVyZXVtL3dlYjMuanMiXSwibmFtZXMiOlsiV2ViMyIsIndpbmRvdyIsImV0aGVyZXVtIiwiZW5hYmxlIiwiY2F0Y2giLCJjb25zb2xlIiwibG9nIiwiZXJyb3IiLCJ3ZWIzIiwiY3VycmVudFByb3ZpZGVyIiwicHJvdmlkZXIiLCJwcm92aWRlcnMiLCJIdHRwUHJvdmlkZXIiXSwibWFwcGluZ3MiOiI7Ozs7OztBQUlBLEFBQU87Ozs7OztBQUVQOztBQUVBLE9BQUEsQUFBTyxTQUFQLEFBQWdCLFNBQWhCLEFBQXlCLE1BQU0saUJBQVMsQUFDdEM7QUFDRDtVQUFBLEFBQVEsSUFBUixBQUFZLEFBQ1o7QUFIRDs7QUFNQTtBQWRBOzs7O0FBZUEsSUFBSSxZQUFKOztBQUVBO0FBQ0EsSUFBSSxPQUFBLEFBQU8sV0FBUCxBQUFrQixlQUFlLE9BQU8sT0FBUCxBQUFjLFNBQW5ELEFBQTRELGFBQWEsQUFDdkU7QUFDQTtTQUFPLEFBQUksa0JBQUssT0FBQSxBQUFPLEtBQXZCLEFBQU8sQUFBcUIsQUFDN0I7QUFIRCxPQUdPLEFBQ0w7QUFDQTtNQUFNLFdBQVcsSUFBSSxjQUFBLEFBQUssVUFBVCxBQUFtQixhQUFwQyxBQUFpQixBQUFpQyxBQUNsRDtTQUFPLEFBQUksa0JBQVgsQUFBTyxBQUFTLEFBQ2pCO0FBRUQ7O2tCQUFBLEFBQWUiLCJmaWxlIjoid2ViMy5qcyIsInNvdXJjZVJvb3QiOiIvVXNlcnMvZWltYW5hbHdhaGhhYmkvRGVza3RvcC9SZWN5Y2xlQ2hhaW4ifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImV0aGVyZXVtL3dlYjMuanMiXSwibmFtZXMiOlsiV2ViMyIsIndlYjMiLCJ3aW5kb3ciLCJldGhlcmV1bSIsImVuYWJsZSIsImN1cnJlbnRQcm92aWRlciIsInByb3ZpZGVyIiwicHJvdmlkZXJzIiwiSHR0cFByb3ZpZGVyIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFJQSxBQUFPOzs7Ozs7QUFFUDtBQUNBLElBQUksWUFBSjs7QUFFQTtBQVRBOzs7O0FBVUEsSUFBSSxPQUFBLEFBQU8sV0FBUCxBQUFrQixlQUFlLE9BQU8sT0FBUCxBQUFjLFNBQW5ELEFBQTRELGFBQWEsQUFDdkU7QUFDQTtBQUNBO1NBQUEsQUFBTyxTQUFQLEFBQWdCLEFBQ2hCO1NBQU8sQUFBSSxrQkFBSyxPQUFBLEFBQU8sS0FBdkIsQUFBTyxBQUFxQixBQUM3QjtBQUxELE9BS08sQUFDTDtBQUNBO01BQU0sV0FBVyxJQUFJLGNBQUEsQUFBSyxVQUFULEFBQW1CLGFBQXBDLEFBQWlCLEFBQWlDLEFBQ2xEO1NBQU8sQUFBSSxrQkFBWCxBQUFPLEFBQVMsQUFDakI7QUFFRDs7a0JBQUEsQUFBZSIsImZpbGUiOiJ3ZWIzLmpzIiwic291cmNlUm9vdCI6Ii9Vc2Vycy9laW1hbmFsd2FoaGFiaS9EZXNrdG9wL1JlY3ljbGVDaGFpbiJ9
