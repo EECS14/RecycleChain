@@ -20,7 +20,8 @@ class recyclerPage extends Component {
             rewards: 0,
             bottleStatus: '',
             result: '',
-            qr: false
+            qr: false,
+            bottleAddresses:[]
         };
     }
 
@@ -36,15 +37,14 @@ class recyclerPage extends Component {
 
     onScan = async (event) => {
         event.preventDefault();
-        if (this.state.qr === false)
-            this.setState({ qr: true });
-        else
-            this.setState({ qr: false });
+        if (this.state.qr === false){
+            this.setState({ qr: true }); }
+        else{
+            this.setState({ qr: false }); 
+        }
     };
 
-
     renderBottlesTable() {
-
         return (
             <Table.Row>
                 <Table.Cell>{this.state.result}</Table.Cell>
@@ -71,20 +71,21 @@ class recyclerPage extends Component {
                 <br />
                 <br />
 
-                <div className="Scanner" style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }} >
+                <div className="Scanner" style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                     <h2>Dispose a Plastic Bottle
                     <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
-                        <div> {this.state.qr === true && this.state.result === '' ? <QRReader
-                            delay={this.state.delay}
-                            onError={this.handleError}
-                            onScan={this.handleScan}
-                            style={{ width: "30%" }}
-                        /> : ''} </div>
+                        <div> {this.state.qr === true ? (<QRReader
+                                delay={this.state.delay}
+                                onError={this.handleError}
+                                onScan={this.handleScan}
+                                style={{ width: "70%" }}
+                            />
+                            ) 
+                            : ''} </div>
                     </h2>
                 </div>
 
-                <br />
-                <br />
+                <br/>
 
                 <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                     <Table unstackable size='small'>
@@ -93,11 +94,11 @@ class recyclerPage extends Component {
                                 <Table.HeaderCell>Plasitc Bottle Address</Table.HeaderCell>
                                 <Table.HeaderCell>Status</Table.HeaderCell>
                             </Table.Row>
-
-                        </Table.Header>
+                        </Table.Header> 
                         <Table.Body>
                             {this.renderBottlesTable()}
                         </Table.Body>
+                        
 
                     </Table>
                 </div>
