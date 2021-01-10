@@ -4,11 +4,12 @@ Contact used here: an instance of tracking.sol
 To run the app, use the command npm run dev
 */
 
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense} from 'react';
 import { Card, Table, Button } from 'semantic-ui-react';
-var QrReader = require('react-qr-reader');
-import web3 from '../ethereum/web3';
-import trackingContract from '../ethereum/tracking'; // import SC instance
+import QRReader from "../components/QRReader";
+
+//import web3 from '../ethereum/web3';
+//import trackingContract from '../ethereum/tracking'; // import SC instance
 
 class recyclerPage extends Component {
 
@@ -22,15 +23,6 @@ class recyclerPage extends Component {
         };
     }
 
-    handleScan = data => {
-        if (data) {
-            this.setState({ result: data});
-        }
-    }
-
-    handleError = err => {
-        console.error(err)
-    }
 
     onScan = async (event) => {
         event.preventDefault();
@@ -87,11 +79,11 @@ class recyclerPage extends Component {
                 <div className="Scanner">
                     <h2>Dispose a Plastic Bottle </h2>
                     <Button className="QrReader" onClick={this.onScan} > Scan QR Code</Button>
-                    <div> {this.state.qr === true && this.state.result === '' ? <QrReader
+                    <div> {this.state.qr === true && this.state.result === '' ? <QRReader
                         delay={this.state.delay}
                         onError={this.handleError}
                         onScan={this.handleScan}
-                        style={{ width: "25%" }}
+                        style={{ width: "25%" }}//
                     /> : ''} </div>
                 </div>
 
