@@ -70,9 +70,7 @@ var recyclerPage = function (_Component) {
 
         _this.handleScan = function (data) {
             if (data) {
-                _this.setState({
-                    result: data
-                });
+                _this.setState({ result: data });
             }
         };
 
@@ -108,7 +106,6 @@ var recyclerPage = function (_Component) {
             result: '',
             qr: false
         };
-
         return _this;
     }
 
@@ -118,7 +115,7 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 50
+                    lineNumber: 46
                 }
             }, _react2.default.createElement(QrReader, {
                 delay: 300,
@@ -127,12 +124,12 @@ var recyclerPage = function (_Component) {
                 style: { width: '100%' },
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 51
+                    lineNumber: 47
                 }
             }), _react2.default.createElement('p', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 57
+                    lineNumber: 53
                 }
             }, this.state.result));
         }
@@ -143,17 +140,17 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement(_semanticUiReact.Table.Row, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 66
+                    lineNumber: 62
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Cell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 67
+                    lineNumber: 63
                 }
-            }, 'John'), _react2.default.createElement(_semanticUiReact.Table.Cell, {
+            }, this.state.result), _react2.default.createElement(_semanticUiReact.Table.Cell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 68
+                    lineNumber: 64
                 }
             }, 'Completed'));
         }
@@ -165,50 +162,50 @@ var recyclerPage = function (_Component) {
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 80
+                    lineNumber: 76
                 }
             }, _react2.default.createElement('h1', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 81
+                    lineNumber: 77
                 }
             }, 'Welcome to Recycler\'s Page'), _react2.default.createElement('link', { rel: 'stylesheet',
                 href: '//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css',
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 82
+                    lineNumber: 78
                 }
             }), _react2.default.createElement(_semanticUiReact.Card, { header: 'Rewards', description: this.state.rewards, meta: 'ETH', centered: 'true', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 86
+                    lineNumber: 82
                 }
             }), _react2.default.createElement('br', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 88
+                    lineNumber: 84
                 }
             }), _react2.default.createElement('br', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 85
                 }
             }), _react2.default.createElement('div', { className: 'Scanner', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 91
+                    lineNumber: 87
                 }
             }, _react2.default.createElement('h2', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 92
+                    lineNumber: 88
                 }
             }, 'Dispose a Plastic Bottle '), _react2.default.createElement(_semanticUiReact.Button, { className: 'QrReader', onClick: this.onScan, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 93
+                    lineNumber: 89
                 }
             }, ' Scan QR Code'), _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 94
+                    lineNumber: 90
                 }
             }, ' ', this.state.qr === true && this.state.result === '' ? _react2.default.createElement(QrReader, {
                 delay: this.state.delay,
@@ -217,40 +214,40 @@ var recyclerPage = function (_Component) {
                 style: { width: "25%" },
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 94
+                    lineNumber: 90
                 }
             }) : '', ' ')), _react2.default.createElement('div', { className: 'BottleTable', style: { 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 102
+                    lineNumber: 98
                 }
             }, _react2.default.createElement(_semanticUiReact.Table, { unstackable: true, size: 'small', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 103
+                    lineNumber: 99
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Header, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 104
+                    lineNumber: 100
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.Row, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 105
+                    lineNumber: 101
                 }
             }, _react2.default.createElement(_semanticUiReact.Table.HeaderCell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 106
+                    lineNumber: 102
                 }
             }, 'Plasitc Bottle Address'), _react2.default.createElement(_semanticUiReact.Table.HeaderCell, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 107
+                    lineNumber: 103
                 }
             }, 'Status'))), _react2.default.createElement(_semanticUiReact.Table.Body, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 111
+                    lineNumber: 107
                 }
             }, this.renderBottlesTable()))));
         }
@@ -264,4 +261,4 @@ var recyclerPage = function (_Component) {
 
 
 exports.default = recyclerPage;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiQ2FyZCIsIlRhYmxlIiwiQnV0dG9uIiwiUXJSZWFkZXIiLCJyZXF1aXJlIiwid2ViMyIsInRyYWNraW5nQ29udHJhY3QiLCJyZWN5Y2xlclBhZ2UiLCJwcm9wcyIsImhhbmRsZVNjYW4iLCJkYXRhIiwic2V0U3RhdGUiLCJyZXN1bHQiLCJoYW5kbGVFcnJvciIsImNvbnNvbGUiLCJlcnJvciIsImVyciIsIm9uU2NhbiIsImV2ZW50IiwicHJldmVudERlZmF1bHQiLCJzdGF0ZSIsInFyIiwicmV3YXJkcyIsImJvdHRsZVN0YXR1cyIsIndpZHRoIiwiZGVsYXkiLCJyZW5kZXJCb3R0bGVzVGFibGUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNLEFBQU87O0FBRXRCLEFBQU8sQUFBVTs7OztBLEFBQ2pCLEFBQU8sQUFBc0I7Ozs7Ozs7QUFWN0I7Ozs7OztBQVFBLElBQUksV0FBSixBQUFJLEFBQVc7QUFFc0M7O0ksQUFFL0M7MENBRUY7OzBCQUFBLEFBQVksT0FBTztxQkFBQTs7NENBQUE7O3NKQUFBLEFBQ1Q7O2NBRFMsQUFZbkIsYUFBYSxnQkFBUSxBQUNqQjtnQkFBQSxBQUFJLE1BQU0sQUFDTjtzQkFBQSxBQUFLOzRCQUFMLEFBQWMsQUFDRixBQUVmO0FBSGlCLEFBQ1Y7QUFHWDtBQWxCa0I7O2NBQUEsQUFvQm5CLGNBQWMsZUFBTyxBQUNqQjtvQkFBQSxBQUFRLE1BQVIsQUFBYyxBQUNqQjtBQXRCa0I7O2NBQUEsQUF3Qm5CLHFCQXhCbUI7Z0dBd0JWLGlCQUFBLEFBQU8sT0FBUDs4RUFBQTs4QkFBQTt5REFBQTtpQ0FDTDtzQ0FBQSxBQUFNLEFBQ047b0NBQUksTUFBQSxBQUFLLE1BQUwsQUFBVyxPQUFmLEFBQXNCLE9BQ2xCLE1BQUEsQUFBSyxTQUFTLEVBQUUsSUFEcEIsQUFDSSxBQUFjLEFBQU0sYUFFcEIsTUFBQSxBQUFLLFNBQVMsRUFBRSxJQUxmLEFBS0QsQUFBYyxBQUFNOztpQ0FMbkI7aUNBQUE7Z0RBQUE7O0FBQUE7NEJBQUE7QUF4QlU7O2lDQUFBO3dDQUFBO0FBQUE7QUFFZjs7Y0FBQSxBQUFLO3FCQUFRLEFBQ0EsQUFDVDswQkFGUyxBQUVLLEFBQ2Q7b0JBSFMsQUFHRCxBQUNSO2dCQU5XLEFBRWYsQUFBYSxBQUlMO0FBSkssQUFDVDs7ZUFPUDs7Ozs7eUNBdUJnQixBQUNiO21DQUNJLGNBQUE7OzhCQUFBO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsZ0NBQ0ksQUFBQzt1QkFBRCxBQUNXLEFBQ1A7eUJBQVMsS0FGYixBQUVrQixBQUNkO3dCQUFRLEtBSFosQUFHaUIsQUFDYjt1QkFBTyxFQUFFLE9BSmIsQUFJVyxBQUFTOzs4QkFKcEI7Z0NBREosQUFDSSxBQU1BO0FBTkE7QUFDSSxnQ0FLSixjQUFBOzs4QkFBQTtnQ0FBQSxBQUFJO0FBQUo7QUFBQSxvQkFBSSxBQUFLLE1BUmpCLEFBQ0ksQUFPSSxBQUFlLEFBSTFCOzs7OzZDQUVvQixBQUVqQjs7bUNBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNJO0FBREo7QUFBQSxhQUFBLGtCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLHlCQUFDLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBSFIsQUFDSSxBQUVJLEFBS1g7Ozs7aUNBRVE7Z0JBQUEsQUFFRSxLQUFNLEtBRlIsQUFFYSxNQUZiLEFBRUUsQUFFUDs7bUNBQ0ksY0FBQTs7OEJBQUE7Z0NBQUEsQUFDSTtBQURKO0FBQUEsYUFBQSxrQkFDSSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0Esd0VBQU0sS0FBTixBQUFVLEFBQ047c0JBREosQUFDUzs7OEJBRFQ7Z0NBRkosQUFFSSxBQUlBO0FBSkE7Z0NBSUEsQUFBQyx1Q0FBSyxRQUFOLEFBQWEsV0FBVSxhQUFhLEtBQUEsQUFBSyxNQUF6QyxBQUErQyxTQUFTLE1BQXhELEFBQTZELE9BQU0sVUFBbkUsQUFBNEU7OEJBQTVFO2dDQU5KLEFBTUksQUFFQTtBQUZBOzs7OEJBRUE7Z0NBUkosQUFRSSxBQUNBO0FBREE7QUFBQTs7OEJBQ0E7Z0NBVEosQUFTSSxBQUVBO0FBRkE7QUFBQSxnQ0FFQSxjQUFBLFNBQUssV0FBTCxBQUFlOzhCQUFmO2dDQUFBLEFBQ0k7QUFESjsrQkFDSSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFESixBQUNJLEFBQ0EsOENBQUEsQUFBQyx5Q0FBTyxXQUFSLEFBQWtCLFlBQVcsU0FBUyxLQUF0QyxBQUEyQzs4QkFBM0M7Z0NBQUE7QUFBQTtlQUZKLEFBRUksQUFDQSxrQ0FBQSxjQUFBOzs4QkFBQTtnQ0FBQTtBQUFBO0FBQUEsZUFBTyxVQUFBLEFBQUssTUFBTCxBQUFXLE9BQVgsQUFBa0IsUUFBUSxLQUFBLEFBQUssTUFBTCxBQUFXLFdBQXJDLEFBQWdELG1DQUFLLEFBQUM7dUJBQ2xELEtBQUEsQUFBSyxNQUQ0QyxBQUN0QyxBQUNsQjt5QkFBUyxLQUYrQyxBQUUxQyxBQUNkO3dCQUFRLEtBSGdELEFBRzNDLEFBQ2I7dUJBQU8sRUFBRSxPQUorQyxBQUlqRCxBQUFTOzs4QkFKd0M7Z0NBQXJELEFBQXFEO0FBQUE7QUFDeEQsYUFEd0QsSUFBNUQsQUFLSyxJQW5CYixBQVdJLEFBR0ksQUFRSix1QkFBQSxjQUFBLFNBQUssV0FBTCxBQUFlLGVBQWMsT0FBTyxFQUFFLFNBQUYsQUFBVyxPQUFPLGVBQWxCLEFBQWlDLFFBQVEsZ0JBQTdFLEFBQW9DLEFBQXlEOzhCQUE3RjtnQ0FBQSxBQUNJO0FBREo7K0JBQ0ksQUFBQyx3Q0FBTSxhQUFQLE1BQW1CLE1BQW5CLEFBQXdCOzhCQUF4QjtnQ0FBQSxBQUNJO0FBREo7K0JBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNJO0FBREo7QUFBQSwrQkFDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0k7QUFESjtBQUFBLCtCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLDJDQUFDLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUE7QUFBQTtBQUFBLGVBSlosQUFDSSxBQUNJLEFBRUksQUFJUiw2QkFBQyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQ0s7QUFETDtBQUFBLG9CQWhDaEIsQUFDSSxBQXNCSSxBQUNJLEFBUUksQUFDSyxBQUFLLEFBVTdCOzs7OztBLEFBN0dzQjs7QUFpSDNCO0FBQ0EsQUFDQTs7O2tCQUFBLEFBQWUiLCJmaWxlIjoicmVjeWNsZXIuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiL1VzZXJzL2VpbWFuYWx3YWhoYWJpL0Rlc2t0b3AvUmVjeWNsZUNoYWluIn0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3JlY3ljbGVyLmpzIl0sIm5hbWVzIjpbIlJlYWN0IiwiQ29tcG9uZW50IiwiQ2FyZCIsIlRhYmxlIiwiQnV0dG9uIiwiUXJSZWFkZXIiLCJyZXF1aXJlIiwid2ViMyIsInRyYWNraW5nQ29udHJhY3QiLCJyZWN5Y2xlclBhZ2UiLCJwcm9wcyIsImhhbmRsZVNjYW4iLCJkYXRhIiwic2V0U3RhdGUiLCJyZXN1bHQiLCJoYW5kbGVFcnJvciIsImNvbnNvbGUiLCJlcnJvciIsImVyciIsIm9uU2NhbiIsImV2ZW50IiwicHJldmVudERlZmF1bHQiLCJzdGF0ZSIsInFyIiwicmV3YXJkcyIsImJvdHRsZVN0YXR1cyIsIndpZHRoIiwiZGVsYXkiLCJyZW5kZXJCb3R0bGVzVGFibGUiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFNQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNLEFBQU87O0FBRXRCLEFBQU8sQUFBVTs7OztBLEFBQ2pCLEFBQU8sQUFBc0I7Ozs7Ozs7QUFWN0I7Ozs7OztBQVFBLElBQUksV0FBSixBQUFJLEFBQVc7QUFFc0M7O0ksQUFFL0M7MENBRUY7OzBCQUFBLEFBQVksT0FBTztxQkFBQTs7NENBQUE7O3NKQUFBLEFBQ1Q7O2NBRFMsQUFVbkIsYUFBYSxnQkFBUSxBQUNqQjtnQkFBQSxBQUFJLE1BQU0sQUFDTjtzQkFBQSxBQUFLLFNBQVMsRUFBRSxRQUFoQixBQUFjLEFBQVUsQUFDM0I7QUFDSjtBQWRrQjs7Y0FBQSxBQWdCbkIsY0FBYyxlQUFPLEFBQ2pCO29CQUFBLEFBQVEsTUFBUixBQUFjLEFBQ2pCO0FBbEJrQjs7Y0FBQSxBQW9CbkIscUJBcEJtQjtnR0FvQlYsaUJBQUEsQUFBTyxPQUFQOzhFQUFBOzhCQUFBO3lEQUFBO2lDQUNMO3NDQUFBLEFBQU0sQUFDTjtvQ0FBSSxNQUFBLEFBQUssTUFBTCxBQUFXLE9BQWYsQUFBc0IsT0FDbEIsTUFBQSxBQUFLLFNBQVMsRUFBRSxJQURwQixBQUNJLEFBQWMsQUFBTSxhQUVwQixNQUFBLEFBQUssU0FBUyxFQUFFLElBTGYsQUFLRCxBQUFjLEFBQU07O2lDQUxuQjtpQ0FBQTtnREFBQTs7QUFBQTs0QkFBQTtBQXBCVTs7aUNBQUE7d0NBQUE7QUFBQTtBQUVmOztjQUFBLEFBQUs7cUJBQVEsQUFDQSxBQUNUOzBCQUZTLEFBRUssQUFDZDtvQkFIUyxBQUdELEFBQ1I7Z0JBTlcsQUFFZixBQUFhLEFBSUw7QUFKSyxBQUNUO2VBS1A7Ozs7O3lDQXFCZ0IsQUFDYjttQ0FDSSxjQUFBOzs4QkFBQTtnQ0FBQSxBQUNJO0FBREo7QUFBQSxhQUFBLGdDQUNJLEFBQUM7dUJBQUQsQUFDVyxBQUNQO3lCQUFTLEtBRmIsQUFFa0IsQUFDZDt3QkFBUSxLQUhaLEFBR2lCLEFBQ2I7dUJBQU8sRUFBRSxPQUpiLEFBSVcsQUFBUzs7OEJBSnBCO2dDQURKLEFBQ0ksQUFNQTtBQU5BO0FBQ0ksZ0NBS0osY0FBQTs7OEJBQUE7Z0NBQUEsQUFBSTtBQUFKO0FBQUEsb0JBQUksQUFBSyxNQVJqQixBQUNJLEFBT0ksQUFBZSxBQUkxQjs7Ozs2Q0FFb0IsQUFFakI7O21DQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUEsQUFDSTtBQURKO0FBQUEsYUFBQSxrQkFDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBLEFBQWE7QUFBYjtBQUFBLG9CQUFhLEFBQUssTUFEdEIsQUFDSSxBQUF3QixBQUN4Qix5QkFBQyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBO0FBQUE7QUFBQSxlQUhSLEFBQ0ksQUFFSSxBQUtYOzs7O2lDQUVRO2dCQUFBLEFBRUUsS0FBTSxLQUZSLEFBRWEsTUFGYixBQUVFLEFBRVA7O21DQUNJLGNBQUE7OzhCQUFBO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ksY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLHdFQUFNLEtBQU4sQUFBVSxBQUNOO3NCQURKLEFBQ1M7OzhCQURUO2dDQUZKLEFBRUksQUFJQTtBQUpBO2dDQUlBLEFBQUMsdUNBQUssUUFBTixBQUFhLFdBQVUsYUFBYSxLQUFBLEFBQUssTUFBekMsQUFBK0MsU0FBUyxNQUF4RCxBQUE2RCxPQUFNLFVBQW5FLEFBQTRFOzhCQUE1RTtnQ0FOSixBQU1JLEFBRUE7QUFGQTs7OzhCQUVBO2dDQVJKLEFBUUksQUFDQTtBQURBO0FBQUE7OzhCQUNBO2dDQVRKLEFBU0ksQUFFQTtBQUZBO0FBQUEsZ0NBRUEsY0FBQSxTQUFLLFdBQUwsQUFBZTs4QkFBZjtnQ0FBQSxBQUNJO0FBREo7K0JBQ0ksY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNBLDhDQUFBLEFBQUMseUNBQU8sV0FBUixBQUFrQixZQUFXLFNBQVMsS0FBdEMsQUFBMkM7OEJBQTNDO2dDQUFBO0FBQUE7ZUFGSixBQUVJLEFBQ0Esa0NBQUEsY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBQU8sVUFBQSxBQUFLLE1BQUwsQUFBVyxPQUFYLEFBQWtCLFFBQVEsS0FBQSxBQUFLLE1BQUwsQUFBVyxXQUFyQyxBQUFnRCxtQ0FBSyxBQUFDO3VCQUNsRCxLQUFBLEFBQUssTUFENEMsQUFDdEMsQUFDbEI7eUJBQVMsS0FGK0MsQUFFMUMsQUFDZDt3QkFBUSxLQUhnRCxBQUczQyxBQUNiO3VCQUFPLEVBQUUsT0FKK0MsQUFJakQsQUFBUzs7OEJBSndDO2dDQUFyRCxBQUFxRDtBQUFBO0FBQ3hELGFBRHdELElBQTVELEFBS0ssSUFuQmIsQUFXSSxBQUdJLEFBUUosdUJBQUEsY0FBQSxTQUFLLFdBQUwsQUFBZSxlQUFjLE9BQU8sRUFBRSxTQUFGLEFBQVcsT0FBTyxlQUFsQixBQUFpQyxRQUFRLGdCQUE3RSxBQUFvQyxBQUF5RDs4QkFBN0Y7Z0NBQUEsQUFDSTtBQURKOytCQUNJLEFBQUMsd0NBQU0sYUFBUCxNQUFtQixNQUFuQixBQUF3Qjs4QkFBeEI7Z0NBQUEsQUFDSTtBQURKOytCQUNLLGNBQUQsdUJBQUEsQUFBTzs7OEJBQVA7Z0NBQUEsQUFDSTtBQURKO0FBQUEsK0JBQ0ssY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNJO0FBREo7QUFBQSwrQkFDSyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBO0FBQUE7QUFBQSxlQURKLEFBQ0ksQUFDQSwyQ0FBQyxjQUFELHVCQUFBLEFBQU87OzhCQUFQO2dDQUFBO0FBQUE7QUFBQSxlQUpaLEFBQ0ksQUFDSSxBQUVJLEFBSVIsNkJBQUMsY0FBRCx1QkFBQSxBQUFPOzs4QkFBUDtnQ0FBQSxBQUNLO0FBREw7QUFBQSxvQkFoQ2hCLEFBQ0ksQUFzQkksQUFDSSxBQVFJLEFBQ0ssQUFBSyxBQVU3Qjs7Ozs7QSxBQXpHc0I7O0FBNkczQjtBQUNBLEFBQ0E7OztrQkFBQSxBQUFlIiwiZmlsZSI6InJlY3ljbGVyLmpzP2VudHJ5Iiwic291cmNlUm9vdCI6Ii9Vc2Vycy9laW1hbmFsd2FoaGFiaS9EZXNrdG9wL1JlY3ljbGVDaGFpbiJ9

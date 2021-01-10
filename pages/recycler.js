@@ -20,15 +20,11 @@ class recyclerPage extends Component {
             result: '',
             qr: false
         };
-
-
     }
 
     handleScan = data => {
         if (data) {
-            this.setState({
-                result: data
-            });
+            this.setState({ result: data});
         }
     }
 
@@ -64,7 +60,7 @@ class recyclerPage extends Component {
 
         return (
             <Table.Row>
-                <Table.Cell>John</Table.Cell>
+                <Table.Cell>{this.state.result}</Table.Cell>
                 <Table.Cell>Completed</Table.Cell>
             </Table.Row>
 
