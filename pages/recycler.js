@@ -6,7 +6,8 @@ To run the app, use the command npm run dev
 
 import React, { Component, lazy, Suspense} from 'react';
 import { Card, Table, Button } from 'semantic-ui-react';
-import QRReader from "../components/QRReader";
+import dynamic from 'next/dynamic';
+const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 
 //import web3 from '../ethereum/web3';
 //import trackingContract from '../ethereum/tracking'; // import SC instance
@@ -23,6 +24,15 @@ class recyclerPage extends Component {
         };
     }
 
+    handleScan = data => {
+        if (data) {
+            this.setState({ result: data});
+        }
+    }
+    
+    handleError = err => {
+        console.error(err)
+    }
 
     onScan = async (event) => {
         event.preventDefault();
