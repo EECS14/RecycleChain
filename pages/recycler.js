@@ -4,7 +4,7 @@ Contact used here: an instance of tracking.sol
 To run the app, use the command npm run dev
 */
 
-import React, { Component, lazy, Suspense} from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Card, Table, Button } from 'semantic-ui-react';
 import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
@@ -26,10 +26,10 @@ class recyclerPage extends Component {
 
     handleScan = data => {
         if (data) {
-            this.setState({ result: data});
+            this.setState({ result: data });
         }
     }
-    
+
     handleError = err => {
         console.error(err)
     }
@@ -42,21 +42,6 @@ class recyclerPage extends Component {
             this.setState({ qr: false });
     };
 
-
-    renderQRReader() {
-        return (
-            <div>
-                <QrReader
-                    delay={300}
-                    onError={this.handleError}
-                    onScan={this.handleScan}
-                    style={{ width: '100%' }}
-                />
-                <p>{this.state.result}</p>
-            </div>
-
-        );
-    }
 
     renderBottlesTable() {
 
@@ -72,7 +57,7 @@ class recyclerPage extends Component {
 
     render() {
 
-        const {qr} = this.state
+        const { qr } = this.state
 
         return (
             <div>
@@ -86,16 +71,20 @@ class recyclerPage extends Component {
                 <br />
                 <br />
 
-                <div className="Scanner">
-                    <h2>Dispose a Plastic Bottle </h2>
-                    <Button className="QrReader" onClick={this.onScan} > Scan QR Code</Button>
-                    <div> {this.state.qr === true && this.state.result === '' ? <QRReader
-                        delay={this.state.delay}
-                        onError={this.handleError}
-                        onScan={this.handleScan}
-                        style={{ width: "25%" }}//
-                    /> : ''} </div>
+                <div className="Scanner" style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }} >
+                    <h2>Dispose a Plastic Bottle
+                    <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
+                        <div> {this.state.qr === true && this.state.result === '' ? <QRReader
+                            delay={this.state.delay}
+                            onError={this.handleError}
+                            onScan={this.handleScan}
+                            style={{ width: "30%" }}
+                        /> : ''} </div>
+                    </h2>
                 </div>
+
+                <br />
+                <br />
 
                 <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                     <Table unstackable size='small'>
