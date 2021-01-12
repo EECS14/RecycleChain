@@ -18,16 +18,17 @@ class recyclerPage extends Component {
         super(props);
         this.state = {
             rewards: 0,
-            bottleStatus: '',
             result: '',
             qr: false,
-            bottleAddresses:[]
+            readAddr: false,
+            rows: []
         };
     }
 
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
+            this.setState({ readAddr: true });
         }
     }
 
@@ -37,22 +38,31 @@ class recyclerPage extends Component {
 
     onScan = async (event) => {
         event.preventDefault();
-        if (this.state.qr === false){
-            this.setState({ qr: true }); }
-        else{
-            this.setState({ qr: false }); 
+        if (this.state.qr === false) {
+            this.setState({ qr: true });
+        }
+        else {
+            this.setState({ qr: false });
         }
     };
 
-    renderBottlesTable() {
-        return (
-            <Table.Row>
+    addBottle = () => {
+        const bottle = {
+            addr: "",
+           status: ""
+          };
+
+          this.setState({
+            rows: [...this.state.rows, bottle]
+          });
+
+        /*return (
+                <div>
                 <Table.Cell>{this.state.result}</Table.Cell>
-                <Table.Cell>Completed</Table.Cell>
-            </Table.Row>
+                <Table.Cell>Disposed</Table.Cell>
+           </div>
 
-        );
-
+        ); */
     }
 
     render() {
@@ -75,17 +85,17 @@ class recyclerPage extends Component {
                     <h2>Dispose a Plastic Bottle
                     <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
                         <div> {this.state.qr === true ? (<QRReader
-                                delay={this.state.delay}
-                                onError={this.handleError}
-                                onScan={this.handleScan}
-                                style={{ width: "70%" }}
-                            />
-                            ) 
+                            delay={this.state.delay}
+                            onError={this.handleError}
+                            onScan={this.handleScan}
+                            style={{ width: "70%" }}
+                        />
+                        )
                             : ''} </div>
                     </h2>
                 </div>
 
-                <br/>
+                <br />
 
                 <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                     <Table unstackable size='small'>
@@ -94,11 +104,25 @@ class recyclerPage extends Component {
                                 <Table.HeaderCell>Plasitc Bottle Address</Table.HeaderCell>
                                 <Table.HeaderCell>Status</Table.HeaderCell>
                             </Table.Row>
-                        </Table.Header> 
-                        <Table.Body>
-                            {this.renderBottlesTable()}
-                        </Table.Body>
-                        
+                        </Table.Header>
+                        {this.state.readAddr === true ? (
+                                <Table.Body>
+                                {this.state.rows.map((bottle, idx) => (
+                                    <Table.Row id='idx'>
+                                        <Table.Cell>{this.state.result}</Table.Cell>
+                                         <Table.Cell>Disposed</Table.Cell>
+                                    </Table.Row>
+    
+                                ))}
+    
+                            </Table.Body>
+    
+    
+
+                        ) : null}
+                           
+        
+
 
                     </Table>
                 </div>
