@@ -8,9 +8,8 @@ import React, { Component, lazy, Suspense } from 'react';
 import { Card, Table, Button } from 'semantic-ui-react';
 import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
-
-//import web3 from '../ethereum/web3';
-//import trackingContract from '../ethereum/tracking'; // import SC instance
+import web3 from '../ethereum/web3';
+import trackingContract from '../ethereum/tracking'; // import SC instance
 
 class recyclerPage extends Component {
 
@@ -24,10 +23,13 @@ class recyclerPage extends Component {
         };
     }
 
+    // QR reader functions 
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
             this.addBottle();
+            this.disposeBottle(); 
+
         }
     }
 
@@ -45,13 +47,34 @@ class recyclerPage extends Component {
         }
     };
 
+    // Adds a new row dynamically to the table 
     addBottle = () => {
         this.setState((prevState, props) => {
             const bottle = { addr: this.state.result, status: "" };
             return { rows: [...prevState.rows, bottle] };
         });
-        
+
     };
+
+    disposeBottle = async (event) => {
+        event.preventDefault(); // prevents the browser from submitting the form immediately
+
+        const accounts = await web3.eth.getAccounts();
+
+        //this.setState({loading: true, errorMessage: ''});
+
+        await trackingContract.methods
+            .setBottleAddress(this.state.result)
+            .send({ from: accounts[0] })
+            .then (  
+                await trackingContract.methods
+                .updateStatusDisposed().call()
+            );
+
+    };
+
+
+
 
     render() {
 
@@ -93,12 +116,11 @@ class recyclerPage extends Component {
                                 <Table.HeaderCell>Status</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
-
                         <Table.Body>
                             {this.state.rows.map(bottle => (
                                 <Table.Row >
-                                <Table.Cell>{bottle.addr}</Table.Cell>
-                                <Table.Cell>{bottle.status}</Table.Cell>
+                                    <Table.Cell>{bottle.addr}</Table.Cell>
+                                    <Table.Cell>{bottle.status}</Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>
