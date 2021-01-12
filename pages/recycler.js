@@ -18,6 +18,7 @@ class recyclerPage extends Component {
         this.state = {
             rewards: 0,
             result: '',
+            status: '',
             qr: false,
             rows: []
         };
@@ -28,16 +29,27 @@ class recyclerPage extends Component {
         const accounts = await web3.eth.getAccounts();
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
-        }, function (error, event) { console.log(event)})
-        .on('error', console.error);
+        }, function (error, event) {
+            //For debugging purposes 
+            console.log(event);
+            console.log(event.returnValues['plasticBottleAddress']);
+            // real code
+            this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status']  });
+            this.addRow();
+        }.bind(this))
+            .on('error', console.error);
+
+            // clear state variables to be used later when scanning 
+        this.setState({ result: '', status: 'pending' });
+
     };
 
     // QR reader functions 
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
-            this.addRow();
             this.disposeBottle();
+            this.addRow();
 
         }
     }
@@ -59,7 +71,7 @@ class recyclerPage extends Component {
     // Adds a new row dynamically to the table 
     addRow = () => {
         this.setState((prevState, props) => {
-            const bottle = { addr: this.state.result, status: "Pending" };
+            const bottle = { addr: this.state.result, status: this.state.status };
             return { rows: [...prevState.rows, bottle] };
         });
 
@@ -79,9 +91,8 @@ class recyclerPage extends Component {
 
 
 
-
     render() {
-
+       
         const { qr, rows } = this.state
 
         return (
