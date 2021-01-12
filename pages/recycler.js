@@ -23,12 +23,21 @@ class recyclerPage extends Component {
         };
     }
 
+    // retrieve all bottled logged by user from ropsten network 
+    componentDidMount = async () => {
+        const accounts = await web3.eth.getAccounts();
+        trackingContract.events.updateStatusRecycler({
+            filter: { recycler: accounts[0] }, fromBlock: 0
+        }, function (error, event) { console.log(event)})
+        .on('error', console.error);
+    };
+
     // QR reader functions 
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
             this.addRow();
-            this.disposeBottle(); 
+            this.disposeBottle();
 
         }
     }
@@ -56,15 +65,15 @@ class recyclerPage extends Component {
 
     };
 
+    // Log bottle as disposed 
     disposeBottle = async () => {
-       
+
         const accounts = await web3.eth.getAccounts();
 
-        //this.setState({loading: true, errorMessage: ''});
-
+        //Add try and catch block here 
         await trackingContract.methods
             .updateStatusDisposed(this.state.result)
-            .send({ from: accounts[0] }); 
+            .send({ from: accounts[0] });
 
     };
 
