@@ -27,7 +27,7 @@ class recyclerPage extends Component {
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
-            this.addBottle();
+            this.addRow();
             this.disposeBottle(); 
 
         }
@@ -48,9 +48,9 @@ class recyclerPage extends Component {
     };
 
     // Adds a new row dynamically to the table 
-    addBottle = () => {
+    addRow = () => {
         this.setState((prevState, props) => {
-            const bottle = { addr: this.state.result, status: "" };
+            const bottle = { addr: this.state.result, status: "Pending" };
             return { rows: [...prevState.rows, bottle] };
         });
 
@@ -113,7 +113,7 @@ class recyclerPage extends Component {
                         </Table.Header>
                         <Table.Body>
                             {this.state.rows.map(bottle => (
-                                <Table.Row >
+                                <Table.Row id={this.state.rows.length} >
                                     <Table.Cell>{bottle.addr}</Table.Cell>
                                     <Table.Cell>{bottle.status}</Table.Cell>
                                 </Table.Row>
