@@ -56,9 +56,8 @@ class recyclerPage extends Component {
 
     };
 
-    disposeBottle = async (event) => {
-        event.preventDefault(); // prevents the browser from submitting the form immediately
-
+    disposeBottle = async () => {
+       
         const accounts = await web3.eth.getAccounts();
 
         //this.setState({loading: true, errorMessage: ''});
