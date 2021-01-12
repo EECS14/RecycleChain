@@ -2,83 +2,105 @@
   "contractName": "Tracking",
   "abi": [
     {
-      "constant": true,
       "inputs": [],
-      "name": "bottlesSortedLimit",
-      "outputs": [
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
         {
-          "name": "",
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "plasticBale",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "plasticBaleContributorsAddresses",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "bottlesInBaleNo",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "time",
           "type": "uint256"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "name": "plasticBaleCompleted",
+      "type": "event"
     },
     {
-      "constant": true,
-      "inputs": [],
-      "name": "status",
-      "outputs": [
+      "anonymous": false,
+      "inputs": [
         {
-          "name": "",
+          "indexed": false,
+          "internalType": "address",
+          "name": "plasticBottleAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "status",
           "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "time",
+          "type": "uint256"
         }
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "name": "updateStatusMachine",
+      "type": "event"
     },
     {
-      "constant": true,
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "recycler",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "plasticBottleAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "time",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateStatusRecycler",
+      "type": "event"
+    },
+    {
+      "constant": false,
       "inputs": [],
-      "name": "plasticBottleAddress",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
+      "name": "announcePlasticBaleCompleted",
+      "outputs": [],
       "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "plasticBale",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "plasticBaleContributorsAddresses",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -87,6 +109,22 @@
       "name": "bottlesSortedCounter",
       "outputs": [
         {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "bottlesSortedLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -101,6 +139,7 @@
       "name": "caller",
       "outputs": [
         {
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -110,105 +149,52 @@
       "type": "function"
     },
     {
-      "inputs": [],
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "plasticBale",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "anonymous": false,
+      "constant": true,
       "inputs": [
         {
-          "indexed": false,
-          "name": "plasticBottleAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "status",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "time",
+          "internalType": "uint256",
+          "name": "",
           "type": "uint256"
         }
       ],
-      "name": "updateStatusMachine",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
+      "name": "plasticBaleContributorsAddresses",
+      "outputs": [
         {
-          "indexed": false,
-          "name": "recycler",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "plasticBottleAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "status",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "time",
-          "type": "uint256"
-        }
-      ],
-      "name": "updateStatusRecycler",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "plasticBale",
-          "type": "address[]"
-        },
-        {
-          "indexed": false,
-          "name": "plasticBaleContributorsAddresses",
-          "type": "address[]"
-        },
-        {
-          "indexed": false,
-          "name": "bottlesInBaleNo",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "time",
-          "type": "uint256"
-        }
-      ],
-      "name": "plasticBaleCompleted",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_plasticBotttleAddress",
+          "internalType": "address",
+          "name": "",
           "type": "address"
         }
       ],
-      "name": "setBottleAddress",
-      "outputs": [],
       "payable": false,
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
       "constant": false,
       "inputs": [
         {
+          "internalType": "uint256",
           "name": "_bottlesSortedLimit",
           "type": "uint256"
         }
@@ -220,8 +206,29 @@
       "type": "function"
     },
     {
-      "constant": false,
+      "constant": true,
       "inputs": [],
+      "name": "status",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "plasticBottleAddress",
+          "type": "address"
+        }
+      ],
       "name": "updateStatusDisposed",
       "outputs": [],
       "payable": false,
@@ -232,24 +239,22 @@
       "constant": false,
       "inputs": [
         {
+          "internalType": "address",
           "name": "registerContractAddr",
           "type": "address"
         },
         {
+          "internalType": "address",
           "name": "sellerAddr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "plasticBottleAddress",
           "type": "address"
         }
       ],
       "name": "updateStatusSorted",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "announcePlasticBaleCompleted",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",

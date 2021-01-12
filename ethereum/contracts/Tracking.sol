@@ -10,7 +10,6 @@ contract Tracking{
     //state variables - stored permanently in contract storage 
    
     string public status;
-    address public plasticBottleAddress; // attained by scanning the QR code
     address public caller; 
      
     //variables for counting plastic bottles scanned in the sorting machine 
@@ -49,11 +48,6 @@ contract Tracking{
    }
    
   
-    function setBottleAddress (address _plasticBotttleAddress) public {  // Paramenter is the scanned address on the bottle
-        plasticBottleAddress = _plasticBotttleAddress;                   // called first by the recycler then the sorting machine 
-        
-    }
-    
     function setBottlesSortedLimit (uint256 _bottlesSortedLimit) public {  // Can be changed based on the sorting facility production goals 
         bottlesSortedLimit = _bottlesSortedLimit;
         
@@ -63,13 +57,13 @@ contract Tracking{
     mapping(address=>address) bottleToRecycler; 
     
     
-    function updateStatusDisposed () public{
+    function updateStatusDisposed (address plasticBottleAddress) public{
         bottleToRecycler[plasticBottleAddress] = msg.sender; //save recycler's address
         status = 'disposed'; 
         emit updateStatusRecycler (msg.sender, plasticBottleAddress, status, now);
     }
     
-    function updateStatusSorted (address registerContractAddr, address sellerAddr) public sortingMachineOnly (registerContractAddr, sellerAddr){
+    function updateStatusSorted (address registerContractAddr, address sellerAddr, address plasticBottleAddress) public sortingMachineOnly (registerContractAddr, sellerAddr){
         
        plasticBaleContributorsAddresses.push(bottleToRecycler[plasticBottleAddress]); 
        plasticBale.push(plasticBottleAddress);

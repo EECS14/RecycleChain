@@ -63,12 +63,8 @@ class recyclerPage extends Component {
         //this.setState({loading: true, errorMessage: ''});
 
         await trackingContract.methods
-            .setBottleAddress(this.state.result)
-            .send({ from: accounts[0] })
-            .then (  
-                await trackingContract.methods
-                .updateStatusDisposed().call()
-            );
+            .updateStatusDisposed(this.state.result)
+            .send({ from: accounts[0] }); 
 
     };
 
