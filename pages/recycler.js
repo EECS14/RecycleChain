@@ -4,7 +4,7 @@ Contact used here: an instance of tracking.sol
 To run the app, use the command npm run dev
 */
 
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component } from 'react';
 import { Card, Table, Button } from 'semantic-ui-react';
 import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
@@ -20,7 +20,8 @@ class recyclerPage extends Component {
             result: '',
             status: '',
             qr: false,
-            rows: []
+            rows: [],
+            object: {} 
         };
     }
 
@@ -45,11 +46,11 @@ class recyclerPage extends Component {
     };
 
     // QR reader functions 
-    handleScan = data => {
+    handleScan =  async (data) => {
         if (data) {
             this.setState({ result: data });
-            this.disposeBottle();
-            this.addRow();
+             this.disposeBottle();
+            //this.addRow();
 
         }
     }
@@ -86,7 +87,7 @@ class recyclerPage extends Component {
         await trackingContract.methods
             .updateStatusDisposed(this.state.result)
             .send({ from: accounts[0] });
-
+             
     };
 
 
