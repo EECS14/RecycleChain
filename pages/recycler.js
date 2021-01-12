@@ -20,7 +20,6 @@ class recyclerPage extends Component {
             rewards: 0,
             result: '',
             qr: false,
-            readAddr: false,
             rows: []
         };
     }
@@ -28,7 +27,7 @@ class recyclerPage extends Component {
     handleScan = data => {
         if (data) {
             this.setState({ result: data });
-            this.setState({ readAddr: true });
+            this.addBottle();
         }
     }
 
@@ -47,27 +46,16 @@ class recyclerPage extends Component {
     };
 
     addBottle = () => {
-        const bottle = {
-            addr: "",
-           status: ""
-          };
-
-          this.setState({
-            rows: [...this.state.rows, bottle]
-          });
-
-        /*return (
-                <div>
-                <Table.Cell>{this.state.result}</Table.Cell>
-                <Table.Cell>Disposed</Table.Cell>
-           </div>
-
-        ); */
-    }
+        this.setState((prevState, props) => {
+            const bottle = { addr: this.state.result, status: "" };
+            return { rows: [...prevState.rows, bottle] };
+        });
+        
+    };
 
     render() {
 
-        const { qr } = this.state
+        const { qr, rows } = this.state
 
         return (
             <div>
@@ -85,7 +73,7 @@ class recyclerPage extends Component {
                     <h2>Dispose a Plastic Bottle
                     <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
                         <div> {this.state.qr === true ? (<QRReader
-                            delay={this.state.delay}
+                            delay={300}
                             onError={this.handleError}
                             onScan={this.handleScan}
                             style={{ width: "70%" }}
@@ -105,24 +93,15 @@ class recyclerPage extends Component {
                                 <Table.HeaderCell>Status</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
-                        {this.state.readAddr === true ? (
-                                <Table.Body>
-                                {this.state.rows.map((bottle, idx) => (
-                                    <Table.Row id='idx'>
-                                        <Table.Cell>{this.state.result}</Table.Cell>
-                                         <Table.Cell>Disposed</Table.Cell>
-                                    </Table.Row>
-    
-                                ))}
-    
-                            </Table.Body>
-    
-    
 
-                        ) : null}
-                           
-        
-
+                        <Table.Body>
+                            {this.state.rows.map(bottle => (
+                                <Table.Row >
+                                <Table.Cell>{bottle.addr}</Table.Cell>
+                                <Table.Cell>{bottle.status}</Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
 
                     </Table>
                 </div>
