@@ -9,7 +9,8 @@ import { Card, Table, Button } from 'semantic-ui-react';
 import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 import web3 from '../ethereum/web3';
-import trackingContract from '../ethereum/tracking'; // import SC instance
+import trackingContract from '../ethereum/tracking'; 
+import {Link} from '../routes'; 
 
 class recyclerPage extends Component {
 
@@ -21,13 +22,15 @@ class recyclerPage extends Component {
             status: '',
             qr: false,
             rows: [],
-            object: {} 
+            bottlesLogged: []
         };
     }
 
     // retrieve all bottled logged by user from ropsten network 
     componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
+
+        // might need to use getPastEvents here !!!!!
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
         }, function (error, event) {
@@ -35,22 +38,19 @@ class recyclerPage extends Component {
             console.log(event);
             console.log(event.returnValues['plasticBottleAddress']);
             // real code
-            this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status']  });
+            this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
+            this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
             this.addRow();
         }.bind(this))
             .on('error', console.error);
 
-            // clear state variables to be used later when scanning 
-        this.setState({ result: '', status: 'pending' });
-
     };
 
     // QR reader functions 
-    handleScan =  async (data) => {
+    handleScan = async (data) => {
         if (data) {
             this.setState({ result: data });
-             this.disposeBottle();
-            //this.addRow();
+            this.disposeBottle();
 
         }
     }
@@ -87,13 +87,13 @@ class recyclerPage extends Component {
         await trackingContract.methods
             .updateStatusDisposed(this.state.result)
             .send({ from: accounts[0] });
-             
+
     };
 
 
 
     render() {
-       
+
         const { qr, rows } = this.state
 
         return (
@@ -134,10 +134,16 @@ class recyclerPage extends Component {
                         </Table.Header>
                         <Table.Body>
                             {this.state.rows.map(bottle => (
+                                <Link route={`/track/${bottle.addr}`}>
                                 <Table.Row id={this.state.rows.length} >
-                                    <Table.Cell>{bottle.addr}</Table.Cell>
+                                    <Table.Cell selectable>
+                                        <a>
+                                        {bottle.addr}
+                                        </a>
+                                        </Table.Cell>
                                     <Table.Cell>{bottle.status}</Table.Cell>
                                 </Table.Row>
+                                </Link>
                             ))}
                         </Table.Body>
 

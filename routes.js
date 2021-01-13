@@ -1,5 +1,6 @@
 /*
-Purpose: For dynamic navigation between pages 
+Purpose: For dynamic navigation between pages &
+defining custome routes inside the application
 For pages that has a token in the URL 
 Documentation: https://github.com/fridays/next-routes
 */
