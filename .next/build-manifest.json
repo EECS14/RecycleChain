@@ -29,6 +29,11 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/emulators.js"
     ],
+    "/recycler": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/recycler.js"
+    ],
     "/registration": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
