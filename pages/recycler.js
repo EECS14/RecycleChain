@@ -115,7 +115,7 @@ class recyclerPage extends Component {
                             delay={300}
                             onError={this.handleError}
                             onScan={this.handleScan}
-                            style={{ width: "70%" }}
+                            style={{ width: "60%" }}
                         />
                         )
                             : ''} </div>
