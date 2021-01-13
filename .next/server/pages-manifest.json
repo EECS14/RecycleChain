@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/emulators": "pages/emulators.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/recycler": "pages/recycler.js"
+  "/registration": "pages/registration.js"
 }

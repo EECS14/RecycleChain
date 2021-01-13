@@ -1,3 +1,6 @@
+/*
+Note: Seller address is hardcoded in the sorting machine
+*/
 import React, { Component } from 'react';
 import { Menu, Button } from 'semantic-ui-react';
 import dynamic from 'next/dynamic';
@@ -12,7 +15,9 @@ class index extends Component {
             productionMachine: false,
             sortingMachine: false,
             result: '',
-            qr: false
+            qr: false, 
+            sellerAddress:'0x334b12DF37984A449b57BAE3F4120f70be177be0', 
+            registerSCAddress:'0x7126ec4f68added009015a1f5ac718c4896faa2e'
         };
     }
 
@@ -20,6 +25,7 @@ class index extends Component {
     handleScan = async (data) => {
         if (data) {
             this.setState({ result: data });
+            this.sortBottle();
     
         }
     }
@@ -36,6 +42,18 @@ class index extends Component {
         else {
             this.setState({ qr: false });
         }
+    };
+
+    // Log bottle as disposed 
+    sortBottle = async () => {
+
+        const accounts = await web3.eth.getAccounts();
+
+        //Add try and catch block here 
+        await trackingContract.methods
+            .updateStatusSorted(this.state.registerSCAddress,this.state.sellerAddress,this.state.result)
+            .send({ from: accounts[0] });
+
     };
 
 
