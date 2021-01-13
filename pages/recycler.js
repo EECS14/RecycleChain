@@ -34,10 +34,10 @@ class recyclerPage extends Component {
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
         }, function (error, event) {
-            //For debugging purposes 
+            /*For debugging purposes 
             console.log(event);
-            console.log(event.returnValues['plasticBottleAddress']);
-            // real code
+            console.log(event.returnValues['plasticBottleAddress']); */
+            
             this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
             this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
             console.log(this.state.bottlesLogged);
@@ -45,8 +45,19 @@ class recyclerPage extends Component {
         }.bind(this))
             .on('error', console.error);
 
-            
-
+            trackingContract.events.updateStatusMachine({
+                filter: { plasticBottleAddress: this.state.bottlesLogged}, fromBlock: 0
+            }, function (error, event) {
+                /*For debugging purposes 
+                console.log(event);
+                console.log(this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress'] ));
+                console.log(this.state.rows);
+                console.log(event.returnValues['plasticBottleAddress']);
+                */
+                let index = this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress']);
+                this.updateRow(index, event.returnValues['status']);
+            }.bind(this))
+                .on('error', console.error);
 
 
     };
@@ -76,8 +87,8 @@ class recyclerPage extends Component {
 
     // Adds a new row dynamically to the table 
     addRow = () => {
-        this.setState((prevState, props) => {
-            const bottle = { addr: this.state.result, status: this.state.status };
+        this.setState((prevState) => {
+            let bottle = { addr: this.state.result, status: this.state.status };
             return { rows: [...prevState.rows, bottle] };
         });
 
@@ -85,7 +96,6 @@ class recyclerPage extends Component {
 
     // Log bottle as disposed 
     disposeBottle = async () => {
-
         const accounts = await web3.eth.getAccounts();
 
         //Add try and catch block here 
@@ -95,8 +105,20 @@ class recyclerPage extends Component {
 
     };
 
+    updateRow(index, status){
+    // 1. Make a shallow copy of rows
+    let rows = [...this.state.rows];
+    // 2. Make a shallow copy of the row you want to mutate
+    let row = {...rows[index]};
+    // 3. Replace the property you're intested in
+    row.status = 'sorted';
+    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+    rows[index] = row;
+    // 5. Set the state to our new copy
+    this.setState({rows});
+    }
 
-
+    
     render() {
 
         const { qr, rows } = this.state
