@@ -40,9 +40,14 @@ class recyclerPage extends Component {
             // real code
             this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
             this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
+            console.log(this.state.bottlesLogged);
             this.addRow();
         }.bind(this))
             .on('error', console.error);
+
+            
+
+
 
     };
 
