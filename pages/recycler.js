@@ -36,11 +36,10 @@ class recyclerPage extends Component {
         }, function (error, event) {
             /*For debugging purposes 
             console.log(event);
-            console.log(event.returnValues['plasticBottleAddress']); */
-            
+            console.log(event.returnValues['plasticBottleAddress']); 
+            */
             this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
             this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
-            console.log(this.state.bottlesLogged);
             this.addRow();
         }.bind(this))
             .on('error', console.error);
@@ -111,7 +110,7 @@ class recyclerPage extends Component {
     // 2. Make a shallow copy of the row you want to mutate
     let row = {...rows[index]};
     // 3. Replace the property you're intested in
-    row.status = 'sorted';
+    row.status = status;
     // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
     rows[index] = row;
     // 5. Set the state to our new copy
