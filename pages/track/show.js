@@ -11,9 +11,14 @@ class show extends Component {
         this.state = {
             sortingFacilityAddr: '',
             disposeDate: '',
+            recyclerAddr:'',
             buyerAddr: '',
             sortedActive: false,
-            sortedDisabled: true
+            sortedDisabled: true,
+            sortDate: '',
+            sortingFacilityName: '',
+            sortingFacilityLoc: '',
+            sortingFacilityAddr: ''
         };
     }
 
@@ -30,6 +35,7 @@ class show extends Component {
     componentDidMount = async () => {
 
         const accounts = await web3.eth.getAccounts();
+        this.setState({ recyclerAddr: accounts[0] });
 
         //Step: Disposed
         //Fetch time of disposing 
@@ -39,7 +45,6 @@ class show extends Component {
             //console.log(event.returnValues['time']);
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toUTCString();
-            //console.log(date);
             this.setState({ disposeDate: date });
         }.bind(this))
             .on('error', console.error);
@@ -52,24 +57,36 @@ class show extends Component {
         }, function (error, event) {
             console.log(event.returnValues['sellerAddress']);
             this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
+            var time = new Date(event.returnValues['time'] * 1000);
+            var date = time.toUTCString();
+            //console.log(date);
+            this.setState({ sortDate: date });
+            // call function 
+            this.FetchSellerDetails();
         }.bind(this))
             .on('error', console.error);
-
-        // Fetch sorting facility address
-        trackingContract.events.updateStatusMachine({
-            filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
-        }, function (error, event) {
-            console.log(event.returnValues['sellerAddress']);
-            this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
-        }.bind(this))
-            .on('error', console.error);
-
-
-
 
 
     };
 
+    // Get seller detail
+    FetchSellerDetails = async () => {
+
+        const accounts = await web3.eth.getAccounts();
+
+        //returned result is in the callback function 
+        await registerContract.methods
+            .getSellerDetails(this.state.sellerAddress)
+            .call(function (error, result) {
+                this.setState({
+                    sortingFacilityAddr: result[0],
+                    sortingFacilityLoc: result[1],
+                    sortingFacilityName: result[2]
+                });
+
+            }.bind(this));
+
+    };
 
 
     render() {
@@ -90,14 +107,18 @@ class show extends Component {
                         <Icon name='trash alternate' />
                         <Step.Content >
                             <Step.Title>Disposed</Step.Title>
-                            <Step.Description> {this.state.disposeDate} </Step.Description>
+                            <Step.Description> Recycler: {this.state.recyclerAddr} </Step.Description>
+                            <Step.Description> Date: {this.state.disposeDate} </Step.Description>
                         </Step.Content>
                     </Step>
                     <Step active={this.state.sortedActive} disabled={this.state.sortedDisabled}>
                         <Icon name='qrcode' />
                         <Step.Content>
                             <Step.Title>Sorted</Step.Title>
-                            <Step.Description>Enter billing information</Step.Description>
+                            <Step.Description>Sorting Facility: {this.state.sortingFacilityName}</Step.Description>
+                            <Step.Description>Location: {this.state.sortingFacilityLoc}</Step.Description>
+                            <Step.Description>Address: {this.state.sortingFacilityAddr}</Step.Description>
+                            <Step.Description>Date: {this.state.sortDate}</Step.Description>
                         </Step.Content>
                     </Step>
                     <Step disabled>
