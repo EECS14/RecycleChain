@@ -55,19 +55,30 @@ class show extends Component {
         trackingContract.events.updateStatusMachine({
             filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
         }, function (error, event) {
-            console.log(event.returnValues['sellerAddress']);
             this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toUTCString();
-            //console.log(date);
-            this.setState({ sortDate: date });
-            // call function 
+            this.setState({ sortDate: date});
             this.FetchSellerDetails();
+            this.setState({ sortedActive: true, sortedDisabled:false});
         }.bind(this))
             .on('error', console.error);
 
-
     };
+
+
+    componentWillUnmount() {
+        this.setState({sortingFacilityAddr: '',
+        disposeDate: '',
+        recyclerAddr:'',
+        buyerAddr: '',
+        sortedActive: false,
+        sortedDisabled: true,
+        sortDate: '',
+        sortingFacilityName: '',
+        sortingFacilityLoc: '',
+        sortingFacilityAddr: ''});
+    }
 
     // Get seller detail
     FetchSellerDetails = async () => {
@@ -115,10 +126,15 @@ class show extends Component {
                         <Icon name='qrcode' />
                         <Step.Content>
                             <Step.Title>Sorted</Step.Title>
-                            <Step.Description>Sorting Facility: {this.state.sortingFacilityName}</Step.Description>
-                            <Step.Description>Location: {this.state.sortingFacilityLoc}</Step.Description>
-                            <Step.Description>Address: {this.state.sortingFacilityAddr}</Step.Description>
-                            <Step.Description>Date: {this.state.sortDate}</Step.Description>
+                            {this.state.sortedActive === true ? (
+                                 <div>
+                                    <Step.Description>Sorting Facility: {this.state.sortingFacilityName}</Step.Description>
+                                    <Step.Description>Location: {this.state.sortingFacilityLoc}</Step.Description>
+                                    <Step.Description>Address: {this.state.sortingFacilityAddr}</Step.Description>
+                                    <Step.Description>Date: {this.state.sortDate}</Step.Description>
+                                    </div>
+                            ): null}
+                            
                         </Step.Content>
                     </Step>
                     <Step disabled>
