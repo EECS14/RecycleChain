@@ -25,9 +25,9 @@ contract Tracking{
     }
     
     //events
-    event updateStatusMachine(address plasticBottleAddress, string status, uint time); 
     event updateStatusRecycler(address recycler, address plasticBottleAddress, string status, uint time);
-    event plasticBaleCompleted(address [] plasticBale, address [] plasticBaleContributorsAddresses,  uint256 bottlesInBaleNo,  uint time ); 
+     event updateStatusMachine(address plasticBottleAddress, address sellerAddress, string status, uint time); 
+    event plasticBaleCompleted(address [] plasticBale, address [] plasticBaleContributorsAddresses,  address sellerAddress, bytes20 baleAddress, uint256 bottlesInBaleNo,  uint time ); 
     
     
     modifier sortingMachineOnly (address registerContractAddr, address sellerAddr){
@@ -47,7 +47,7 @@ contract Tracking{
         
    }
    
-  
+
     function setBottlesSortedLimit (uint256 _bottlesSortedLimit) public {  // Can be changed based on the sorting facility production goals 
         bottlesSortedLimit = _bottlesSortedLimit;
         
@@ -70,16 +70,17 @@ contract Tracking{
        bottlesSortedCounter++;
        status = 'sorted';
        
-       emit updateStatusMachine(plasticBottleAddress, status, now);
+       emit updateStatusMachine(plasticBottleAddress, sellerAddr, status, now);
       
       if(bottlesSortedCounter == bottlesSortedLimit )
-         announcePlasticBaleCompleted(); 
+         announcePlasticBaleCompleted(sellerAddr); 
       
     }
     
-    function announcePlasticBaleCompleted() public {
+    function announcePlasticBaleCompleted(address sellerAddr) public {
          bottlesSortedCounter =0; 
-         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, bottlesSortedLimit,  now); 
+         bytes20 baleAddress = bytes20(keccak256(abi.encodePacked(msg.sender, now)));
+         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, sellerAddr, baleAddress, bottlesSortedLimit,  now); 
         
     }
     

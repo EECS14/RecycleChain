@@ -1,4 +1,6 @@
 import React, { Component } from 'react'; 
+import web3 from '../../ethereum/web3';
+import trackingContract from '../../ethereum/tracking'; 
 //import { Divider } from 'semantic-ui-react';
 
 class show extends Component{
@@ -6,6 +8,8 @@ class show extends Component{
     constructor(props) {
         super(props);
         this.state = { 
+            sortingFacilityAddr:'',
+            buyerAddr:''
         };
     }
 
@@ -22,7 +26,20 @@ class show extends Component{
         // to find address of the entity 
         componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
-        console.log(this.props.address);
+        
+        trackingContract.events.updateStatusMachine({
+            filter: { plasticBottleAddress: this.props.address}, fromBlock: 0
+        }, function (error, event) {
+            console.log(event.returnValues['plasticBottleAddress']);
+            /*For debugging purposes 
+            console.log(event);
+            console.log(this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress'] ));
+            console.log(this.state.rows);
+            console.log(event.returnValues['plasticBottleAddress']);
+            let index = this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress']);
+            this.updateRow(index, event.returnValues['status']);  */
+        }.bind(this))
+            .on('error', console.error);
 
         };
 
@@ -32,7 +49,7 @@ class show extends Component{
         
         return (
             <div>
-                <h1>Tracking page</h1>
+                <h1>Track {this.props.address}</h1>
             </div>
             
         );
