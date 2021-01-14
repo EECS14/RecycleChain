@@ -24,6 +24,18 @@
         },
         {
           "indexed": false,
+          "internalType": "address",
+          "name": "sellerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes20",
+          "name": "baleAddress",
+          "type": "bytes20"
+        },
+        {
+          "indexed": false,
           "internalType": "uint256",
           "name": "bottlesInBaleNo",
           "type": "uint256"
@@ -45,6 +57,12 @@
           "indexed": false,
           "internalType": "address",
           "name": "plasticBottleAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "sellerAddress",
           "type": "address"
         },
         {
@@ -96,7 +114,13 @@
     },
     {
       "constant": false,
-      "inputs": [],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sellerAddr",
+          "type": "address"
+        }
+      ],
       "name": "announcePlasticBaleCompleted",
       "outputs": [],
       "payable": false,
