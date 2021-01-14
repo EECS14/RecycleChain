@@ -30,7 +30,6 @@ class recyclerPage extends Component {
     componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
 
-        // might need to use getPastEvents here !!!!!
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
         }, function (error, event) {
