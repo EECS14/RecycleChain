@@ -1,12 +1,11 @@
 import React, { Component } from 'react'; 
-import { Divider } from 'semantic-ui-react';
+//import { Divider } from 'semantic-ui-react';
 
 class show extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-            
+        this.state = { 
         };
     }
 
@@ -14,14 +13,16 @@ class show extends Component{
 
         //1. fetches address of the bottle from the URL
         //Perfomed at the server before html is loaded
-        const { address } = props.query;
-        return { address };
+        const {address} = props.query;
+
+        return {address};
         }
 
         //2. fetches all events related to the updating the bottle route
         // to find address of the entity 
         componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
+        console.log(this.props.address);
 
         };
 

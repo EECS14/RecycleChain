@@ -160,7 +160,7 @@ class recyclerPage extends Component {
                         <Table.Body>
                             {this.state.rows.map(bottle => (
                                 <Link route={`/track/${bottle.addr}`}>
-                                <Table.Row id={this.state.rows.length} >
+                                <Table.Row id={this.state.rows.length} key={this.state.rows.lengt}>
                                     <Table.Cell selectable>
                                         <a>
                                         {bottle.addr}
