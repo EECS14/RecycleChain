@@ -24,10 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/emulators": [
+    "/recycler": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/emulators.js"
+      "static/chunks/pages/recycler.js"
     ],
     "/track/show": [
       "static/chunks/main.js",

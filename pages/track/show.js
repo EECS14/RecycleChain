@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Icon, Step } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
+import registerContract from '../../ethereum/register';
 
 class show extends Component {
 
@@ -9,7 +10,10 @@ class show extends Component {
         super(props);
         this.state = {
             sortingFacilityAddr: '',
-            buyerAddr: ''
+            disposeDate: '',
+            buyerAddr: '',
+            sortedActive: false,
+            sortedDisabled: true
         };
     }
 
@@ -22,11 +26,27 @@ class show extends Component {
         return { address };
     }
 
-    //2. fetches all events related to the updating the bottle route
-    // to find address of the entity 
+    //2. fetches data from events 
     componentDidMount = async () => {
+
         const accounts = await web3.eth.getAccounts();
 
+        //Step: Disposed
+        //Fetch time of disposing 
+        trackingContract.events.updateStatusRecycler({
+            filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
+        }, function (error, event) {
+            //console.log(event.returnValues['time']);
+            var time = new Date(event.returnValues['time'] * 1000);
+            var date = time.toUTCString();
+            //console.log(date);
+            this.setState({ disposeDate: date });
+        }.bind(this))
+            .on('error', console.error);
+
+        //*********************************************************** 
+        //Step: Sorted
+        // Fetch sorting facility address
         trackingContract.events.updateStatusMachine({
             filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
         }, function (error, event) {
@@ -34,11 +54,27 @@ class show extends Component {
             this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
         }.bind(this))
             .on('error', console.error);
+
+        // Fetch sorting facility address
+        trackingContract.events.updateStatusMachine({
+            filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
+        }, function (error, event) {
+            console.log(event.returnValues['sellerAddress']);
+            this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
+        }.bind(this))
+            .on('error', console.error);
+
+
+
+
+
     };
 
 
 
     render() {
+
+        const { disposeDate } = this.state;
 
         return (
             <div>
@@ -50,22 +86,22 @@ class show extends Component {
                 <h1>Track {this.props.address}</h1>
 
                 <Step.Group stackable='tablet'>
-                    <Step>
-                        <Icon name='qrcode' />
-                        <Step.Content>
+                    <Step active>
+                        <Icon name='trash alternate' />
+                        <Step.Content >
                             <Step.Title>Disposed</Step.Title>
-                            <Step.Description>Choose your shipping options</Step.Description>
+                            <Step.Description> {this.state.disposeDate} </Step.Description>
                         </Step.Content>
                     </Step>
-                    <Step active>
-                        <Icon name='recycle' />
+                    <Step active={this.state.sortedActive} disabled={this.state.sortedDisabled}>
+                        <Icon name='qrcode' />
                         <Step.Content>
                             <Step.Title>Sorted</Step.Title>
                             <Step.Description>Enter billing information</Step.Description>
                         </Step.Content>
                     </Step>
                     <Step disabled>
-                        <Icon name='ethereum' />
+                        <Icon name='factory' />
                         <Step.Content>
                             <Step.Title>Purchased</Step.Title>
                             <Step.Description>Verify order details</Step.Description>
