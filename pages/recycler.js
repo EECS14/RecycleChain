@@ -33,10 +33,10 @@ class recyclerPage extends Component {
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
         }, function (error, event) {
-            /*For debugging purposes 
+            /* Debugging 
             console.log(event);
-            console.log(event.returnValues['plasticBottleAddress']); 
-            */
+            console.log(event.returnValues['plasticBottleAddress']); */
+            
             this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
             this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
             this.addRow();

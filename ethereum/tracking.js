@@ -6,7 +6,7 @@ import Tracking from './build/Tracking.json';
 
 const instance = new web3.eth.Contract(
     Tracking.abi,
-     '0xfe60326950c34d8d1b2d6d2fd26677a9065e4d29'
+     '0x575dba34fb067679f2c85ab9c683e6c487d0ac47'
      // Address of the tracking.sol contract in ropsten network
 );
 
