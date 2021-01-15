@@ -23,13 +23,13 @@
           "type": "address[]"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "sellerAddress",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "bytes20",
           "name": "baleAddress",
           "type": "bytes20"
@@ -54,19 +54,19 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "plasticBottleAddress",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "sellerAddress",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "string",
           "name": "status",
           "type": "string"
@@ -85,19 +85,19 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "recycler",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "plasticBottleAddress",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "string",
           "name": "status",
           "type": "string"
