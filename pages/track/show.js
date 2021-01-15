@@ -37,6 +37,7 @@ class show extends Component {
         const accounts = await web3.eth.getAccounts();
         this.setState({ recyclerAddr: accounts[0] });
 
+        console.log(this.props.address);
         //Step: Disposed
         //Fetch time of disposing 
         trackingContract.events.updateStatusRecycler({
@@ -45,6 +46,7 @@ class show extends Component {
             //console.log(event.returnValues['time']);
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toUTCString();
+            console.log(date);
             this.setState({ disposeDate: date });
         }.bind(this))
             .on('error', console.error);

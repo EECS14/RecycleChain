@@ -28,11 +28,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/recycler.js"
-    ],
-    "/track/show": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/track/show.js"
     ]
   },
   "ampFirstPages": []
