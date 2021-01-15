@@ -27,7 +27,7 @@ contract Tracking{
     //events
     event updateStatusRecycler(address indexed recycler, address indexed plasticBottleAddress, string  status, uint  time);
      event updateStatusMachine(address indexed plasticBottleAddress, address indexed sellerAddress, string  status, uint time); 
-    event plasticBaleCompleted(address [] plasticBale, address [] plasticBaleContributorsAddresses,  address sellerAddress, bytes20 indexed baleAddress, uint256 bottlesInBaleNo,  uint time ); 
+    event plasticBaleCompleted(address [] plasticBale, address [] plasticBaleContributorsAddresses,  address indexed sellerAddress, bytes20 indexed baleAddress, uint256 bottlesInBaleNo,  uint time ); 
     
     
     modifier sortingMachineOnly (address registerContractAddr, address sellerAddr){
