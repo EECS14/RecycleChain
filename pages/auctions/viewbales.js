@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
+import { Link } from '../../routes';
 
 
 class viewbales extends Component {
@@ -43,9 +44,9 @@ class viewbales extends Component {
     };
 
 
-    renderBales(){
+    renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description: <a>Acution Bale</a>, fluid: true, meta: this.state.productionTime};
+            const items = { header: this.state.plasticBaleAddr, description: <a>Acution Bale</a>, fluid: true, meta: this.state.productionTime };
             return { cards: [...prevState.cards, items] };
         });
 
@@ -60,11 +61,16 @@ class viewbales extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
-                <h1>Plastic bales produced at your facility</h1>
+                <h1>Plastic Bales produced at Your Facility</h1>
                 {this.state.cards.map(items => (
-                    <Card header={items.header} meta={items.meta} description={items.description} fluid={items.fluid} />
+                    <Link route={`/auctions/viewbales/${items.header}`}>
+                        <Card header={items.header}
+                            meta={items.meta}
+                            description={items.description}
+                            fluid={items.fluid} />
+                    </Link>
                 ))}
-               
+
 
             </div>
         );

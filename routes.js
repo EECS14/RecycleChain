@@ -7,7 +7,8 @@ Documentation: https://github.com/fridays/next-routes
 // The second set of parentheses is to invoke the function returned from the import statement 
 const routes = require ('next-routes')();
 
-routes.add('/track/:address', 'track/show'); 
+routes.add('/track/:address', 'track/show')
+.add('/auctions/viewbales//:address','auctions/startAuction');
 
 module.exports = routes; 
 
