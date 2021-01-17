@@ -1,5 +1,6 @@
 /*
 purpose: To access the contract (register.sol) instance from inside the application without repeating these steps 
+Etherscan: https://ropsten.etherscan.io/tx/0x78c0035c91153ad9c77180f0c71ab6c2c6a2dea3862f54e1001adc365151161a 
 */
 import web3 from './web3'; 
 import BottleProduction from './build/BottleProduction.json'; 
