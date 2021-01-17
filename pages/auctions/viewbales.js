@@ -20,6 +20,7 @@ class viewbales extends Component {
 
     componentDidMount = async () => {
 
+        //1. Fetch data from event 
         const accounts = await web3.eth.getAccounts();
         //NOTE: Set the account back to account[0]
         trackingContract.events.plasticBaleCompleted({
@@ -28,16 +29,19 @@ class viewbales extends Component {
             //Debugging 
             console.log(event);
 
+            //1. Fetch data from event 
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toUTCString();
-
             this.setState({
                 plasticBaleAddr: event.returnValues['baleAddress'],
                 plasticBale: event.returnValues['plasticBale'],
                 contributorsAddresses: event.returnValues['plasticBaleContributorsAddresses'],
                 productionTime: date
             });
+            //2. Render bale info to the page 
             this.renderBales();
+            //3. Create an instance for plastic bale SC 
+            
         }.bind(this))
             .on('error', console.error);
 
