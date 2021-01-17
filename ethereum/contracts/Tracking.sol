@@ -16,7 +16,8 @@ contract Tracking{
     uint256 public bottlesSortedCounter; 
     uint256 public bottlesSortedLimit; 
     address [] public plasticBale; 
-    address [] public plasticBaleContributorsAddresses; 
+    address payable [] public plasticBaleContributorsAddresses; 
+    address [] public deployedPlasticBales;
     
      //constructor - initilize state variables
     constructor() public{
@@ -27,7 +28,7 @@ contract Tracking{
     //events
     event updateStatusRecycler(address indexed recycler, address indexed plasticBottleAddress, string  status, uint  time);
      event updateStatusMachine(address indexed plasticBottleAddress, address indexed sellerAddress, string  status, uint time); 
-    event plasticBaleCompleted(address [] plasticBale, address [] plasticBaleContributorsAddresses,  address indexed sellerAddress, bytes20 indexed baleAddress, uint256 bottlesInBaleNo,  uint time ); 
+    event plasticBaleCompleted(address [] plasticBale, address payable [] plasticBaleContributorsAddresses,  address indexed sellerAddress, PlasticBale plasticbale, uint256 bottlesInBaleNo,  uint time ); 
     
     
     modifier sortingMachineOnly (address registerContractAddr, address sellerAddr){
@@ -54,7 +55,7 @@ contract Tracking{
     }
     
     //Key: bottle address - bottleToRecycler[BottleAddress] = RecyclerAddress
-    mapping(address=>address) bottleToRecycler; 
+    mapping(address=>address payable) bottleToRecycler; 
     
     
     function updateStatusDisposed (address plasticBottleAddress) public{
@@ -63,7 +64,7 @@ contract Tracking{
         emit updateStatusRecycler (msg.sender, plasticBottleAddress, status, now);
     }
     
-    function updateStatusSorted (address registerContractAddr, address sellerAddr, address plasticBottleAddress) public sortingMachineOnly (registerContractAddr, sellerAddr){
+    function updateStatusSorted (address registerContractAddr, address payable sellerAddr, address plasticBottleAddress) public sortingMachineOnly (registerContractAddr, sellerAddr){
         
        plasticBaleContributorsAddresses.push(bottleToRecycler[plasticBottleAddress]); 
        plasticBale.push(plasticBottleAddress);
@@ -73,15 +74,20 @@ contract Tracking{
        emit updateStatusMachine(plasticBottleAddress, sellerAddr, status, now);
       
       if(bottlesSortedCounter == bottlesSortedLimit )
-         announcePlasticBaleCompleted(sellerAddr); 
+         createPlasticBale(sellerAddr); 
       
     }
     
-    function announcePlasticBaleCompleted(address sellerAddr) public {
+    function createPlasticBale(address payable sellerAddr) public {
          bottlesSortedCounter =0; 
-         bytes20 baleAddress = bytes20(keccak256(abi.encodePacked(msg.sender, now)));
-         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, sellerAddr, baleAddress, bottlesSortedLimit,  now); 
+         PlasticBale newBale = new PlasticBale(plasticBale, plasticBaleContributorsAddresses, sellerAddr);
+         deployedPlasticBales.push(address(newBale)); 
+         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, sellerAddr, newBale, bottlesSortedLimit,  now); 
         
+    }
+    
+    function getDeployedBales() public view returns (address[] memory){
+        return deployedPlasticBales; 
     }
     
 }
