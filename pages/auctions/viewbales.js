@@ -10,8 +10,8 @@ class viewbales extends Component {
         super(props);
         this.state = {
             plasticBaleAddr: '',
-            plasticBale: [],
-            contributorsAddresses: [],
+            //plasticBale: [],
+            //contributorsAddresses: [],
             productionTime: '',
             cards: []
 
@@ -26,24 +26,27 @@ class viewbales extends Component {
         trackingContract.events.plasticBaleCompleted({
             filter: { sellerAddress: accounts[1] }, fromBlock: 0
         }, function (error, event) {
-            //Debugging 
-            console.log(event);
+            /*Debugging 
+            console.log(event); */
 
             //1. Fetch data from event 
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toUTCString();
             this.setState({
-                plasticBaleAddr: event.returnValues['baleAddress'],
-                plasticBale: event.returnValues['plasticBale'],
-                contributorsAddresses: event.returnValues['plasticBaleContributorsAddresses'],
+                plasticBaleAddr: event.returnValues['plasticbale'],
+                //plasticBale: event.returnValues['plasticBale'],
+                //contributorsAddresses: event.returnValues['plasticBaleContributorsAddresses'],
                 productionTime: date
             });
             //2. Render bale info to the page 
             this.renderBales();
-            //3. Create an instance for plastic bale SC 
             
         }.bind(this))
             .on('error', console.error);
+
+        /* Debugging 
+        await trackingContract.methods.getDeployedBales().call().then(console.log); 
+         */
 
     };
 
