@@ -33,10 +33,10 @@ contract PlasticBale{
    // Bidders are the Buyers 
    uint totalBidders; 
     
-    constructor(address[] memory _plasticBale, address payable[] memory _contributors ) public {
+    constructor(address[] memory _plasticBale, address payable[] memory _contributors, address payable seller ) public {
       plasticBale = _plasticBale; 
       contributors = _contributors; 
-      auctionOwner = msg.sender; 
+      auctionOwner = seller; 
       totalBidders = 0; 
   }  
     
@@ -170,3 +170,8 @@ contract PlasticBale{
     }
     
 }
+
+
+
+
+
