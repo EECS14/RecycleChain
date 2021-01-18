@@ -24,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
+    "/auctions/startAuction": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/auctions/startAuction.js"
+    ],
     "/auctions/viewbales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/auctions/viewbales.js"
-    ],
-    "/emulators": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/emulators.js"
     ]
   },
   "ampFirstPages": []
