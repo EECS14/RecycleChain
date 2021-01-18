@@ -60,7 +60,7 @@ contract Tracking{
     
     function updateStatusDisposed (address plasticBottleAddress) public{
         bottleToRecycler[plasticBottleAddress] = msg.sender; //save recycler's address
-        status = 'disposed'; 
+        status = 'Disposed'; 
         emit updateStatusRecycler (msg.sender, plasticBottleAddress, status, now);
     }
     
@@ -69,7 +69,7 @@ contract Tracking{
        plasticBaleContributorsAddresses.push(bottleToRecycler[plasticBottleAddress]); 
        plasticBale.push(plasticBottleAddress);
        bottlesSortedCounter++;
-       status = 'sorted';
+       status = 'Sorted';
        
        emit updateStatusMachine(plasticBottleAddress, sellerAddr, status, now);
       

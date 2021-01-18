@@ -7,8 +7,8 @@ pragma solidity ^0.5.0;
 contract PlasticBale{
     
 
-    address[] public plasticBale; // retrived from plasticBaleCompleted event and passed through web3.js
-    address payable[] public contributors; // retrived from plasticBaleCompleted event and passed through web3.js
+    address[] public plasticBale; 
+    address payable[] public contributors; 
   
  // Bid variables 
       bool public isOpen; 
@@ -52,13 +52,13 @@ contract PlasticBale{
         _;                                                                        //when developing the Dapp 
     }
     
-    event bidderRegistered (address bidderAddress); 
-    event auctionStarted (uint startingAmount, uint closingTime); 
-    event bidPlaced(address biddeAddress, uint amount);
-    event bidderExited(address bidderAddress); 
-    event bidderRefunded(address biddeAddress, uint amount); 
-    event auctionEnded (address highestBidder, uint highestBid , uint closingTime); 
-    event updateStatusBuyer(address buyer, address plasticBottleAddress, string status, uint time); 
+    event bidderRegistered (address indexed baleAddress, address indexed bidderAddress); 
+    event auctionStarted (address indexed baleAddress, uint startingAmount, uint closingTime); 
+    event bidPlaced(address indexed baleAddress, address indexed biddeAddress, uint amount);
+    event bidderExited(address indexed baleAddress, address indexed bidderAddress); 
+    event auctionEnded (address indexed baleAddress,address highestBidder, uint highestBid , uint closingTime); 
+    event recyclerRewarded(address indexed recycler, uint etherReward);
+    event updateStatusBuyer(address buyer, address indexed plasticBottleAddress, string status, uint time); 
     
     
     function addBidder(address registerContractAddr, address bidderAddr) onlyBidder (registerContractAddr) public {
@@ -67,7 +67,7 @@ contract PlasticBale{
     totalBidders++; 
     bidder[bidderAddr] = buyer(true, 0, 0); 
     
-    emit bidderRegistered(bidderAddr);
+    emit bidderRegistered(address(this),bidderAddr);
         
     }
     
@@ -86,7 +86,8 @@ contract PlasticBale{
         startTime = now; 
         endTime = closingTime; 
        
-        emit auctionStarted(startPrice, closingTime); 
+       // Contract address is the bale address 
+        emit auctionStarted(address(this), startPrice, closingTime); 
     }
     
     function placeBid(address registerContractAddr, uint amount)  onlyBidder(registerContractAddr) payable public{
@@ -108,7 +109,7 @@ contract PlasticBale{
         highestBid = amount; 
         highestBidder= msg.sender; 
         
-        emit bidPlaced(msg.sender, amount); 
+        emit bidPlaced(address(this), msg.sender, amount); 
         
     }
     
@@ -118,7 +119,7 @@ contract PlasticBale{
         require(bidder[msg.sender].placedBids == 0, "Buyer has placed a bid already."); 
         bidder[msg.sender] = buyer(false, 0 ,0); 
         totalBidders--; 
-        emit bidderExited(msg.sender); 
+        emit bidderExited(address(this), msg.sender); 
     }
     
     
@@ -152,17 +153,32 @@ contract PlasticBale{
              contributionRate = contribution / (plasticBale.length);
              reward = contributionRate * halfAmount; 
              tempArray[i].transfer(reward); 
-             updateBottleStatus(highestBidder, tempArray[i]); 
+             rewardRecycler(tempArray[i], reward); 
+            // updateBottleStatus(highestBidder, tempArray[i]); 
         }
           
-        emit auctionEnded(highestBidder, highestBid , now); 
+          
+          for(uint i=0; i< plasticBale.length; i++)
+          updateBottleStatus(highestBidder, plasticBale[i]); 
+          
+        emit auctionEnded(address(this), highestBidder, highestBid , now); 
     
     }
     
     function updateBottleStatus(address buyerAddress, address plasticBottleAddress) public {
         
-        emit updateStatusBuyer(buyerAddress, plasticBottleAddress, "sold", now); 
+        emit updateStatusBuyer(buyerAddress, plasticBottleAddress, "Purchased", now); 
     }
+    
+    function rewardRecycler(address recycler, uint reward) public {
+        
+        emit recyclerRewarded(recycler, reward);
+    }
+    
+    function contractBalance() public view returns(uint){
+        return address(this).balance;
+    }
+    
     
     // For debugging 
      function getTime()  public view returns (uint){
@@ -170,7 +186,6 @@ contract PlasticBale{
     }
     
 }
-
 
 
 

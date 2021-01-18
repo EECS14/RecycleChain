@@ -44,9 +44,9 @@ class show extends Component {
             filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
         }, function (error, event) {
             //console.log(event.returnValues['time']);
+            //var date = time.toUTCString();
             var time = new Date(event.returnValues['time'] * 1000);
-            var date = time.toUTCString();
-            console.log(date);
+            var date = time.toString(); 
             this.setState({ disposeDate: date });
         }.bind(this))
             .on('error', console.error);
@@ -59,7 +59,7 @@ class show extends Component {
         }, function (error, event) {
             this.setState({ sellerAddress: event.returnValues['sellerAddress'] });
             var time = new Date(event.returnValues['time'] * 1000);
-            var date = time.toUTCString();
+            var date = time.toString(); 
             this.setState({ sortDate: date});
             this.FetchSellerDetails();
             this.setState({ sortedActive: true, sortedDisabled:false});

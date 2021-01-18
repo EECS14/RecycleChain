@@ -40,12 +40,13 @@ class startAuction extends Component {
         const accounts = await web3.eth.getAccounts();
         this.setState({loading: true, errorMessage: ''});
 
-        /*const time; 
+        /*
+        const time; 
 
         try {
 
-            await registerContract.methods
-                .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
+            const plasticBaleSC = plasticBaleContract(this.props.address); 
+            await plasticBaleSC.methods.startAuction(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
                 .send({ from: accounts[0] });
         } catch (err) {
             this.setState({ errorMessage: err.message });
@@ -56,7 +57,7 @@ class startAuction extends Component {
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
 
-            this.setState({loading: false}); */
+            this.setState({loading: false});  */ 
 
     };
 
@@ -74,7 +75,7 @@ class startAuction extends Component {
 
                 <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                     <Form.Field width={6}>
-                        <label >Auction Date and Time</label>
+                        <label >Auction Closing Date and Time</label>
                         <DatePicker
                             onChange={this.handleChange}
                             showTimeSelect
@@ -85,7 +86,7 @@ class startAuction extends Component {
                         /> 
                     </Form.Field>
 
-                    <Form.Field width={3}>
+                    <Form.Field width={4}>
                         <label>Starting Price</label>
                         <Input value={this.state.startingPrice}
                         label={{ basic: true, content: 'Wei' }}
@@ -96,10 +97,10 @@ class startAuction extends Component {
                     <Message error header="Error!" content={this.state.errorMessage} />
 
 
-                    <Message success header="Success!" content="Auction is Successfully Scheduled !" />
+                    <Message success header="Success!" content="Auction is Opended Successfully!" />
 
 
-                    <Button loading={this.state.loading} type='submit'>Schedule Auction</Button>
+                    <Button loading={this.state.loading} type='submit'>Start Auction</Button>
                 </Form>
 
 

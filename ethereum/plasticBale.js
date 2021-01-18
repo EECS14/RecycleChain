@@ -1,5 +1,5 @@
 /*
-purpose: To create a new instance of plasticbale.sol 
+purpose: Returns a new instance of plasticbale.sol 
 */
 
 import web3 from './web3'; 

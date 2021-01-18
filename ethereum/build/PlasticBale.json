@@ -27,6 +27,12 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
+          "internalType": "address",
+          "name": "baleAddress",
+          "type": "address"
+        },
+        {
           "indexed": false,
           "internalType": "address",
           "name": "highestBidder",
@@ -52,6 +58,12 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
+          "internalType": "address",
+          "name": "baleAddress",
+          "type": "address"
+        },
+        {
           "indexed": false,
           "internalType": "uint256",
           "name": "startingAmount",
@@ -71,7 +83,13 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
+          "internalType": "address",
+          "name": "baleAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
           "internalType": "address",
           "name": "biddeAddress",
           "type": "address"
@@ -90,7 +108,13 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
+          "internalType": "address",
+          "name": "baleAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
           "internalType": "address",
           "name": "bidderAddress",
           "type": "address"
@@ -103,26 +127,13 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
-          "name": "biddeAddress",
+          "name": "baleAddress",
           "type": "address"
         },
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "bidderRefunded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "bidderAddress",
           "type": "address"
@@ -135,13 +146,32 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
+          "internalType": "address",
+          "name": "recycler",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "etherReward",
+          "type": "uint256"
+        }
+      ],
+      "name": "recyclerRewarded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": false,
           "internalType": "address",
           "name": "buyer",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
           "name": "plasticBottleAddress",
           "type": "address"
@@ -191,6 +221,21 @@
           "internalType": "address payable",
           "name": "",
           "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "contractBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "payable": false,
@@ -356,6 +401,26 @@
       ],
       "payable": false,
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "recycler",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "reward",
+          "type": "uint256"
+        }
+      ],
+      "name": "rewardRecycler",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

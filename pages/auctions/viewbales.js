@@ -31,7 +31,7 @@ class viewbales extends Component {
 
             //1. Fetch data from event 
             var time = new Date(event.returnValues['time'] * 1000);
-            var date = time.toUTCString();
+            var date = time.toString(); 
             this.setState({
                 plasticBaleAddr: event.returnValues['plasticbale'],
                 //plasticBale: event.returnValues['plasticBale'],
