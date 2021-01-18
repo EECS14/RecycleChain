@@ -77,7 +77,6 @@ contract PlasticBale{
         
         require( closingTime > now, "Auction time can only be set in future.");
         
-        require(totalBidders >= 2, "Not enough bidders are participating."); 
     
         // address(0) is 0X00.. which is the genusis block 
         isOpen = true; 
