@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/auctions/startAuction.js"
     ],
-    "/auctions/viewbales": [
+    "/auctions/viewauctions": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/viewbales.js"
+      "static/chunks/pages/auctions/viewauctions.js"
     ]
   },
   "ampFirstPages": []

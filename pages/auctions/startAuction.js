@@ -37,17 +37,19 @@ class startAuction extends Component {
     onStartAuction = async (event) => {
         event.preventDefault();
         const accounts = await web3.eth.getAccounts();
-        this.setState({loading: true, errorMessage: ''});
-
+        
         //1. Extract time from date
         //2. Conver to Milliseconds
-        let closingTime = (this.state.startDate).getTime()/1000;
-        console.log(time);
+        let closingTime = Math.ceil((this.state.startDate).getTime()/1000);
+        console.log(closingTime);
         
- 
+        this.setState({loading: true, errorMessage: ''});
+        
         try {
 
+            //Create new instance of plastic bale SC that has been deployed 
             const plasticBaleSC = plasticBaleContract(this.props.address); 
+
             await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
                 .send({ from: accounts[0] });
         } catch (err) {
@@ -59,7 +61,7 @@ class startAuction extends Component {
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
 
-            this.setState({loading: false});   
+            this.setState({loading: false}); 
 
     };
 

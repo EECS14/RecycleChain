@@ -10,8 +10,6 @@ class viewbales extends Component {
         super(props);
         this.state = {
             plasticBaleAddr: '',
-            //plasticBale: [],
-            //contributorsAddresses: [],
             productionTime: '',
             cards: []
 
@@ -34,8 +32,6 @@ class viewbales extends Component {
             var date = time.toString(); 
             this.setState({
                 plasticBaleAddr: event.returnValues['plasticbale'],
-                //plasticBale: event.returnValues['plasticBale'],
-                //contributorsAddresses: event.returnValues['plasticBaleContributorsAddresses'],
                 productionTime: date
             });
             //2. Render bale info to the page 
