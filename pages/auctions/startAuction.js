@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, Message, Label } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
 import web3 from '../../ethereum/web3';
 import plasticBaleContract from '../../ethereum/plasticBale';
@@ -32,7 +30,8 @@ class startAuction extends Component {
     handleChange(date) {
         this.setState({
             startDate: date
-        })
+        });
+        console.log(date);
     }
 
     onStartAuction = async (event) => {
@@ -40,13 +39,16 @@ class startAuction extends Component {
         const accounts = await web3.eth.getAccounts();
         this.setState({loading: true, errorMessage: ''});
 
-        /*
-        const time; 
-
+        //1. Extract time from date
+        //2. Conver to Milliseconds
+        let closingTime = (this.state.startDate).getTime()/1000;
+        console.log(time);
+        
+ 
         try {
 
             const plasticBaleSC = plasticBaleContract(this.props.address); 
-            await plasticBaleSC.methods.startAuction(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
+            await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
                 .send({ from: accounts[0] });
         } catch (err) {
             this.setState({ errorMessage: err.message });
@@ -57,7 +59,7 @@ class startAuction extends Component {
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
 
-            this.setState({loading: false});  */ 
+            this.setState({loading: false});   
 
     };
 
@@ -77,12 +79,13 @@ class startAuction extends Component {
                     <Form.Field width={6}>
                         <label >Auction Closing Date and Time</label>
                         <DatePicker
+                            selected={ this.state.startDate }
                             onChange={this.handleChange}
                             showTimeSelect
                             timeFormat="HH:mm"
-                            timeIntervals={30}
+                            timeIntervals={20}
                             timeCaption="time"
-                            dateFormat="MMMM d, yyyy h:mm aa"
+                            dateFormat="MM/dd/yyyy h:mm aa"
                         /> 
                     </Form.Field>
 
