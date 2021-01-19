@@ -17,6 +17,10 @@ export default class index extends Component {
 
     return (
         <div>
+             <link rel="stylesheet"
+                    href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+                />
+                
             <Menu>
                 <Menu.Item
                 name='about'

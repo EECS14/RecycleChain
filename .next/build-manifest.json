@@ -34,10 +34,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/auctions/joinAuction.js"
     ],
-    "/auctions/viewbales": [
+    "/recycler": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/viewbales.js"
+      "static/chunks/pages/recycler.js"
     ]
   },
   "ampFirstPages": []

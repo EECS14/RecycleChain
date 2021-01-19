@@ -102,7 +102,7 @@ contract PlasticBale{
         //Validating the amount of wei sent with the transaction 
         require(msg.value == amount, "Insufficient Deposit."); 
         
-        bidder[msg.sender].placedBids++; //STOPPED HERE WHEN CHECKING 
+        bidder[msg.sender].placedBids++;
         bidder[msg.sender].deposit += msg.value; 
         
         highestBid = amount; 

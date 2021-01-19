@@ -52,9 +52,7 @@ class viewbales extends Component {
             const items = { header: this.state.plasticBaleAddr, description: <a>Auction Bale</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
             return { cards: [...prevState.cards, items] };
         });
-
     }
-
 
     render() {
 
