@@ -64,7 +64,7 @@ class viewauctions extends Component {
     renderAuctions = () => {
         // Add more information here like the seller name 
         this.setState((prevState) => {
-            let items = { header: this.state.auctionAddr, description: <a>Join Auction</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Wei` };
+            let items = { header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Wei` };
             return { cards: [...prevState.cards, items] };
 
         });
@@ -80,6 +80,9 @@ class viewauctions extends Component {
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
+
+
+                    <p> paragraph and instructions on joining auctions as a buyer + how recyclers are rewarded</p>
 
                 <h1>Open Auctions</h1>
                 <Card.Group>
