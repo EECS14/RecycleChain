@@ -14,13 +14,11 @@ class viewauctions extends Component {
             closingTime: '',
             startingPrice: '',
             auctionAddr: ''
-
         };
     }
 
 
     componentDidMount = async () => {
-
 
         const accounts = await web3.eth.getAccounts();
         //NOTE: Set the account back to account[0] - seller address is account 2
@@ -63,14 +61,13 @@ class viewauctions extends Component {
     };
 
 
-    renderAuctions() {
-
+    renderAuctions = () => {
         this.setState((prevState) => {
-            const items = { header: this.state.auctionAddr, description: <a>Join Auction</a>, fluid: true, meta: this.state.closingTime, extra: this.state.startingPrice };
+            let items = { header: this.state.auctionAddr, description: <a>Join Auction</a>, fluid: true, meta: this.state.closingTime, extra: this.state.startingPrice};
             return { cards: [...prevState.cards, items] };
         });
 
-    }
+    };
 
 
 
@@ -83,17 +80,20 @@ class viewauctions extends Component {
                 />
 
                 <h1>Open Auctions</h1>
+                
                 {this.state.cards.map(items => (
                     <Link route={`/auctions/viewbales/${items.header}`}>
-                        <Card header={items.header}
+
+                       <Card header={items.header}
                             stackable='true'
                             meta={items.meta}
                             extra = { items.extra }
                             description = { items.description }
-                            fluid = { items.fluid } />
+                            fluid = {items.fluid } />
+
                     </Link>
-        ))
-    }
+        )) }
+       
                 
             </div>
         );
