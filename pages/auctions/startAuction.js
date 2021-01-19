@@ -36,7 +36,8 @@ class startAuction extends Component {
 
     onStartAuction = async (event) => {
         event.preventDefault();
-        const accounts = await web3.eth.getAccounts();
+        
+        //web3.eth.handleRevert = true;
         
         //1. Extract time from date
         //2. Conver to Milliseconds
@@ -44,14 +45,14 @@ class startAuction extends Component {
         console.log(closingTime);
         
         this.setState({loading: true, errorMessage: ''});
-        
+
+    
         try {
 
+            const accounts = await web3.eth.getAccounts();
             //Create new instance of plastic bale SC that has been deployed 
             const plasticBaleSC = plasticBaleContract(this.props.address); 
-
-            await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
-                .send({ from: accounts[0] });
+            await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice).send({ from: accounts[0] });
         } catch (err) {
             this.setState({ errorMessage: err.message });
             this.setState({ hasError: false });
@@ -102,7 +103,7 @@ class startAuction extends Component {
                     <Message error header="Error!" content={this.state.errorMessage} />
 
 
-                    <Message success header="Success!" content="Auction is Opended Successfully!" />
+                    <Message success header="Success!" content="Auction is Open!" />
 
 
                     <Button loading={this.state.loading} type='submit'>Start Auction</Button>

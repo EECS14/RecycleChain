@@ -24,11 +24,6 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auctions/startAuction": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/startAuction.js"
-    ],
     "/auctions/viewauctions": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",

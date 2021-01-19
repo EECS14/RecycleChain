@@ -22,7 +22,7 @@ class viewbales extends Component {
         const accounts = await web3.eth.getAccounts();
         //NOTE: Set the account back to account[0]
         trackingContract.events.plasticBaleCompleted({
-            filter: { sellerAddress: accounts[1] }, fromBlock: 0
+            filter: { sellerAddress: accounts[0] }, fromBlock: 0
         }, function (error, event) {
             /*Debugging 
             console.log(event); */
