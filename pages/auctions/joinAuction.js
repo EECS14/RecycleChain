@@ -8,7 +8,10 @@ class joinAuction extends Component {
         super(props);
         this.state = {
             join: false,
-            registrationSCAddr: '0x7126ec4f68added009015a1f5ac718c4896faa2e'
+            registrationSCAddr: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
+            errorMessage: '',
+            hasNoError: false,
+            loading: false
         };
     }
 
@@ -36,18 +39,18 @@ class joinAuction extends Component {
             await plasticBaleSC.methods
                 .addBidder(this.state.registrationSCAddr, accounts[0])
                 .send({ from: accounts[0]});
+
         } catch (err) {
             this.setState({ errorMessage: err.message });
             this.setState({ hasError: false });
         }
 
         // if errorMsg is empty, registration is successful
-        if (!this.state.errorMessage)
-            this.setState({ hasNoError: true });
+        if (!this.state.errorMessage){
+            this.setState({ hasNoError: true, join:true }); 
+        }
 
             this.setState({loading: false});
-    };
-
     };
 
 
