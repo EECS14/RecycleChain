@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/auctions/viewauctions": "pages/auctions/viewauctions.js",
-  "/auctions/startAuction": "pages/auctions/startAuction.js"
+  "/auctions/viewbales": "pages/auctions/viewbales.js",
+  "/auctions/joinAuction": "pages/auctions/joinAuction.js",
+  "/": "pages/index.js"
 }

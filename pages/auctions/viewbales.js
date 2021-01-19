@@ -49,7 +49,7 @@ class viewbales extends Component {
 
     renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description: <a>Auction Bale</a>, fluid: true, meta: this.state.productionTime };
+            const items = { header: this.state.plasticBaleAddr, description: <a>Auction Bale</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
             return { cards: [...prevState.cards, items] };
         });
 
@@ -65,6 +65,7 @@ class viewbales extends Component {
                 />
 
                 <h1>Plastic Bales produced at Your Facility</h1>
+                <Card.Group>
                 {this.state.cards.map(items => (
                     <Link route={`/auctions/viewbales/${items.header}`}>
                         <Card header={items.header}
@@ -73,6 +74,7 @@ class viewbales extends Component {
                             fluid={items.fluid} />
                     </Link>
                 ))}
+                      </Card.Group>
 
 
             </div>

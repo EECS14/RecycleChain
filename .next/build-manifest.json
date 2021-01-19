@@ -14,6 +14,11 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
+    "/": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/index.js"
+    ],
     "/_app": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
@@ -24,15 +29,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auctions/startAuction": [
+    "/auctions/joinAuction": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/startAuction.js"
+      "static/chunks/pages/auctions/joinAuction.js"
     ],
-    "/auctions/viewauctions": [
+    "/auctions/viewbales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/viewauctions.js"
+      "static/chunks/pages/auctions/viewbales.js"
     ]
   },
   "ampFirstPages": []

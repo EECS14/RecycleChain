@@ -8,7 +8,8 @@ Documentation: https://github.com/fridays/next-routes
 const routes = require ('next-routes')();
 
 routes.add('/track/:address', 'track/show')
-.add('/auctions/viewbales/:address','auctions/startAuction');
+.add('/auctions/viewbales/:address','auctions/startAuction')
+.add('/auctions/viewauctions/:address','auctions/joinAuction');
 
 module.exports = routes; 
 

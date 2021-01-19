@@ -62,9 +62,11 @@ class viewauctions extends Component {
 
 
     renderAuctions = () => {
+        // Add more information here like the seller name 
         this.setState((prevState) => {
-            let items = { header: this.state.auctionAddr, description: <a>Join Auction</a>, fluid: true, meta: this.state.closingTime, extra: this.state.startingPrice};
+            let items = { header: this.state.auctionAddr, description: <a>Join Auction</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Wei` };
             return { cards: [...prevState.cards, items] };
+
         });
 
     };
@@ -80,10 +82,10 @@ class viewauctions extends Component {
                 />
 
                 <h1>Open Auctions</h1>
-                
+                <Card.Group>
                 {this.state.cards.map(items => (
-                    <Link route={`/auctions/viewbales/${items.header}`}>
-
+                    <Link route={`/auctions/viewauctions/${items.header}`}>
+                        
                        <Card header={items.header}
                             stackable='true'
                             meta={items.meta}
@@ -92,7 +94,7 @@ class viewauctions extends Component {
                             fluid = {items.fluid } />
 
                     </Link>
-        )) }
+        )) }      </Card.Group>
        
                 
             </div>
