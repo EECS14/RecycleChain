@@ -4,7 +4,7 @@ import { Link } from '../routes';
 
 export default () => {
     return (
-        <Menu>
+        <Menu widths={7}>
             <Link route='/'>
                 <a className='item'>About</a>
             </Link>
