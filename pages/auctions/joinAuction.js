@@ -10,9 +10,13 @@ class joinAuction extends Component {
             join: false,
             registrationSCAddr: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
             errorMessage: '',
-            hasNoError: false,
-            loading: false
+            loading: false,
+            totalBidders: 0,
+            highestBid: 0,
+            highestBidder:''
         };
+
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
 
 
@@ -25,13 +29,54 @@ class joinAuction extends Component {
 
     componentDidMount = async () => {
 
+        const accounts = await web3.eth.getAccounts();
+        const plasticBaleSC = plasticBaleContract(this.props.address); 
 
+        var biddersnumber = 0; 
+        var highestbid =0;
+        var highestbidder=''; 
+
+        plasticBaleSC.getPastEvents("allEvents",{fromBlock: 0, toBlock:'latest'},(error, events)=>{
+            console.log(events);
+
+            const myfunction = (item) => {
+
+                if(item.event==='bidderRegistered'){
+                    //console.log(item);
+                    biddersnumber++; 
+                    //console.log(biddersnumber);
+                    
+                }else if(item.event==='auctionStarted'){
+                    highestbid = item.returnValues['startingAmount']; 
+
+                }else if (item.event==='bidderExited'){
+                    //console.log(item);
+                    biddersnumber--;
+
+                }else if(item.event==='bidPlaced'){
+                    highestbid = item.returnValues['amount']; 
+                    highestbidder = item.returnValues['bidderAddress'];
+
+                }
+
+            };
+
+            events.forEach(myfunction);
+
+            this.setState({totalBidders: biddersnumber,
+                 highestBid: highestbid});
+           
+
+    });
+
+   
     };
-
 
     onJoinAuction = async (event) => {
         event.preventDefault();
         const accounts = await web3.eth.getAccounts();
+
+        this.setState({loading: true, errorMessage: ''});
 
         try {
             const plasticBaleSC = plasticBaleContract(this.props.address); 
@@ -42,12 +87,12 @@ class joinAuction extends Component {
 
         } catch (err) {
             this.setState({ errorMessage: err.message });
-            this.setState({ hasError: false });
+            
         }
 
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage){
-            this.setState({ hasNoError: true, join:true }); 
+            this.setState({ join: true }); 
         }
 
             this.setState({loading: false});
@@ -58,6 +103,12 @@ class joinAuction extends Component {
     onExitAuction = async () => {
 
 
+    };
+
+
+    findHighestBidder = async () =>{
+
+        
     };
 
 
@@ -81,7 +132,7 @@ class joinAuction extends Component {
                     <Statistic.Group widths='four'>
                         <Statistic>
                             <Statistic.Value text>
-                                22
+                                {this.state.highestBid}
                             <br/>
                             Wei
                             </Statistic.Value>
@@ -90,10 +141,19 @@ class joinAuction extends Component {
 
                         <Statistic>
                             <Statistic.Value>
-                                <Icon name='users' /> 10
+                                <Icon name='users' /> {this.state.totalBidders}
                       </Statistic.Value>
-                            <Statistic.Label>Bidders</Statistic.Label>
+                            <Statistic.Label>Total Bidders</Statistic.Label>
                         </Statistic>
+
+                        <Statistic>
+                            <Statistic.Value>
+                                <Icon name='user' /> {this.state.highestBidder}
+                      </Statistic.Value>
+                            <Statistic.Label>Highest Bidder</Statistic.Label>
+                        </Statistic>
+
+
                     </Statistic.Group>
 
                 </div>
@@ -104,6 +164,7 @@ class joinAuction extends Component {
           <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
                 
             {join && ( 
+
                 <div className='auctionInput'>
                 <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>
 
