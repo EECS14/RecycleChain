@@ -21,6 +21,7 @@ class startAuction extends Component {
             highestBid: 0,
             highestBidder: 'No bids placed',
             highestBidderAddress: '',
+            notOver: true
 
         };
 
@@ -53,6 +54,7 @@ class startAuction extends Component {
         var isOpen = false;
         var biddersnumber = 0;
         var highestbid = 0;
+        var closingTime=0;
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
             console.log(events);
@@ -62,6 +64,9 @@ class startAuction extends Component {
                 if (item.event === 'auctionStarted' && this.props.address === item.returnValues['baleAddress']) {
                     isOpen = true;
                     highestbid = item.returnValues['startingAmount'];
+                    closingTime = item.returnValues['closingTime'];
+                    console.log(closingTime);
+
                 } else if (item.event === 'bidderRegistered') {
                     biddersnumber++;
 
@@ -84,8 +89,17 @@ class startAuction extends Component {
                 highestBid: highestbid
             });
 
-
         });
+
+        const currentTime = Math.ceil(new Date().getTime()/1000); 
+        console.log(currentTime); 
+        if(closingTime < currentTime){
+            this.endAuction();
+        }
+        
+
+
+
 
     };
 
@@ -126,7 +140,8 @@ class startAuction extends Component {
             const accounts = await web3.eth.getAccounts();
             //Create new instance of plastic bale SC that has been deployed 
             const plasticBaleSC = plasticBaleContract(this.props.address);
-            await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice).send({ from: accounts[0] });
+            await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
+            .send({ from: accounts[0] });
         } catch (err) {
             this.setState({ errorMessage: err.message });
             this.setState({ hasError: false });
@@ -141,10 +156,27 @@ class startAuction extends Component {
     };
 
 
+    endAuction = async () => {
+
+        try{ 
+
+        const accounts = await web3.eth.getAccounts();
+            //Create new instance of plastic bale SC that has been deployed 
+            const plasticBaleSC = plasticBaleContract(this.props.address);
+            await plasticBaleSC.methods.endAuction().send({ from: accounts[0] });
+
+            this.setState({notOver: false});
+        } catch (err){
+            // REVERT REASON IS ALMOST SHOWN HERE
+            console.log(err);
+        }
+    };
+
+
 
     render() {
 
-        const { open } = this.state;
+        const { open, notOver } = this.state;
 
         return (
             <Layout>
@@ -152,7 +184,7 @@ class startAuction extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
-                { open && (
+                { open && notOver && (
 
                     <div className='statistic'>
 
