@@ -151,7 +151,32 @@ class joinAuction extends Component {
     };
 
 
-    onExitAuction = async () => {
+    onExitAuction = async (event) => {
+
+        event.preventDefault();
+
+        this.setState({ loading3: true, errorMessage: '' });
+
+        try {
+            const accounts = await web3.eth.getAccounts();
+            const plasticBaleSC = plasticBaleContract(this.props.address);
+            await plasticBaleSC.methods
+                .exitAuction(this.state.registrationSCAddr)
+                .send({ from: accounts[0]});
+
+                this.setState({join: false});
+        }
+        catch (err) {
+            this.setState({ errorMessage: err.message });
+
+        }
+
+        // if errorMsg is empty, registration is successful
+        if (!this.state.errorMessage) 
+            this.setState({ hasNoError: true });
+        
+
+        this.setState({ loading3: false });
 
 
     };
@@ -193,10 +218,9 @@ class joinAuction extends Component {
 
                         <br />
 
-                        <Statistic  >
+                        <Statistic>
                             <Statistic.Value text>
-                                <Icon name='user' />
-                                {this.state.highestBidder}
+                                <Icon name='user' /> {this.state.highestBidder}
                                 {/*this.state.highestBidderAddress*/}
                             </Statistic.Value>
                             <Statistic.Label>Highest Bidder</Statistic.Label>
@@ -212,7 +236,7 @@ class joinAuction extends Component {
 
                 <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
 
-                {/*  {join && ( */}
+                {join && ( 
 
                 <div className='auctionInput'>
                     <Form onSubmit={this.onPlaceBid} error={!!this.state.errorMessage} success={this.state.hasNoError}>
@@ -237,9 +261,9 @@ class joinAuction extends Component {
                     <br />
 
                     <p> You can only exit the auction if no bids were placed!</p>
-                    <Button loading={this.state.loading} onClick={this.onExitAuction}>Exit Auction </Button>
+                    <Button loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
                 </div>
-                {/*)}*/}
+                )}
 
             </div>
         );
