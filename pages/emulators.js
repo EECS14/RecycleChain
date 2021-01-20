@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking';
+import Layout from '../components/Layout';
 
 class index extends Component {
     constructor(props) {
@@ -95,7 +96,7 @@ class index extends Component {
         const { productionMachine, sortingMachine, qr } = this.state
 
         return (
-            <div>
+            <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
@@ -155,7 +156,7 @@ class index extends Component {
                 )}
 
 
-            </div>
+            </Layout>
 
                 );
     }

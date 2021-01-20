@@ -11,6 +11,7 @@ const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking'; 
 import {Link} from '../routes'; 
+import Layout from '../components/Layout';
 
 class recyclerPage extends Component {
 
@@ -122,7 +123,7 @@ class recyclerPage extends Component {
         const { qr, rows } = this.state
 
         return (
-            <div>
+            <Layout>
                 <h1>Welcome to Recycler's Page</h1>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
@@ -176,7 +177,7 @@ class recyclerPage extends Component {
                 </div>
 
 
-            </div>
+            </Layout>
 
         );
     }

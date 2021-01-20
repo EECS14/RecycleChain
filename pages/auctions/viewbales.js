@@ -3,6 +3,7 @@ import { Card } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import { Link } from '../../routes';
+import Layout from '../../components/Layout';
 
 
 class viewbales extends Component {
@@ -57,7 +58,7 @@ class viewbales extends Component {
     render() {
 
         return (
-            <div>
+            <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
@@ -75,7 +76,7 @@ class viewbales extends Component {
                       </Card.Group>
 
 
-            </div>
+            </Layout>
         );
     }
 

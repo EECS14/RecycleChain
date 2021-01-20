@@ -4,6 +4,7 @@ import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import plasticBaleContract from '../../ethereum/plasticBale';
 import { Link } from '../../routes';
+import Layout from '../../components/Layout';
 
 class viewauctions extends Component {
 
@@ -76,7 +77,7 @@ class viewauctions extends Component {
     render() {
 
         return (
-            <div>
+            <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
@@ -100,7 +101,7 @@ class viewauctions extends Component {
         )) }      </Card.Group>
        
                 
-            </div>
+            </Layout>
         );
     }
 

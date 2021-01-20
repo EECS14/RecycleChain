@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import {Link} from '../routes';
+import Layout from '../components/Layout';
 
 class auctions extends Component {
 
@@ -9,7 +10,7 @@ class auctions extends Component {
     render() {
 
         return (
-            <div>
+            <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
@@ -28,7 +29,7 @@ class auctions extends Component {
                     </a>
                     </Link>
                 </Button.Group>
-            </div>
+            </Layout>
         );
     }
 
