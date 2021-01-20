@@ -40,7 +40,7 @@ class joinAuction extends Component {
 
         var biddersnumber = 0;
         var highestbid = 0;
-        var highestbidder = '';
+       
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
             console.log(events);

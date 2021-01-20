@@ -27,7 +27,6 @@ class viewbales extends Component {
         }, function (error, event) {
             /*Debugging 
             console.log(event); */
-
             //1. Fetch data from event 
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toString(); 
@@ -35,6 +34,7 @@ class viewbales extends Component {
                 plasticBaleAddr: event.returnValues['plasticbale'],
                 productionTime: date
             });
+
             //2. Render bale info to the page 
             this.renderBales();
             
@@ -50,7 +50,7 @@ class viewbales extends Component {
 
     renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description: <a>Auction Bale</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
+            const items = { header: this.state.plasticBaleAddr, description: <a>Bale Details</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
             return { cards: [...prevState.cards, items] };
         });
     }
