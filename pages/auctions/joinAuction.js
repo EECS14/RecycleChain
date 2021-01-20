@@ -3,6 +3,7 @@ import { Form, Button, Input, Message, Icon, Image, Statistic } from 'semantic-u
 import web3 from '../../ethereum/web3';
 import plasticBaleContract from '../../ethereum/plasticBale';
 import registerContract from '../../ethereum/register';
+import Layout from '../../components/Layout';
 
 class joinAuction extends Component {
     constructor(props) {
@@ -187,7 +188,7 @@ class joinAuction extends Component {
         const { join } = this.state;
 
         return (
-            <div>
+            <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
@@ -265,7 +266,7 @@ class joinAuction extends Component {
                 </div>
                 )}
 
-            </div>
+             </Layout>
         );
     }
 
