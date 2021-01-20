@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import registerContract from '../ethereum/register'; // import SC instance
+import Layout from '../components/Layout';
 
 class registrationPage extends Component {
 
@@ -165,7 +166,7 @@ class registrationPage extends Component {
 
         return (
 
-
+            <Layout>
             <div className="Selection ">
                 <h1>Welcome to Registration Page</h1>
                 <link rel="stylesheet"
@@ -285,6 +286,7 @@ class registrationPage extends Component {
 
 
             </div>
+            </Layout>
         );
     }
 

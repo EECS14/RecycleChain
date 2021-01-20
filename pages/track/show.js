@@ -3,6 +3,7 @@ import { Icon, Step } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import registerContract from '../../ethereum/register';
+import Layout from '../../components/Layout';
 
 class show extends Component {
 
@@ -107,7 +108,7 @@ class show extends Component {
         const { disposeDate } = this.state;
 
         return (
-            <div>
+            <Layout>
 
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
@@ -148,7 +149,7 @@ class show extends Component {
                     </Step>
                 </Step.Group>
 
-            </div>
+            </Layout>
 
         );
     }

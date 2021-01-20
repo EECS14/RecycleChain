@@ -4,35 +4,33 @@ import { Menu } from 'semantic-ui-react';
 export default () => {
     return (
         <Menu>
-            <Menu.Item>
-                About
-            </Menu.Item>
+            <Link route='/'>
+                <a className='item'>About</a>
+            </Link>
 
-            <Menu.Item>
-                Government Entity
-            </Menu.Item>
+            <Link route='/registration'>
+                <a className='item'>Government Entity</a>
+            </Link>
 
-            <Menu.Item>
-                Production Line Machine
-            </Menu.Item>
+            <Link route='/productionline'>
+                <a className='item'>Production Line Machine</a>
+            </Link>
 
-            <Menu.Item>
-                Sorting Machine
-            </Menu.Item>
+            <Link route='/sortingmachine'>
+                <a className='item'>Sorting Machine</a>
+            </Link>
 
-            <Menu.Item>
-                Recycler
-            </Menu.Item>
+            <Link route='/recycler'>
+                <a className='item'>Recycler</a>
+            </Link>
 
-            <Menu.Item>
-                Seller
-            </Menu.Item>
+            <Link route='/auctions/viewbales'>
+                <a className='item'>Seller</a>
+            </Link>
 
-            <Menu.Item>
-                Buyer
-            </Menu.Item>
-
-
+            <Link route='/auctions/viewauctions'>
+                <a className='item'>Buyer</a>
+            </Link>
         </Menu>
     );
 }
