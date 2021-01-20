@@ -77,6 +77,7 @@ class startAuction extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
+
                 <h1>Set Bale's Auction Parameters: </h1>
 
                 <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>

@@ -7,6 +7,7 @@ interface RegisterSC{
 
 contract BottleProduction {
     //state variables - stored permanently in contract storage 
+    address public bottleAddress;
     
     // manufacturing entity - manufacturer 
     address public manufacturingEntity; 
@@ -51,6 +52,9 @@ contract BottleProduction {
         // gets generated address for bottle
         address addr = generateUniqueBottleAddress(ManufacturerID, bottlePlasticType, bottleColor, bottleSize);
         
+        //saves address as a state variable to retrieve later
+        bottleAddress = addr;
+        
         registeredBottles[addr] = PlasticBottle(addr, ManufacturerID, bottlePlasticType, bottleColor, bottleSize);
         
         emit botteIsRegistered(addr, ManufacturerID, bottlePlasticType, bottleColor, bottleSize, now);
@@ -74,6 +78,9 @@ contract BottleProduction {
         addr += secondMSByte * ( 16 ** ((18)*2));
         
         return address(addr);
-     
+    }
+    
+    function getBottleAddress() public view returns (address){
+        return bottleAddress; 
     }
 } 

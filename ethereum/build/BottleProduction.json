@@ -2,20 +2,6 @@
   "contractName": "BottleProduction",
   "abi": [
     {
-      "constant": true,
-      "inputs": [],
-      "name": "manufacturingEntity",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -26,31 +12,37 @@
       "inputs": [
         {
           "indexed": false,
+          "internalType": "address",
           "name": "plasticBottleAddress",
           "type": "address"
         },
         {
           "indexed": false,
+          "internalType": "uint256",
           "name": "ManufacturerID",
           "type": "uint256"
         },
         {
           "indexed": false,
+          "internalType": "uint256",
           "name": "bottlePlasticType",
           "type": "uint256"
         },
         {
           "indexed": false,
+          "internalType": "uint256",
           "name": "bottleColor",
           "type": "uint256"
         },
         {
           "indexed": false,
+          "internalType": "uint256",
           "name": "bottleSize",
           "type": "uint256"
         },
         {
           "indexed": false,
+          "internalType": "uint256",
           "name": "time",
           "type": "uint256"
         }
@@ -59,21 +51,70 @@
       "type": "event"
     },
     {
+      "constant": true,
+      "inputs": [],
+      "name": "bottleAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getBottleAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "manufacturingEntity",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
+          "internalType": "address",
           "name": "registerContractAddr",
           "type": "address"
         },
         {
+          "internalType": "uint256",
           "name": "bottlePlasticType",
           "type": "uint256"
         },
         {
+          "internalType": "uint256",
           "name": "bottleColor",
           "type": "uint256"
         },
         {
+          "internalType": "uint256",
           "name": "bottleSize",
           "type": "uint256"
         }
