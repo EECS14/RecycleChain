@@ -21,7 +21,8 @@ class startAuction extends Component {
             highestBid: 0,
             highestBidder: 'No bids placed',
             highestBidderAddress: '',
-            notOver: true
+            notOver: true,
+            loading: false
 
         };
 
@@ -92,18 +93,14 @@ class startAuction extends Component {
 
         });
 
+        /*
         const currentTime = Math.ceil(new Date().getTime() / 1000);
         console.log(currentTime);
         if (closingTime < currentTime) {
             this.endAuction();
-        }
-
-
-
-
+        } */
 
     };
-
 
 
     findHighestBidder = async (address) => {
@@ -141,7 +138,7 @@ class startAuction extends Component {
             const plasticBaleSC = plasticBaleContract(this.props.address);
             await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
                 .send({ from: accounts[0] });
-                this.setState({open: true});
+            this.setState({ open: true });
         } catch (err) {
             this.setState({ errorMessage: err.message });
             this.setState({ hasError: false });
@@ -156,14 +153,15 @@ class startAuction extends Component {
     };
 
 
-    endAuction = async () => {
+    onEndAuction = async (event) => {
 
-        const accounts = await web3.eth.getAccounts();
-        //Create new instance of plastic bale SC that has been deployed 
-        const plasticBaleSC = plasticBaleContract(this.props.address);
+        event.preventDefault();
+
+        this.setState({ loading: true });
 
         try {
-
+            const accounts = await web3.eth.getAccounts();
+            const plasticBaleSC = plasticBaleContract(this.props.address);
             await plasticBaleSC.methods.endAuction().call();
             this.setState({ notOver: false });
 
@@ -171,6 +169,8 @@ class startAuction extends Component {
             // REVERT REASON IS ALMOST SHOWN HERE
             console.log(err);
         }
+
+        this.setState({ loading: false });
     };
 
 
@@ -229,6 +229,11 @@ class startAuction extends Component {
 
                 )}
 
+
+                <br />
+                <br />
+
+                <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
 
 
                 { !open && (

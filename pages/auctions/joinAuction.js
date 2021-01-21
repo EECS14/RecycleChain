@@ -40,6 +40,7 @@ class joinAuction extends Component {
 
         var biddersnumber = 0;
         var highestbid = 0;
+        var isJoin = false; 
        
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
@@ -48,9 +49,9 @@ class joinAuction extends Component {
             const myfunction = (item) => {
 
                 if (item.event === 'bidderRegistered') {
-                    //console.log(item);
                     biddersnumber++;
-                    //console.log(biddersnumber);
+                    item.returnValues['bidderAddress'] === accounts[0]? isJoin = true : null; 
+                   
 
                 } else if (item.event === 'auctionStarted') {
                     highestbid = item.returnValues['startingAmount'];
@@ -72,7 +73,8 @@ class joinAuction extends Component {
 
             this.setState({
                 totalBidders: biddersnumber,
-                highestBid: highestbid
+                highestBid: highestbid,
+                join: isJoin
             });
 
 

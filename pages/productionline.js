@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Button, Message, Form, Dropdown} from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import bottleContract from '../ethereum/bottleProduction';
-import QrCode from 'react.qrcode.generator'
+import dynamic from 'next/dynamic';
+const QrCode  = dynamic(() => import('react.qrcode.generator'), { ssr: false });
+import Layout from '../components/Layout';
 
 //Dropdownmenu selections
 const bottleTypesOptions = [
@@ -86,7 +88,7 @@ class manufacturingMachinePage extends Component {
         const { value } = this.state
 
         return(
-            <div> 
+            <Layout>
                 <h2>Bottle Production Page</h2>
                 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css" />
                 <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage} success={this.state.hasNoError}>
@@ -132,7 +134,7 @@ class manufacturingMachinePage extends Component {
                 <Form onSubmit={this.onGenerate}>
                     <Button type='submit'>Generate QR Code</Button>
                 </Form>
-            </div>
+            </Layout>
         );
     }
 }

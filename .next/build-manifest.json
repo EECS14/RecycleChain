@@ -24,15 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auctions/startAuction": [
+    "/productionline": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/startAuction.js"
-    ],
-    "/recycler": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/recycler.js"
+      "static/chunks/pages/productionline.js"
     ]
   },
   "ampFirstPages": []
