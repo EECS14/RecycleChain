@@ -1,15 +1,19 @@
 pragma solidity ^0.5.0; 
 
- interface RegisterSC{
-         function isBuyerExist(address addr) external view returns (bool); 
-    }
 
+ interface RegisterSC{
+      
+        function isBuyerExist(address addr) external view returns (bool); 
+    }
+    
 contract PlasticBale{
     
 
     address[] public plasticBale; 
     address payable[] public contributors; 
-  
+     address payable[] public tempArray; 
+     uint public contribution;  //Added here
+   
  // Bid variables 
       bool public isOpen; 
       uint public highestBid; 
@@ -77,6 +81,7 @@ contract PlasticBale{
         
         require( closingTime > now, "Auction time can only be set in future.");
         
+       
     
         // address(0) is 0X00.. which is the genusis block 
         isOpen = true; 
@@ -102,7 +107,7 @@ contract PlasticBale{
         //Validating the amount of wei sent with the transaction 
         require(msg.value == amount, "Insufficient Deposit."); 
         
-        bidder[msg.sender].placedBids++;
+        bidder[msg.sender].placedBids++; //STOPPED HERE WHEN CHECKING 
         bidder[msg.sender].deposit += msg.value; 
         
         highestBid = amount; 
@@ -136,24 +141,35 @@ contract PlasticBale{
         (auctionOwner).transfer(halfAmount); 
         
         //Calculate each participants' share & reward recyclers 
-        
-        address payable[] memory tempArray = contributors; 
-        uint contribution = 0; 
+
         uint contributionRate =0; 
         uint reward; 
         
+        //1. Filter unique recyclers from contributors array 
+        
+        for(uint i=0; i < contributors.length; i++){
+                uint j;
+             for(j=0; j < i; j++)
+                  if(contributors[i] == contributors[j])
+                      break;
+                if(i==j)
+                tempArray.push(contributors[i]);
+              }
+        
+        //2. Find number of contribution 
+
         for(uint i=0; i < tempArray.length; i++){
-             for(uint j=0; j < contributors.length; j++){
-                  if(tempArray[i] == contributors[j]){
+            contribution=0;
+             for(uint z=0; z < contributors.length; z++){
+                  if(tempArray[i] == contributors[z])
                       contribution++;
-                  }
              }
-             
+             contribution = contribution *100; 
              contributionRate = contribution / (plasticBale.length);
-             reward = contributionRate * halfAmount; 
+             reward = ((contributionRate * halfAmount)/ 100)+1;
              tempArray[i].transfer(reward); 
              rewardRecycler(tempArray[i], reward); 
-            // updateBottleStatus(highestBidder, tempArray[i]); 
+    
         }
           
           
@@ -185,7 +201,3 @@ contract PlasticBale{
     }
     
 }
-
-
-
-
