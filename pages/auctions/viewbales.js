@@ -25,8 +25,8 @@ class viewbales extends Component {
         trackingContract.events.plasticBaleCompleted({
             filter: { sellerAddress: accounts[0] }, fromBlock: 0
         }, function (error, event) {
-            /*Debugging 
-            console.log(event); */
+            //Debugging 
+            console.log(event); 
             //1. Fetch data from event 
             var time = new Date(event.returnValues['time'] * 1000);
             var date = time.toString(); 

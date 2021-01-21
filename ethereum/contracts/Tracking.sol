@@ -27,7 +27,7 @@ contract Tracking{
     
     //events
     event updateStatusRecycler(address indexed recycler, address indexed plasticBottleAddress, string  status, uint  time);
-     event updateStatusMachine(address indexed plasticBottleAddress, address indexed sellerAddress, string  status, uint time); 
+    event updateStatusMachine(address indexed plasticBottleAddress, address indexed sellerAddress, string  status, uint time); 
     event plasticBaleCompleted(address [] plasticBale, address payable [] plasticBaleContributorsAddresses,  address indexed sellerAddress, PlasticBale plasticbale, uint256 bottlesInBaleNo,  uint time ); 
     
     

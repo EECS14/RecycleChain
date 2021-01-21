@@ -50,11 +50,12 @@ class startAuction extends Component {
 
         const accounts = await web3.eth.getAccounts();
         const plasticBaleSC = plasticBaleContract(this.props.address);
+        //console.log(this.props.address);
 
         var isOpen = false;
         var biddersnumber = 0;
         var highestbid = 0;
-        var closingTime=0;
+        var closingTime = 0;
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
             console.log(events);
@@ -91,12 +92,12 @@ class startAuction extends Component {
 
         });
 
-        const currentTime = Math.ceil(new Date().getTime()/1000); 
-        console.log(currentTime); 
-        if(closingTime < currentTime){
+        const currentTime = Math.ceil(new Date().getTime() / 1000);
+        console.log(currentTime);
+        if (closingTime < currentTime) {
             this.endAuction();
         }
-        
+
 
 
 
@@ -136,12 +137,11 @@ class startAuction extends Component {
 
 
         try {
-
             const accounts = await web3.eth.getAccounts();
-            //Create new instance of plastic bale SC that has been deployed 
             const plasticBaleSC = plasticBaleContract(this.props.address);
             await plasticBaleSC.methods.startAuction(closingTime, this.state.startingPrice)
-            .send({ from: accounts[0] });
+                .send({ from: accounts[0] });
+                this.setState({open: true});
         } catch (err) {
             this.setState({ errorMessage: err.message });
             this.setState({ hasError: false });
@@ -158,15 +158,16 @@ class startAuction extends Component {
 
     endAuction = async () => {
 
-        try{ 
-
         const accounts = await web3.eth.getAccounts();
-            //Create new instance of plastic bale SC that has been deployed 
-            const plasticBaleSC = plasticBaleContract(this.props.address);
-            await plasticBaleSC.methods.endAuction().send({ from: accounts[0] });
+        //Create new instance of plastic bale SC that has been deployed 
+        const plasticBaleSC = plasticBaleContract(this.props.address);
 
-            this.setState({notOver: false});
-        } catch (err){
+        try {
+
+            await plasticBaleSC.methods.endAuction().call();
+            this.setState({ notOver: false });
+
+        } catch (err) {
             // REVERT REASON IS ALMOST SHOWN HERE
             console.log(err);
         }
