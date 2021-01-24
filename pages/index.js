@@ -27,6 +27,21 @@ export default class index extends Component {
                     <link rel="stylesheet"
                         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                     />
+                    <style jsx>{`
+                           
+          @media (max-width: 600px) {
+           div {
+              }
+        }
+      `}</style>
+
+                <style global jsx>{`
+
+            body {
+             background: yellow;
+                 }
+
+                `}</style>
 
                     <Menu text>
                         <Menu.Item
@@ -56,7 +71,7 @@ export default class index extends Component {
 
                     {(activeItem === 'about') && (
                         <div>
-                            <div className="about"> 
+                            <div className="about">
                                 <h1>Recycle Chain</h1>
                                 <p>Recycle Chain is a system that digitizes recycleable plastic waste to provide transparency of post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. It rewards users with Ether for participating in environment friendly practices such as recycling.</p>
                             </div>
