@@ -183,7 +183,9 @@ class registrationPage extends Component {
 
                 {selectManufacturer && (
 
-                    
+                    <div style={{ 'justify-content': 'center', 'align-items': 'center', 
+                    }} >
+
                         <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                             <Form.Field width={6}>
                                 <label>Manufacturer Name</label>
@@ -210,7 +212,7 @@ class registrationPage extends Component {
 
                             <Button loading={this.state.loading} type='submit'>Register</Button>
                         </Form>
-
+                        </div>
 
                 )}
 
