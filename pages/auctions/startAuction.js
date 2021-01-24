@@ -162,7 +162,7 @@ class startAuction extends Component {
         try {
             const accounts = await web3.eth.getAccounts();
             const plasticBaleSC = plasticBaleContract(this.props.address);
-            await plasticBaleSC.methods.endAuction().call();
+            await plasticBaleSC.methods.endAuction().send({ from: accounts[0] });
             this.setState({ notOver: false });
 
         } catch (err) {
