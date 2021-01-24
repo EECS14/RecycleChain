@@ -24,15 +24,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/registration": [
+    "/auctions/viewbales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/registration.js"
+      "static/chunks/pages/auctions/viewbales.js"
     ],
-    "/sortingmachine": [
+    "/recycler": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/sortingmachine.js"
+      "static/chunks/pages/recycler.js"
     ]
   },
   "ampFirstPages": []
