@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 export default (props) => {
     return (
-        <Container>
+        <Container style={{  'min-height': '100vh', 'position': 'relative' }}>
             <Header />
             {props.children}
             <Footer />

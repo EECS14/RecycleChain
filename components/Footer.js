@@ -3,9 +3,9 @@ import { Grid, Icon } from 'semantic-ui-react';
 
 export default () => {
     return (
-        <div>
-            <h4>Contact US</h4>
-            <Grid columns={3} divided>
+        <div style={{ 'position' : 'absolute', 'bottom' : '0'}}>
+            <h4>Contact Us</h4>
+            <Grid container columns={3} divided>
                 <Grid.Row>
                 <Grid.Column>
                     <Icon circular inverted name='pin' floated='left' />
@@ -13,7 +13,8 @@ export default () => {
                 </Grid.Column>
                 <Grid.Column>
                     <Icon circular inverted name='mail' floated='left' />
-                    <p><strong>coe</strong>@ku.ac.ae</p>
+                    <p><strong>khaled.salah</strong>@ku.ac.ae</p>
+                    <p><strong>jamal.zemerly</strong>@ku.ac.ae</p>
                 </Grid.Column>
                 <Grid.Column>
                     <Icon circular inverted name='phone' floated='left' />

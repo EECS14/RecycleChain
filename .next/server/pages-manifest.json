@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/auctions/startAuction": "pages/auctions/startAuction.js"
+  "/auctions/startAuction": "pages/auctions/startAuction.js",
+  "/": "pages/index.js",
+  "/registration": "pages/registration.js"
 }
