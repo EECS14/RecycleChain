@@ -28,6 +28,31 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/auctions/viewbales": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/auctions/viewbales.js"
+    ],
+    "/productionline": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/productionline.js"
+    ],
+    "/recycler": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/recycler.js"
+    ],
+    "/registration": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/registration.js"
+    ],
+    "/sortingmachine": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/sortingmachine.js"
     ]
   },
   "ampFirstPages": []

@@ -15,7 +15,7 @@ class registrationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectManufacturer: false,
+            selectManufacturer: true,
             selectSortingFacility: false,
             selectBuyer: false,
             manufacturerName: '',
