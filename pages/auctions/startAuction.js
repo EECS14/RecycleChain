@@ -190,8 +190,9 @@ class startAuction extends Component {
                     <div className='statistic'>
 
                         <h1>Live Auction</h1>
-                        <h2> Plastic Bale being auctioned: {this.props.address} </h2>
+                        <h2> Plastic Bale being auctioned: <br/> <br/> {this.props.address} </h2>
                         <br />
+                        <br/> 
 
                         <div className='AuctionContainer'>
 
@@ -232,7 +233,7 @@ class startAuction extends Component {
 
                 <br />
                 <br />
-
+                 <br/> 
                 <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
 
 
