@@ -38,7 +38,7 @@ export default class index extends Component {
                 <style global jsx>{`
 
             body {
-             background: yellow;
+             background: black;
                  }
 
                 `}</style>
