@@ -65,8 +65,10 @@ export default class index extends Component {
                     {(activeItem === 'about') && (
                         <div>
                             <div className="about">
+                                <img src="../images/recycle.svg" alt="recycle"/>
                                 <h1>RecycleChain</h1>
-                                <p>Recycle Chain is a system that digitizes recycleable plastic waste to provide transparency of post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. It rewards recyclers with Ether for participating in environment friendly practices.</p>
+                                <p>Recycle Chain is a system that tokenizes recycleable plastic waste to provide transparent post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. Recyclers who participate in recycling are rewarded with Ether!
+                                </p>
                             </div>
 
                         </div>
@@ -76,23 +78,31 @@ export default class index extends Component {
                         <div className="features">
                             <div className="feature">
                                 <h4>Transparent Transactions</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor.</p>
+                                <p>Transaction performed by the system can  be viewed publicly on Etherscan</p>
                             </div>
+
+                            <br/>
 
                             <div className="feature">
                                 <h4>Cryptographically Protected</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor.</p>
+                                <p>Transactions are digitally signed by users  private key</p>
                             </div>
+
+                            <br/>
 
                             <div className="feature">
                                 <h4>No Deletion or Alteration</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor.</p>
+                                <p>System records are stored on Ethereum Blockchain</p>
                             </div>
+
+                            <br/>
 
                             <div className="feature">
                                 <h4>Distributed Control</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis pellentesque metus id lacinia. Nunc dapibus pulvinar auctor.</p>
+                                <p>System is hosted on a private Ethereum Network encompassed on stakeholder nodes.</p>
                             </div>
+
+                            <br/>
 
                             {/* insert img */}
 

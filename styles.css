@@ -2,6 +2,9 @@
 html, body {
     background-color: #80b793f4 !important;
   }
+div{
+  font-family: "Times New Roman", Times, serif;
+}
 
 
 /*Index Page CSS*/
@@ -10,10 +13,11 @@ html, body {
 }
 .about h1{
     text-align: center;
+
 }
   .about p{
     align-content: center;
-    background-color: #fefefe3e;
+    background-color: #fefefe18;
     color: rgb(6, 6, 6);
     display: flex;
     flex-direction: column;
@@ -21,3 +25,26 @@ html, body {
     min-height: 6em;
     padding-left: 20px;
   }
+
+  .feature p{
+    align-content: center;
+    background-color: #fefefe18;
+    color: rgb(6, 6, 6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 3em;
+    padding-left: 20px;
+  }
+
+  /*Registration Page CSS*/
+
+  .Registration h1 {
+    text-align: center;
+  }
+
+  .Registration div {
+    text-align: center;
+  }
+
+ 

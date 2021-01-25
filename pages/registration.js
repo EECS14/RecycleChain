@@ -5,7 +5,7 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Menu, Form, Button, Input, Message } from 'semantic-ui-react';
+import { Menu, Form, Button, Input, Message, Container, Grid } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import registerContract from '../ethereum/register'; // import SC instance
 import Layout from '../components/Layout';
@@ -35,7 +35,7 @@ class registrationPage extends Component {
             errorMessage1: '',
             hasNoError1: false,
             errorMessage2: '',
-            hasNoError2: false, 
+            hasNoError2: false,
             loading: false
         };
     }
@@ -71,7 +71,7 @@ class registrationPage extends Component {
 
         const accounts = await web3.eth.getAccounts();
 
-        this.setState({loading: true, errorMessage: ''});
+        this.setState({ loading: true, errorMessage: '' });
 
         try {
 
@@ -87,7 +87,7 @@ class registrationPage extends Component {
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
 
-            this.setState({loading: false});
+        this.setState({ loading: false });
     };
 
 
@@ -95,10 +95,10 @@ class registrationPage extends Component {
     onRegisterBuyer = async (event) => {
 
         event.preventDefault();
-    
+
         const accounts = await web3.eth.getAccounts();
 
-        this.setState({loading: true, errorMessage1: ''});
+        this.setState({ loading: true, errorMessage1: '' });
 
         try {
             await registerContract.methods
@@ -113,7 +113,7 @@ class registrationPage extends Component {
         if (!this.state.errorMessage1)
             this.setState({ hasNoError1: true });
 
-            this.setState({loading: false});
+        this.setState({ loading: false });
     };
 
     //Register a sorting facility & interact with the register SC
@@ -123,7 +123,7 @@ class registrationPage extends Component {
 
         const accounts = await web3.eth.getAccounts();
 
-        this.setState({loading: true, errorMessage2: ''});
+        this.setState({ loading: true, errorMessage2: '' });
 
         try {
 
@@ -139,7 +139,7 @@ class registrationPage extends Component {
         if (!this.state.errorMessage2)
             this.setState({ hasNoError2: true });
 
-            this.setState({loading: false});
+        this.setState({ loading: false });
     };
 
 
@@ -167,128 +167,154 @@ class registrationPage extends Component {
         return (
 
             <Layout>
-            <div className="Selection ">
-                <h1>Welcome to Registration Page</h1>
-                <link rel="stylesheet"
-                    href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
-                />
-                <h2>Select a stakeholder to register:</h2>
-                <Menu widths={3}>
-                    <Menu.Item name='Manufacturer' onClick={() => this.setState({ selectManufacturer: true, selectSortingFacility: false, selectBuyer: false })} > Manufacturer</Menu.Item>
-                    <Menu.Item name='SortingFacility' onClick={() => this.setState({ selectSortingFacility: true, selectManufacturer: false, selectBuyer: false })} > Sorting Facility</Menu.Item>
-                    <Menu.Item name='Buyer' onClick={() => this.setState({ selectBuyer: true, selectSortingFacility: false, selectManufacturer: false })} > Buyer </Menu.Item>
-                </Menu>
+                <div className="Registration ">
+                    <h1>Welcome to Goverment Entity Page</h1>
+                    <link rel="stylesheet"
+                        href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+                    />
+                    <h2>Select a stakeholder to register:</h2>
+                    <Menu widths={3}>
+                        <Menu.Item name='Manufacturer' onClick={() => this.setState({ selectManufacturer: true, selectSortingFacility: false, selectBuyer: false })} > Manufacturer</Menu.Item>
+                        <Menu.Item name='SortingFacility' onClick={() => this.setState({ selectSortingFacility: true, selectManufacturer: false, selectBuyer: false })} > Sorting Facility</Menu.Item>
+                        <Menu.Item name='Buyer' onClick={() => this.setState({ selectBuyer: true, selectSortingFacility: false, selectManufacturer: false })} > Buyer </Menu.Item>
+                    </Menu>
 
 
 
-                {selectManufacturer && (
+                    {selectManufacturer && (
 
-                    <div style={{ 'justify-content': 'center', 'align-items': 'center', 
-                    }} >
+                        <div className='Manufactuerer' >
+                            <Container>
+                                <Grid>
+                                    <Grid.Row centered>
+                                        <Grid.Column width={6} textAlign="center">
+                                            <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+                                                <Form.Field>
+                                                    <label>Manufacturer Name</label>
+                                                    <Input value={this.state.manufacturerName}
+                                                        onChange={event => this.setState({ manufacturerName: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field>
+                                                    <label>Manufacturer Address</label>
+                                                    <Input value={this.state.manufacturerAddr}
+                                                        icon="ethereum"
+                                                        onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field>
+                                                    <label>Manufacturer Location</label>
+                                                    <Input value={this.state.manufacturerLocation}
+                                                        onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
+                                                </Form.Field>
 
-                        <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
-                            <Form.Field width={6}>
-                                <label>Manufacturer Name</label>
-                                <Input value={this.state.manufacturerName}
-                                    onChange={event => this.setState({ manufacturerName: event.target.value })} />
-                            </Form.Field>
-                            <Form.Field width={6}>
-                                <label>Manufacturer Address</label>
-                                <Input value={this.state.manufacturerAddr}
-                                    icon="ethereum"
-                                    onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
-                            </Form.Field>
-                            <Form.Field width={6}>
-                                <label>Manufacturer Location</label>
-                                <Input value={this.state.manufacturerLocation}
-                                    onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
-                            </Form.Field>
-
-                            <Message error header="Error!" content={this.state.errorMessage} />
+                                                <Message error header="Error!" content={this.state.errorMessage} />
 
 
-                            <Message success header="Success!" content="Manufactuerer registered successfully!" />
+                                                <Message success header="Success!" content="Manufactuerer registered successfully!" />
 
 
-                            <Button loading={this.state.loading} type='submit'>Register</Button>
-                        </Form>
+                                                <Button loading={this.state.loading} type='submit'>Register</Button>
+                                            </Form>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Container>
                         </div>
 
-                )}
+                    )}
 
-                {selectBuyer && (
-                    <Form onSubmit={this.onRegisterBuyer} error={!!this.state.errorMessage1} success={this.state.hasNoError1} >
-                        <Form.Field width={6}>
-                            <label>Buyer Name</label>
-                            <Input value={this.state.buyerName}
-                                onChange={event => this.setState({ buyerName: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Buyer Address</label>
-                            <Input value={this.state.buyerAddr}
-                                icon="ethereum"
-                                onChange={event => this.setState({ buyerAddr: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Buyer Business Type</label>
-                            <Input value={this.state.BuyerBusiness}
-                                onChange={event => this.setState({ buyerBusiness: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Buyer Location</label>
-                            <Input value={this.state.buyerLocation}
-                                onChange={event => this.setState({ buyerLocation: event.target.value })} />
-                        </Form.Field>
+                    {selectBuyer && (
+                        <div>
+                            <Container>
+                                <Grid>
+                                    <Grid.Row centered>
+                                        <Grid.Column width={6} textAlign="center">
+                                            <Form onSubmit={this.onRegisterBuyer} error={!!this.state.errorMessage1} success={this.state.hasNoError1} >
+                                                <Form.Field>
+                                                    <label>Buyer Name</label>
+                                                    <Input value={this.state.buyerName}
+                                                        onChange={event => this.setState({ buyerName: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field>
+                                                    <label>Buyer Address</label>
+                                                    <Input value={this.state.buyerAddr}
+                                                        icon="ethereum"
+                                                        onChange={event => this.setState({ buyerAddr: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field >
+                                                    <label>Buyer Business Type</label>
+                                                    <Input value={this.state.BuyerBusiness}
+                                                        onChange={event => this.setState({ buyerBusiness: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field >
+                                                    <label>Buyer Location</label>
+                                                    <Input value={this.state.buyerLocation}
+                                                        onChange={event => this.setState({ buyerLocation: event.target.value })} />
+                                                </Form.Field>
 
-                        <Message error header="Error!" content={this.state.errorMessage1} />
+                                                <Message error header="Error!" content={this.state.errorMessage1} />
 
-                        <Message success header="Success!" content="Buyer registered successfully!" />
+                                                <Message success header="Success!" content="Buyer registered successfully!" />
 
-                        <Button loading={this.state.loading} type='submit'>Register</Button>
-                    </Form>
+                                                <Button loading={this.state.loading} type='submit'>Register</Button>
+                                            </Form>
 
-                )}
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Container>
+                        </div>
 
-                {selectSortingFacility && (
+                    )}
 
-                    <Form onSubmit={this.onRegisterSeller} error={!!this.state.errorMessage2} success={this.state.hasNoError2}>
-                        <Form.Field width={6}>
-                            <label>Sorting Facility Name</label>
-                            <Input value={this.state.sellerName}
-                                onChange={event => this.setState({ sellerName: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Sorting Facility Address</label>
-                            <Input value={this.state.sellerAddr}
-                                icon="ethereum"
-                                onChange={event => this.setState({ sellerAddr: event.target.value })} />
-                        </Form.Field>
-                        <Form.Field width={6}>
-                            <label>Sorting Facility Location</label>
-                            <Input value={this.state.sellerLocation}
-                                onChange={event => this.setState({ sellerLocation: event.target.value })} />
-                        </Form.Field>
+                    {selectSortingFacility && (
+                        <div>
+                            <Container>
+                                <Grid>
+                                    <Grid.Row centered>
+                                        <Grid.Column width={6} textAlign="center">
+                                            <Form onSubmit={this.onRegisterSeller} error={!!this.state.errorMessage2} success={this.state.hasNoError2}>
+                                                <Form.Field >
+                                                    <label>Sorting Facility Name</label>
+                                                    <Input value={this.state.sellerName}
+                                                        onChange={event => this.setState({ sellerName: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field>
+                                                    <label>Sorting Facility Address</label>
+                                                    <Input value={this.state.sellerAddr}
+                                                        icon="ethereum"
+                                                        onChange={event => this.setState({ sellerAddr: event.target.value })} />
+                                                </Form.Field>
+                                                <Form.Field>
+                                                    <label>Sorting Facility Location</label>
+                                                    <Input value={this.state.sellerLocation}
+                                                        onChange={event => this.setState({ sellerLocation: event.target.value })} />
+                                                </Form.Field>
 
-                        <Form.Field width={6}>
-                            <label>Sorting Machines Address</label>
-                            <input type="number" name="quantity" min="1" max="7" placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
-                            <div>
-                                {this.renderInputs(this.state.inputSize)}
-                            </div>
-                        </Form.Field>
+                                                <Form.Field >
+                                                    <label>Sorting Machines Address</label>
+                                                    <input type="number" name="quantity" min="1" max="7" placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
+                                                    <div>
+                                                        {this.renderInputs(this.state.inputSize)}
+                                                    </div>
+                                                </Form.Field>
 
-                        <Message error header="Error!" content={this.state.errorMessage2} />
+                                                <Message error header="Error!" content={this.state.errorMessage2} />
 
-                        <Message success header="Success!" content="Seller registered successfully!" />
+                                                <Message success header="Success!" content="Seller registered successfully!" />
 
-                        <Button  loading={this.state.loading} type='submit'>Register</Button>
-                    </Form>
+                                                <Button loading={this.state.loading} type='submit'>Register</Button>
+                                            </Form>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Container>
+                        </div>
 
-                )}
+                    )}
 
 
-            </div>
-            </Layout>
+                </div>
+            </Layout >
         );
     }
 
