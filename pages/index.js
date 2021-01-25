@@ -35,13 +35,6 @@ export default class index extends Component {
         }
       `}</style>
 
-                <style global jsx>{`
-
-            body {
-             background: black;
-                 }
-
-                `}</style>
 
                     <Menu text>
                         <Menu.Item
@@ -72,8 +65,8 @@ export default class index extends Component {
                     {(activeItem === 'about') && (
                         <div>
                             <div className="about">
-                                <h1>Recycle Chain</h1>
-                                <p>Recycle Chain is a system that digitizes recycleable plastic waste to provide transparency of post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. It rewards users with Ether for participating in environment friendly practices such as recycling.</p>
+                                <h1>RecycleChain</h1>
+                                <p>Recycle Chain is a system that digitizes recycleable plastic waste to provide transparency of post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. It rewards recyclers with Ether for participating in environment friendly practices.</p>
                             </div>
 
                         </div>

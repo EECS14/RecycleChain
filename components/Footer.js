@@ -13,8 +13,7 @@ export default () => {
                 </Grid.Column>
                 <Grid.Column>
                     <Icon circular inverted name='mail' floated='left' />
-                    <p><strong>khaled.salah</strong>@ku.ac.ae</p>
-                    <p><strong>jamal.zemerly</strong>@ku.ac.ae</p>
+                    <p><strong>EECS14</strong>@ku.ac.ae</p>
                 </Grid.Column>
                 <Grid.Column>
                     <Icon circular inverted name='phone' floated='left' />
