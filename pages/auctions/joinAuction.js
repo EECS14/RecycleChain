@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, Message, Icon, Image, Statistic } from 'semantic-ui-react';
+import { Form, Button, Input, Message, Icon, Container, Grid, Statistic } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import plasticBaleContract from '../../ethereum/plasticBale';
 import registerContract from '../../ethereum/register';
@@ -40,8 +40,8 @@ class joinAuction extends Component {
 
         var biddersnumber = 0;
         var highestbid = 0;
-        var isJoin = false; 
-       
+        var isJoin = false;
+
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
             console.log(events);
@@ -50,8 +50,8 @@ class joinAuction extends Component {
 
                 if (item.event === 'bidderRegistered') {
                     biddersnumber++;
-                    item.returnValues['bidderAddress'] === accounts[0]? isJoin = true : null; 
-                   
+                    item.returnValues['bidderAddress'] === accounts[0] ? isJoin = true : null;
+
 
                 } else if (item.event === 'auctionStarted') {
                     highestbid = item.returnValues['startingAmount'];
@@ -145,9 +145,9 @@ class joinAuction extends Component {
         }
 
         // if errorMsg is empty, registration is successful
-        if (!this.state.errorMessage) 
+        if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
-        
+
 
         this.setState({ loading2: false });
 
@@ -165,9 +165,9 @@ class joinAuction extends Component {
             const plasticBaleSC = plasticBaleContract(this.props.address);
             await plasticBaleSC.methods
                 .exitAuction(this.state.registrationSCAddr)
-                .send({ from: accounts[0]});
+                .send({ from: accounts[0] });
 
-                this.setState({join: false});
+            this.setState({ join: false });
         }
         catch (err) {
             this.setState({ errorMessage: err.message });
@@ -175,9 +175,9 @@ class joinAuction extends Component {
         }
 
         // if errorMsg is empty, registration is successful
-        if (!this.state.errorMessage) 
+        if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
-        
+
 
         this.setState({ loading3: false });
 
@@ -195,81 +195,99 @@ class joinAuction extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
                 {console.log(this.props.address)}
-
-                <h1>Live Auction</h1>
-                <h2> Plastic Bale being auctioned: <br/> <br/> {this.props.address} </h2>
-                <br/><br/>
-
-                <div className='AuctionContainer'>
-
-                    <Statistic.Group widths='three'>
-                        <Statistic>
-                            <Statistic.Value text>
-                                {this.state.highestBid}
-                                <br />
-                            Wei
-                            </Statistic.Value>
-                            <Statistic.Label>Highest Bid</Statistic.Label>
-                        </Statistic>
-
-                        <Statistic>
-                            <Statistic.Value>
-                                <Icon name='users' /> {this.state.totalBidders}
-                            </Statistic.Value>
-                            <Statistic.Label>Total Bidders</Statistic.Label>
-                        </Statistic>
-
-                        <br />
-
-                        <Statistic>
-                            <Statistic.Value text>
-                                <Icon name='user' /> {this.state.highestBidder}
-                                {/*this.state.highestBidderAddress*/}
-                            </Statistic.Value>
-                            <Statistic.Label>Highest Bidder</Statistic.Label>
-                        </Statistic>
-
-
-                    </Statistic.Group>
-
-                </div>
-
-                <br />
-                <br />
-                <br/>
-
-                <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
-
-                {join && ( 
-
-                <div className='auctionInput'>
-                    <Form onSubmit={this.onPlaceBid} error={!!this.state.errorMessage} success={this.state.hasNoError}>
-
-                        <Form.Field width={4}>
-                            <label>Amount</label>
-                            <Input value={this.state.bid}
-                                label={{ basic: true, content: 'Wei' }}
-                                labelPosition='right'
-                                onChange={event => this.setState({ bid: event.target.value })} />
-                        </Form.Field>
-
-                        <Message error header="Error!" content={this.state.errorMessage} />
-
-
-                        <Message success header="Success!" content="Bid is Placed!" />
-
-
-                        <Button loading={this.state.loading2} type='submit'>Place Bid</Button>
-                    </Form>
-
+                <div className='statistic'>
+                    <h1>Live Auction</h1>
+                    <h2> Plastic Bale being auctioned:
+                 <h3> {this.props.address} </h3> </h2>
                     <br />
 
-                    <p> You can only exit the auction if no bids were placed!</p>
-                    <Button loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
+                    <div className='AuctionContainer'>
+
+                        <Statistic.Group widths='three'>
+                            <Statistic>
+                                <Statistic.Value text>
+                                    {this.state.highestBid}
+                                    <br />
+                            Wei
+                            </Statistic.Value>
+                                <Statistic.Label>Highest Bid</Statistic.Label>
+                            </Statistic>
+
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='users' /> {this.state.totalBidders}
+                                </Statistic.Value>
+                                <Statistic.Label>Total Bidders</Statistic.Label>
+                            </Statistic>
+
+                            <br />
+
+                            <Statistic>
+                                <Statistic.Value text>
+                                    <Icon name='user' /> {this.state.highestBidder}
+                                    {/*this.state.highestBidderAddress*/}
+                                </Statistic.Value>
+                                <Statistic.Label>Highest Bidder</Statistic.Label>
+                            </Statistic>
+
+
+                        </Statistic.Group>
+                    </div>
                 </div>
+
+                <br />
+                <br />
+                <br />
+
+                <Grid>
+                    <Grid.Row centered>
+                        <Grid.Column width={6} textAlign="center">
+                            <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+
+                {join && (
+
+                    <div className='auctionInput'>
+                        <Container>
+                            <Grid>
+                                <Grid.Row centered>
+                                    <Grid.Column width={4} textAlign="center">
+                                        <Form onSubmit={this.onPlaceBid} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+
+                                            <Form.Field>
+                                                <label>Amount</label>
+                                                <Input value={this.state.bid}
+                                                    label={{ basic: true, content: 'Wei' }}
+                                                    labelPosition='right'
+                                                    onChange={event => this.setState({ bid: event.target.value })} />
+                                            </Form.Field>
+
+                                            <Message error header="Error!" content={this.state.errorMessage} />
+
+
+                                            <Message success header="Success!" content="Bid is Placed!" />
+
+
+                                            <Button loading={this.state.loading2} type='submit'>Place Bid</Button>
+                                        </Form>
+
+                                        <br />
+
+                                        <p> You can only exit the auction if no bids were placed!</p>
+                                        <Button loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Container>
+
+
+                    </div>
+
                 )}
 
-             </Layout>
+            </Layout>
         );
     }
 

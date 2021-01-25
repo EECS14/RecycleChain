@@ -62,3 +62,39 @@ div{
 .Recycler h2 {
   text-align: center;
 }
+
+/*Tracking Page CSS*/
+.Tracking h1 {
+  padding-top: 60px;
+  text-align: center;
+}
+
+/*Seller Page (viewBales.js) CSS*/
+.Seller h1 {
+  text-align: center;
+}
+
+/*Seller & Buyer Page - Auction (startAuction.js & joinAuction) CSS*/
+.statistic h1{
+  text-align: center;
+}
+
+.statistic title h3{
+  font-size: 20px;
+}
+
+.AuctionContainer{
+  background-color: #0a552835;
+  min-height: 8em;
+  padding-top: 10px;
+}
+
+/*Buyer Page (viewAuctions.js) CSS*/
+.Buyer h1 {
+  text-align: center;
+}
+
+/*Seller Page - Auction (startAuction.js ) CSS*/
+.setAuction h1{
+  text-align: center;
+}

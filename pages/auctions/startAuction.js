@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, Message, Statistic, Icon } from 'semantic-ui-react';
+import { Form, Button, Input, Message, Statistic, Icon, Grid, Container } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import web3 from '../../ethereum/web3';
@@ -161,8 +161,8 @@ class startAuction extends Component {
 
         try {
             const accounts = await web3.eth.getAccounts();
-            const plasticBaleSC = plasticBaleContract(this.props.address);  
-            await plasticBaleSC.methods.endAuction().send({ from: accounts[0], gas: 250983});
+            const plasticBaleSC = plasticBaleContract(this.props.address);
+            await plasticBaleSC.methods.endAuction().send({ from: accounts[0], gas: 250983 });
             this.setState({ notOver: false });
 
         } catch (err) {
@@ -190,9 +190,10 @@ class startAuction extends Component {
                     <div className='statistic'>
 
                         <h1>Live Auction</h1>
-                        <h2> Plastic Bale being auctioned: <br/> <br/> {this.props.address} </h2>
+
+                        <h2> Plastic Bale being auctioned:  <h3>{this.props.address}</h3> </h2>
+
                         <br />
-                        <br/> 
 
                         <div className='AuctionContainer'>
 
@@ -233,8 +234,14 @@ class startAuction extends Component {
 
                 <br />
                 <br />
-                 <br/> 
-                <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
+                <br />
+                <Grid>
+                    <Grid.Row centered>
+                        <Grid.Column width={6} textAlign="center">
+                            <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
 
 
                 { !open && (
@@ -243,36 +250,44 @@ class startAuction extends Component {
 
                         <h1>Set Bale's Auction Parameters: </h1>
 
-                        <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>
-                            <Form.Field width={6}>
-                                <label >Auction Closing Date and Time</label>
-                                <DatePicker
-                                    selected={this.state.startDate}
-                                    onChange={this.handleChange}
-                                    showTimeSelect
-                                    timeFormat="HH:mm"
-                                    timeIntervals={20}
-                                    timeCaption="time"
-                                    dateFormat="MM/dd/yyyy h:mm aa"
-                                />
-                            </Form.Field>
+                        <Container>
+                            <Grid>
+                                <Grid.Row centered>
+                                    <Grid.Column width={6} textAlign="center">
+                                        <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+                                            <Form.Field>
+                                                <label >Auction Closing Date and Time</label>
+                                                <DatePicker
+                                                    selected={this.state.startDate}
+                                                    onChange={this.handleChange}
+                                                    showTimeSelect
+                                                    timeFormat="HH:mm"
+                                                    timeIntervals={20}
+                                                    timeCaption="time"
+                                                    dateFormat="MM/dd/yyyy h:mm aa"
+                                                />
+                                            </Form.Field>
 
-                            <Form.Field width={4}>
-                                <label>Starting Price</label>
-                                <Input value={this.state.startingPrice}
-                                    label={{ basic: true, content: 'Wei' }}
-                                    labelPosition='right'
-                                    onChange={event => this.setState({ startingPrice: event.target.value })} />
-                            </Form.Field>
+                                            <Form.Field>
+                                                <label>Starting Price</label>
+                                                <Input value={this.state.startingPrice}
+                                                    label={{ basic: true, content: 'Wei' }}
+                                                    labelPosition='right'
+                                                    onChange={event => this.setState({ startingPrice: event.target.value })} />
+                                            </Form.Field>
 
-                            <Message error header="Error!" content={this.state.errorMessage} />
-
-
-                            <Message success header="Success!" content="Auction is Open!" />
+                                            <Message error header="Error!" content={this.state.errorMessage} />
 
 
-                            <Button loading={this.state.loading} type='submit'>Start Auction</Button>
-                        </Form>
+                                            <Message success header="Success!" content="Auction is Open!" />
+
+
+                                            <Button loading={this.state.loading} type='submit'>Start Auction</Button>
+                                        </Form>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Container>
 
                     </div>
                 )}

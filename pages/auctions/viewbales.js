@@ -63,7 +63,10 @@ class viewbales extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
-                <h1>Plastic Bales produced at Your Facility</h1>
+                <div className='Seller'>
+
+            <h1>Welcome to Seller Page</h1>
+                <h2>Plastic Bales produced at Your Facility</h2>
                 <Card.Group>
                 {this.state.cards.map(items => (
                     <Link route={`/auctions/viewbales/${items.header}`}>
@@ -75,7 +78,7 @@ class viewbales extends Component {
                 ))}
                       </Card.Group>
 
-
+                      </div>
             </Layout>
         );
     }

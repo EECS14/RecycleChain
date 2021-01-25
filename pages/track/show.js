@@ -113,8 +113,9 @@ class show extends Component {
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
-
-                <h1>Track {this.props.address}</h1>
+            <div className='Tracking'>
+                
+                <h1>You are currently tracking {this.props.address}</h1>
 
                 <Step.Group stackable='tablet'>
                     <Step active>
@@ -148,7 +149,7 @@ class show extends Component {
                         </Step.Content>
                     </Step>
                 </Step.Group>
-
+                </div>
             </Layout>
 
         );

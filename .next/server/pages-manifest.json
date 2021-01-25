@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/recycler": "pages/recycler.js",
-  "/sortingmachine": "pages/sortingmachine.js"
+  "/auctions/joinAuction": "pages/auctions/joinAuction.js",
+  "/auctions/startAuction": "pages/auctions/startAuction.js"
 }

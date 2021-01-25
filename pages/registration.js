@@ -172,7 +172,7 @@ class registrationPage extends Component {
                     <link rel="stylesheet"
                         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                     />
-                    <h2>Select a stakeholder to register:</h2>
+                    <h2>Select a stakeholder to register</h2>
                     <Menu widths={3}>
                         <Menu.Item name='Manufacturer' onClick={() => this.setState({ selectManufacturer: true, selectSortingFacility: false, selectBuyer: false })} > Manufacturer</Menu.Item>
                         <Menu.Item name='SortingFacility' onClick={() => this.setState({ selectSortingFacility: true, selectManufacturer: false, selectBuyer: false })} > Sorting Facility</Menu.Item>

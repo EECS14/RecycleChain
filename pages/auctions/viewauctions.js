@@ -82,10 +82,11 @@ class viewauctions extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
+                <div className='Buyer'>
 
-                    <p> paragraph and instructions on joining auctions as a buyer + how recyclers are rewarded</p>
-
-                <h1>Open Auctions</h1>
+                   
+                <h1>Welcome to Buyer Page</h1>
+                <h2>Open Auctions</h2>
                 <Card.Group>
                 {this.state.cards.map(items => (
                     <Link route={`/auctions/viewauctions/${items.header}`}>
@@ -100,7 +101,7 @@ class viewauctions extends Component {
                     </Link>
         )) }      </Card.Group>
        
-                
+                 </div>
             </Layout>
         );
     }
