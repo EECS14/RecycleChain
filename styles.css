@@ -38,7 +38,6 @@ div{
   }
 
   /*Registration Page CSS*/
-
   .Registration h1 {
     text-align: center;
   }
@@ -47,4 +46,19 @@ div{
     text-align: center;
   }
 
- 
+ /*Production Line Machine Page CSS*/
+ .ProductionLine h1 {
+  text-align: center;
+}
+/*Sorting Machine Page CSS*/
+.SortingMachine h1 {
+  text-align: center;
+}
+
+/*Recycler Page CSS*/
+.Recycler h1 {
+  text-align: center;
+}
+.Recycler h2 {
+  text-align: center;
+}

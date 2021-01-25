@@ -5,50 +5,94 @@
       "file": "static/chunks/0.js"
     }
   ],
-  "react.qrcode.generator": [
+  "react-qr-reader": [
     {
-      "id": "./node_modules/qr.js/index.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/react-qr-reader/lib/createBlob.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/8BitByte.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/react-qr-reader/lib/errors.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/BitBuffer.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/react-qr-reader/lib/getDeviceId.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/ErrorCorrectLevel.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/react-qr-reader/lib/havePropsChanged.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/Polynomial.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/react-qr-reader/lib/index.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/QRCode.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/rtcpeerconnection-shim/rtcpeerconnection.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/RSBlock.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/sdp/sdp.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/math.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/webrtc-adapter/src/js/adapter_core.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/mode.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/webrtc-adapter/src/js/adapter_factory.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/qr.js/lib/util.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/webrtc-adapter/src/js/chrome/chrome_shim.js",
+      "file": "static/chunks/2.js"
     },
     {
-      "id": "./node_modules/react.qrcode.generator/es/index.js",
-      "file": "static/chunks/1.js"
+      "id": "./node_modules/webrtc-adapter/src/js/chrome/getdisplaymedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/chrome/getusermedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/common_shim.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/edge/edge_shim.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/edge/filtericeservers.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/edge/getdisplaymedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/edge/getusermedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/firefox/firefox_shim.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/firefox/getdisplaymedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/firefox/getusermedia.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/safari/safari_shim.js",
+      "file": "static/chunks/2.js"
+    },
+    {
+      "id": "./node_modules/webrtc-adapter/src/js/utils.js",
+      "file": "static/chunks/2.js"
     }
   ]
 }

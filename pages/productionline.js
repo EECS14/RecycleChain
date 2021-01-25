@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Button, Message, Form, Dropdown} from 'semantic-ui-react';
+import { Button, Message, Form, Dropdown, Container, Grid } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import bottleContract from '../ethereum/bottleProduction';
 import dynamic from 'next/dynamic';
-const QrCode  = dynamic(() => import('react.qrcode.generator'), { ssr: false });
+const QrCode = dynamic(() => import('react.qrcode.generator'), { ssr: false });
 import Layout from '../components/Layout';
 
 //Dropdownmenu selections
@@ -38,24 +38,24 @@ class manufacturingMachinePage extends Component {
             bottleType: '',
             bottleColor: '',
             bottleSize: '',
-            bottleQR:'',
+            bottleQR: '',
             errorMessage: '',
             hasNoError: false,
             QRcodePic: false
         };
     }
-    
+
 
     //produce bottle QR code
 
     onSubmit = async (event) => {
 
         event.preventDefault(); // prevents the browser from submitting the form immediately
-    
+
         const accounts = await web3.eth.getAccounts();
-    
+
         try {
-    
+
             await bottleContract.methods
                 .registerBottle(this.state.registerSCAddress, this.state.bottleType, this.state.bottleColor, this.state.bottleSize)
                 .send({ from: accounts[0] });
@@ -66,74 +66,85 @@ class manufacturingMachinePage extends Component {
             this.setState({ hasError: false });
 
         }
-    
+
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
 
     };
 
-    onGenerate = async (event) =>{
-            this.state.bottleQR = await  bottleContract.methods.getBottleAddress().call();
-            console.log(this.state.bottleQR);
-            this.setState({QRcodePic:true});
+    onGenerate = async (event) => {
+        this.state.bottleQR = await bottleContract.methods.getBottleAddress().call();
+        console.log(this.state.bottleQR);
+        this.setState({ QRcodePic: true });
 
     }
 
-    handleChangeType = (e, { value }) => this.setState({bottleType: value })
-    handleChangeColor = (e, { value }) => this.setState({bottleColor: value })
-    handleChangeSize = (e, { value }) => this.setState({bottleSize: value })
+    handleChangeType = (e, { value }) => this.setState({ bottleType: value })
+    handleChangeColor = (e, { value }) => this.setState({ bottleColor: value })
+    handleChangeSize = (e, { value }) => this.setState({ bottleSize: value })
 
-    render(){
+    render() {
         const { value } = this.state
 
-        return(
+        return (
             <Layout>
-                <h2>Bottle Production Page</h2>
-                <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css" />
-                <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage} success={this.state.hasNoError}>
-                    <Form.Field width={6}><label>Bottle Material:   </label>
-                        <Dropdown 
-                        placeholder='Choose Bottle Material'
-                        clearable 
-                        options={bottleTypesOptions} 
-                        selection
-                        onChange={this.handleChangeType} />
-                    </Form.Field>
+                <div className='ProductionLine'>
+                    <h1> Weclome to Manufactuerer's Production Line Machine Page</h1>
+                    <br />
+                    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css" />
+                    <Container>
+                        <Grid>
+                            <Grid.Row centered>
+                                <Grid.Column width={6} textAlign="center">
+                                    <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage} success={this.state.hasNoError}>
+                                        <Form.Field><label>Bottle Material:   </label>
+                                            <Dropdown
+                                                placeholder='Choose Bottle Material'
+                                                clearable
+                                                options={bottleTypesOptions}
+                                                selection
+                                                onChange={this.handleChangeType} />
+                                        </Form.Field>
 
-                    <Form.Field width={6}><label>Bottle Color:   </label>
-                        <Dropdown 
-                        placeholder='Choose Bottle Color'
-                        clearable 
-                        options={bottleColorOptions} 
-                        selection
-                        onChange={this.handleChangeColor} />
-                    </Form.Field>
+                                        <Form.Field><label>Bottle Color:   </label>
+                                            <Dropdown
+                                                placeholder='Choose Bottle Color'
+                                                clearable
+                                                options={bottleColorOptions}
+                                                selection
+                                                onChange={this.handleChangeColor} />
+                                        </Form.Field>
 
-                    <Form.Field width={6}><label>Bottle Size:   </label>
-                        <Dropdown 
-                        placeholder='Choose Bottle Size'
-                        clearable 
-                        options={bottleSizeOptions} 
-                        selection
-                        onChange={this.handleChangeSize} />
-                    </Form.Field>
+                                        <Form.Field><label>Bottle Size:   </label>
+                                            <Dropdown
+                                                placeholder='Choose Bottle Size'
+                                                clearable
+                                                options={bottleSizeOptions}
+                                                selection
+                                                onChange={this.handleChangeSize} />
+                                        </Form.Field>
 
-                    <Message error header="Error!" content={this.state.errorMessage} />
-
-
-                    <Message success header="Success!" content="QR code generated successfully!" />
+                                        <Message error header="Error!" content={this.state.errorMessage} />
 
 
-                    <Button type='submit'>Submit</Button>
-                </Form>
+                                        <Message success header="Success!" content="QR code generated successfully!" />
 
-                <label>{this.state.bottleQR}</label>
-                <h1>{ this.state.QRcodePic == true ? <QrCode value={this.state.bottleQR} QrCode size = {'400'}/> : '' } </h1> 
-            
-                <Form onSubmit={this.onGenerate}>
-                    <Button type='submit'>Generate QR Code</Button>
-                </Form>
+
+                                        <Button type='submit'>Submit</Button>
+                                    </Form>
+
+                                    <label>{this.state.bottleQR}</label>
+                                    <h1>{this.state.QRcodePic == true ? <QrCode value={this.state.bottleQR} QrCode size={'400'} /> : ''} </h1>
+
+                                    <Form onSubmit={this.onGenerate}>
+                                        <Button type='submit'>Generate QR Code</Button>
+                                    </Form>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Container>
+                </div>
             </Layout>
         );
     }
