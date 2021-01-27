@@ -11,15 +11,11 @@ export default () => {
             </Link>
 
             <Link route='/registration'>
-                <a className='item'>Government Entity</a>
+                <a className='item'>Local Municipality</a>
             </Link>
 
             <Link route='/productionline'>
                 <a className='item'>Production Line Machine</a>
-            </Link>
-
-            <Link route='/sortingmachine'>
-                <a className='item'>Sorting Machine</a>
             </Link>
 
             <Link route='/recycler'>
@@ -28,6 +24,10 @@ export default () => {
 
             <Link route='/auctions/viewbales'>
                 <a className='item'>Seller</a>
+            </Link>
+            
+            <Link route='/sortingmachine'>
+                <a className='item'>Sorting Machine</a>
             </Link>
 
             <Link route='/auctions/viewauctions'>

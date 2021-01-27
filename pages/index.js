@@ -65,7 +65,8 @@ export default class index extends Component {
                     {(activeItem === 'about') && (
                         <div>
                             <div className="about">
-                                <img src="../images/recycle.svg" alt="recycle"/>
+                                {/*(
+                                <img src='../images/blockchain.jpg' alt="Blockchain"/> )*/}
                                 <h1>RecycleChain</h1>
                                 <p>Recycle Chain is a system that tokenizes recycleable plastic waste to provide transparent post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. Recyclers who participate in recycling are rewarded with Ether!
                                 </p>

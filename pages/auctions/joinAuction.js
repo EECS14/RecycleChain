@@ -44,7 +44,7 @@ class joinAuction extends Component {
 
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
-        
+
             const myfunction = (item) => {
 
                 if (item.event === 'bidderRegistered') {
@@ -63,7 +63,7 @@ class joinAuction extends Component {
                 } else if (item.event === 'bidPlaced') {
                     highestbid = item.returnValues['amount'];
                     this.findHighestBidder(item.returnValues['biddeAddress']);
-        
+
                 }
 
             };
@@ -91,7 +91,7 @@ class joinAuction extends Component {
         try {
             const accounts = await web3.eth.getAccounts();
             const plasticBaleSC = plasticBaleContract(this.props.address);
-            
+
             await plasticBaleSC.methods
                 .addBidder(this.state.registrationSCAddr, accounts[0])
                 .send({ from: accounts[0] });
@@ -238,13 +238,15 @@ class joinAuction extends Component {
                 <br />
                 <br />
 
-                <Grid>
+                {join === false ? (<Grid>
                     <Grid.Row centered>
                         <Grid.Column width={6} textAlign="center">
                             <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                ) : null}
+                
 
                 {join && (
 
@@ -258,7 +260,7 @@ class joinAuction extends Component {
                                             <Form.Field>
                                                 <label>Amount</label>
                                                 <Input value={this.state.bid}
-                                                    label={{ basic: true, content: 'Wei' }}
+                                                    label={{ basic: true, content: 'Ether' }}
                                                     labelPosition='right'
                                                     onChange={event => this.setState({ bid: event.target.value })} />
                                             </Form.Field>

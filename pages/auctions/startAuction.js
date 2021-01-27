@@ -229,21 +229,21 @@ class startAuction extends Component {
 
                         </div>
 
+                        <br />
+                        <br />
+                        <br />
+                        <Grid>
+                            <Grid.Row centered>
+                                <Grid.Column width={6} textAlign="center">
+                                    <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+
                     </div>
 
                 )}
 
-
-                <br />
-                <br />
-                <br />
-                <Grid>
-                    <Grid.Row centered>
-                        <Grid.Column width={6} textAlign="center">
-                            <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
 
 
                 { !open && (
@@ -273,7 +273,7 @@ class startAuction extends Component {
                                             <Form.Field>
                                                 <label>Starting Price</label>
                                                 <Input value={this.state.startingPrice}
-                                                    label={{ basic: true, content: 'Wei' }}
+                                                    label={{ basic: true, content: 'Ether' }}
                                                     labelPosition='right'
                                                     onChange={event => this.setState({ startingPrice: event.target.value })} />
                                             </Form.Field>

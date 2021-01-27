@@ -50,7 +50,7 @@ class viewbales extends Component {
 
     renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description: <a>Bale Details</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
+            const items = { header: this.state.plasticBaleAddr, description: <a>Start Auction</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
             return { cards: [...prevState.cards, items] };
         });
     }

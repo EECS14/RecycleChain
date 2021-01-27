@@ -201,7 +201,7 @@ class registrationPage extends Component {
                                                         onChange={event => this.setState({ manufacturerName: event.target.value })} />
                                                 </Form.Field>
                                                 <Form.Field>
-                                                    <label>Manufacturer Address</label>
+                                                    <label>Manufacturer Ethereum Address</label>
                                                     <Input value={this.state.manufacturerAddr}
                                                         icon="ethereum"
                                                         onChange={event => this.setState({ manufacturerAddr: event.target.value })} />
@@ -245,7 +245,7 @@ class registrationPage extends Component {
                                                         onChange={event => this.setState({ buyerName: event.target.value })} />
                                                 </Form.Field>
                                                 <Form.Field>
-                                                    <label>Buyer Address</label>
+                                                    <label>Buyer Ethereum Address</label>
                                                     <Input value={this.state.buyerAddr}
                                                         icon="ethereum"
                                                         onChange={event => this.setState({ buyerAddr: event.target.value })} />
@@ -289,7 +289,7 @@ class registrationPage extends Component {
                                                         onChange={event => this.setState({ sellerName: event.target.value })} />
                                                 </Form.Field>
                                                 <Form.Field>
-                                                    <label>Sorting Facility Address</label>
+                                                    <label>Sorting Facility Ethereum Address</label>
                                                     <Input value={this.state.sellerAddr}
                                                         icon="ethereum"
                                                         onChange={event => this.setState({ sellerAddr: event.target.value })} />

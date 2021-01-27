@@ -65,7 +65,7 @@ class viewauctions extends Component {
     renderAuctions = () => {
         // Add more information here like the seller name 
         this.setState((prevState) => {
-            let items = { header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Wei` };
+            let items = { header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Ether` };
             return { cards: [...prevState.cards, items] };
 
         });
