@@ -84,11 +84,9 @@ class show extends Component {
     }
 
     // Get seller detail
+
     FetchSellerDetails = async () => {
-
         const accounts = await web3.eth.getAccounts();
-
-        //returned result is in the callback function 
         await registerContract.methods
             .getSellerDetails(this.state.sellerAddress)
             .call(function (error, result) {
@@ -99,7 +97,6 @@ class show extends Component {
                 });
 
             }.bind(this));
-
     };
 
 
@@ -145,7 +142,7 @@ class show extends Component {
                         <Icon name='factory' />
                         <Step.Content>
                             <Step.Title>Purchased</Step.Title>
-                            <Step.Description>Verify order details</Step.Description>
+                            <Step.Description></Step.Description>
                         </Step.Content>
                     </Step>
                 </Step.Group>

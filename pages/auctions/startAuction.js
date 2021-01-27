@@ -168,6 +168,8 @@ class startAuction extends Component {
         } catch (err) {
             // REVERT REASON IS ALMOST SHOWN HERE
             console.log(err);
+            this.setState({ errorMessage: err });
+            this.setState({ hasError: false });
         }
 
         this.setState({ loading: false });
@@ -202,7 +204,7 @@ class startAuction extends Component {
                                     <Statistic.Value text>
                                         {this.state.highestBid}
                                         <br />
-                            Wei
+                            Ether
                             </Statistic.Value>
                                     <Statistic.Label>Highest Bid</Statistic.Label>
                                 </Statistic>

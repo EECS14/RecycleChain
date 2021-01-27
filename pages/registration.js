@@ -36,12 +36,14 @@ class registrationPage extends Component {
             hasNoError1: false,
             errorMessage2: '',
             hasNoError2: false,
-            loading: false
+            loading: false,
+            visible: ''
         };
     }
 
     // Dynamic fields appear based on number of sorting machines 
     handleOnChange(value) { this.setState({ inputSize: value.target.value }); }
+    handleDismiss = () => { this.setState({ visible: false }) }
 
     renderInputs(value) {
         const inputs = [];
@@ -74,12 +76,13 @@ class registrationPage extends Component {
         this.setState({ loading: true, errorMessage: '' });
 
         try {
-
+          
             await registerContract.methods
                 .registerManufactuerer(this.state.manufacturerAddr, this.state.manufacturerLocation, this.state.manufacturerName)
                 .send({ from: accounts[0] });
         } catch (err) {
-            this.setState({ errorMessage: err.message });
+            console.log(err);
+            this.setState({ errorMessage: err });
             this.setState({ hasError: false });
         }
 
@@ -101,11 +104,14 @@ class registrationPage extends Component {
         this.setState({ loading: true, errorMessage1: '' });
 
         try {
+            web3.eth.handleRevert = true;
+            //registerContract.handleRevert = true; 
             await registerContract.methods
                 .registerBuyer(this.state.buyerAddr, this.state.buyerName, this.state.buyerLocation, this.state.buyerBusiness)
                 .send({ from: accounts[0] });
         } catch (err) {
-            this.setState({ errorMessage1: err.message });
+            console.log(err);
+            this.setState({ errorMessage1: err });
             this.setState({ hasError1: false });
         }
 
@@ -126,12 +132,12 @@ class registrationPage extends Component {
         this.setState({ loading: true, errorMessage2: '' });
 
         try {
-
+           
             await registerContract.methods
                 .registerSeller(this.state.sellerAddr, this.state.sellerLocation, this.state.sellerName, this.state.sortingMachines)
                 .send({ from: accounts[0] });
         } catch (err) {
-            this.setState({ errorMessage2: err.message });
+            this.setState({ errorMessage2: err });
             this.setState({ hasError2: false });
         }
 
@@ -206,10 +212,14 @@ class registrationPage extends Component {
                                                         onChange={event => this.setState({ manufacturerLocation: event.target.value })} />
                                                 </Form.Field>
 
-                                                <Message error header="Error!" content={this.state.errorMessage} />
+                                                <Message error header="Error!" 
+                                                 onDismiss={this.handleDismiss}
+                                                content={this.state.errorMessage} />
 
 
-                                                <Message success header="Success!" content="Manufactuerer registered successfully!" />
+                                                <Message success header="Success!" 
+                                                 onDismiss={this.handleDismiss}
+                                                 content="Manufactuerer registered successfully!" />
 
 
                                                 <Button loading={this.state.loading} type='submit'>Register</Button>

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Menu, Button, Message, Form, Input, Container, Grid } from 'semantic-ui-react';
+
 import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
+
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking';
 import Layout from '../components/Layout';

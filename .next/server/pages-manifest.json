@@ -3,5 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/auctions/joinAuction": "pages/auctions/joinAuction.js",
-  "/auctions/startAuction": "pages/auctions/startAuction.js"
+  "/auctions/viewauctions": "pages/auctions/viewauctions.js"
 }

@@ -44,8 +44,7 @@ class joinAuction extends Component {
 
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
-            console.log(events);
-
+        
             const myfunction = (item) => {
 
                 if (item.event === 'bidderRegistered') {
@@ -58,13 +57,13 @@ class joinAuction extends Component {
 
                 } else if (item.event === 'bidderExited') {
                     //console.log(item);
+                    item.returnValues['bidderAddress'] === accounts[0] ? isJoin = false : null;
                     biddersnumber--;
 
                 } else if (item.event === 'bidPlaced') {
                     highestbid = item.returnValues['amount'];
                     this.findHighestBidder(item.returnValues['biddeAddress']);
-                    //highestbidder = item.returnValues['bidderAddress'];
-
+        
                 }
 
             };
@@ -90,8 +89,9 @@ class joinAuction extends Component {
         this.setState({ loading: true, errorMessage: '' });
 
         try {
+            const accounts = await web3.eth.getAccounts();
             const plasticBaleSC = plasticBaleContract(this.props.address);
-
+            
             await plasticBaleSC.methods
                 .addBidder(this.state.registrationSCAddr, accounts[0])
                 .send({ from: accounts[0] });
@@ -166,7 +166,6 @@ class joinAuction extends Component {
             await plasticBaleSC.methods
                 .exitAuction(this.state.registrationSCAddr)
                 .send({ from: accounts[0] });
-
             this.setState({ join: false });
         }
         catch (err) {
@@ -208,7 +207,7 @@ class joinAuction extends Component {
                                 <Statistic.Value text>
                                     {this.state.highestBid}
                                     <br />
-                            Wei
+                            Ether
                             </Statistic.Value>
                                 <Statistic.Label>Highest Bid</Statistic.Label>
                             </Statistic>

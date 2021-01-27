@@ -28,6 +28,7 @@ class recyclerPage extends Component {
     }
 
     // retrieve all bottled logged by user from ropsten network 
+    // IMPROVE IT: use getPastEvents 
     componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
 
@@ -138,10 +139,12 @@ class recyclerPage extends Component {
                     <Grid>
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
-                                <div className="Scanner" style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
+                                <div className="Scanner" style={{ 'width': '25%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                                     <h2>Dispose a Plastic Bottle  </h2>
                                     <Button className="QrReader" onClick={this.onScan} > Scan QR Code</Button>
-                                    <div> {this.state.qr === true ? (<QRReader
+                                    <br/>
+                                    <div> {this.state.qr === true ? (
+                                    <QRReader
                                         delay={300}
                                         onError={this.handleError}
                                         onScan={this.handleScan}

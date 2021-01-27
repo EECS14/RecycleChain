@@ -135,7 +135,8 @@ class manufacturingMachinePage extends Component {
                                     </Form>
 
                                     <label>{this.state.bottleQR}</label>
-                                    <h1>{this.state.QRcodePic == true ? <QrCode value={this.state.bottleQR} QrCode size={'400'} /> : ''} </h1>
+                                    <h1>{this.state.QRcodePic == true ? 
+                                    <QrCode value={this.state.bottleQR} QrCode size={'400'} /> : ''} </h1>
 
                                     <Form onSubmit={this.onGenerate}>
                                         <Button type='submit'>Generate QR Code</Button>
