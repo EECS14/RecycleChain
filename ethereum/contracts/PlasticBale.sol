@@ -50,11 +50,7 @@ contract PlasticBale{
         _; 
     }
     
-    modifier onlyBidder(address registerContractAddr){
-        RegisterSC registerSC = RegisterSC(registerContractAddr); //pass contract address 
-        require(registerSC.isBuyerExist(msg.sender), "Bidder is not registered"); // might need to edit this to msg.sender instead bidderAddr
-        _;                                                                        //when developing the Dapp 
-    }
+    
     
     event bidderRegistered (address indexed baleAddress, address indexed bidderAddress); 
     event auctionStarted (address indexed baleAddress, uint startingAmount, uint closingTime); 
@@ -65,6 +61,11 @@ contract PlasticBale{
     event updateStatusBuyer(address buyer, address indexed plasticBottleAddress, string status, uint time); 
     
     
+    modifier onlyBidder(address registerContractAddr){
+        RegisterSC registerSC = RegisterSC(registerContractAddr); 
+        require(registerSC.isBuyerExist(msg.sender), "Bidder is not registered"); 
+        _;                                                                        
+    }
     function addBidder(address registerContractAddr, address bidderAddr) onlyBidder (registerContractAddr) public {
         
     require(bidder[bidderAddr].isExist == false, "Bidder already joined the Auction.");
@@ -130,7 +131,7 @@ contract PlasticBale{
     function endAuction() onlyOwner public{
         
         require( isOpen, "Auction is not avalible.");
-        require(endTime < now, "Auction duration is not up yet.");
+        //require(endTime < now, "Auction duration is not up yet.");
         require(highestBidder != address(0), "No bids have been placed"); 
         
         isOpen = false; 
