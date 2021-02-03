@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/auctions/startAuction": "pages/auctions/startAuction.js",
-  "/recycler": "pages/recycler.js"
+  "/recycler": "pages/recycler.js",
+  "/auctions/viewbales": "pages/auctions/viewbales.js"
 }

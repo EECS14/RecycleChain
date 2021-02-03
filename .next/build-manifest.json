@@ -24,10 +24,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/auctions/startAuction": [
+    "/auctions/viewbales": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/startAuction.js"
+      "static/chunks/pages/auctions/viewbales.js"
     ],
     "/recycler": [
       "static/chunks/main.js",

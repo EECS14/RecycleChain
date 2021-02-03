@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking';
+import plasticBaleContract from '../ethereum/plasticBale';
 import { Link } from '../routes';
 import Layout from '../components/Layout';
 
@@ -31,6 +32,7 @@ class recyclerPage extends Component {
     // IMPROVE IT: use getPastEvents 
     componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
+
 
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
@@ -60,7 +62,34 @@ class recyclerPage extends Component {
             .on('error', console.error);
 
 
-    };
+            trackingContract.events.plasticBaleCompleted({
+                fromBlock: 0
+            }, function (error, event) {
+                console.log(event);
+                const plasticbaleAddr = event.returnValues['plasticbale'];
+                console.log(plasticbaleAddr);
+                const plasticBaleSC = plasticBaleContract(plasticbaleAddr);
+
+                plasticBaleSC.events.recyclerRewarded({
+                    filter: { recycler: accounts[0] },
+                    fromBlock: 0
+                }, function (error, event) {
+                    console.log(event);
+
+                    this.setState({
+                        rewards: this.state.rewards + event.returnValues['etherReward'],
+                    });
+    
+    
+                }.bind(this))
+                    .on('error', console.error);
+    
+            }.bind(this))
+                .on('error', console.error);
+        
+    
+        };
+    
 
     // QR reader functions 
     handleScan = async (data) => {
