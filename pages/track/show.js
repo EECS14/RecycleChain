@@ -3,6 +3,7 @@ import { Icon, Step } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import registerContract from '../../ethereum/register';
+import plasticBaleContract from '../../ethereum/plasticBale';
 import Layout from '../../components/Layout';
 
 class show extends Component {
@@ -13,13 +14,20 @@ class show extends Component {
             sortingFacilityAddr: '',
             disposeDate: '',
             recyclerAddr:'',
-            buyerAddr: '',
             sortedActive: false,
             sortedDisabled: true,
             sortDate: '',
             sortingFacilityName: '',
             sortingFacilityLoc: '',
-            sortingFacilityAddr: ''
+            sortingFacilityAddr: '',
+            producedBales: [],
+            purchaseDate: '', 
+            buyerAddr: '',
+            buyerName: '', 
+            buyerLocation: '',
+            buyerBusiness:'',
+            purchaseActive:false,
+            purchaseDisabled: true
         };
     }
 
@@ -67,6 +75,15 @@ class show extends Component {
         }.bind(this))
             .on('error', console.error);
 
+
+        //************************************************************ 
+        // Step: Purchased 
+        // Checking the event happens inside 
+        this.FetchDeployedBales(); 
+    
+
+
+
     };
 
 
@@ -94,6 +111,55 @@ class show extends Component {
                     sortingFacilityAddr: result[0],
                     sortingFacilityLoc: result[1],
                     sortingFacilityName: result[2]
+                });
+
+            }.bind(this));
+    };
+
+    FetchDeployedBales = async () => {
+
+    //1. Find produced bales 
+    this.state.producedBales = await trackingContract.methods.getDeployedBales().call();
+    console.log(this.state.producedBales);
+
+    let count =0; 
+    console.log(this.state.producedBales.length);
+    //2. Loop through all produced bales
+    while(Array.isArray(this.state.producedBales) && count != this.state.producedBales.length ) { 
+    console.log("tehe");
+    const plasticBaleSC = plasticBaleContract(this.state.producedBales[count]); 
+    //3. Filter events in each plasticbaleSC that is related to the bottle 
+    plasticBaleSC.events.updateStatusBuyer({
+        filter: { plasticBottleAddress: this.props.address }, fromBlock: 0
+    }, function (error, event) {
+        console.log(event); 
+        count = 0;
+        //4. Fetch details 
+        this.setState({ buyerAddr: event.returnValues['buyer'] });
+        var time = new Date(event.returnValues['time'] * 1000);
+        var date = time.toString(); 
+        this.setState({ purchaseDate: date}); 
+        this.FetchBuyerDetails(); 
+        this.setState({purchaseActive: true, purchaseDisabled:false}); 
+        
+    }.bind(this))
+        .on('error', console.error);
+
+        count++; 
+
+}
+    };
+
+
+    FetchBuyerDetails = async () => {
+        const accounts = await web3.eth.getAccounts();
+        await registerContract.methods
+            .getBuyerDetails(this.state.buyerAddr)
+            .call(function (error, result) {
+                this.setState({
+                    buyerName: result[1],
+                    buyerLocation: result[2],
+                    buyerBusiness: result[3]
                 });
 
             }.bind(this));
@@ -138,11 +204,20 @@ class show extends Component {
                             
                         </Step.Content>
                     </Step>
-                    <Step disabled>
+                    <Step active={this.state.purchaseActive} disabled={this.state.purchaseDisabled}>
                         <Icon name='factory' />
                         <Step.Content>
                             <Step.Title>Purchased</Step.Title>
-                            <Step.Description></Step.Description>
+                            {this.state.purchaseActive === true ? (
+                                 <div>
+                                    <Step.Description>Buyer: {this.state.buyerName}</Step.Description>
+                                    <Step.Description>Location: {this.state.buyerLocation}</Step.Description>
+                                    <Step.Description>Address: {this.state.buyerAddr}</Step.Description>
+                                    <Step.Description>Recycled to: {this.state.buyerBusiness}</Step.Description>
+                                    <Step.Description>Date: {this.state.purchaseDate}</Step.Description>
+                                    </div>
+                            ): null}
+                        
                         </Step.Content>
                     </Step>
                 </Step.Group>

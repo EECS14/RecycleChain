@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button} from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import { Link } from '../../routes';
@@ -41,16 +41,24 @@ class viewbales extends Component {
         }.bind(this))
             .on('error', console.error);
 
-        /* Debugging 
-        await trackingContract.methods.getDeployedBales().call().then(console.log); 
-         */
+    };
+
+    
+    handleClick = (address) => {
 
     };
 
 
+
+
+
     renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description: <a>Start Auction</a>, fluid: true, meta: `Production Time: ` + this.state.productionTime };
+            const items = { header: this.state.plasticBaleAddr, description:  `Production Time: ` + this.state.productionTime, fluid: true, extra:  
+            <Button basic color='green' onClick={this.handleClick(this.state.plasticBaleAddr)}>
+            Start Auction
+            </Button> 
+          };
             return { cards: [...prevState.cards, items] };
         });
     }
@@ -71,9 +79,9 @@ class viewbales extends Component {
                 {this.state.cards.map(items => (
                     <Link route={`/auctions/viewbales/${items.header}`}>
                         <Card header={items.header}
-                            meta={items.meta}
                             description={items.description}
-                            fluid={items.fluid} />
+                            fluid={items.fluid} 
+                            extra={items.extra}/>
                     </Link>
                 ))}
                       </Card.Group>
