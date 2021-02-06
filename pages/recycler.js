@@ -29,7 +29,6 @@ class recyclerPage extends Component {
     }
 
     // retrieve all bottled logged by user from ropsten network 
-    // IMPROVE IT: use getPastEvents 
     componentDidMount = async () => {
         const accounts = await web3.eth.getAccounts();
 
@@ -37,31 +36,23 @@ class recyclerPage extends Component {
         trackingContract.events.updateStatusRecycler({
             filter: { recycler: accounts[0] }, fromBlock: 0
         }, function (error, event) {
-            /* Debugging 
-            console.log(event);
-            console.log(event.returnValues['plasticBottleAddress']); */
-
+            
             this.setState({ result: event.returnValues['plasticBottleAddress'], status: event.returnValues['status'] });
             this.setState(prevState => ({ bottlesLogged: [...prevState.bottlesLogged, this.state.result] }));
             this.addRow();
         }.bind(this))
             .on('error', console.error);
 
+        // Update status as sorted 
         trackingContract.events.updateStatusMachine({
             filter: { plasticBottleAddress: this.state.bottlesLogged }, fromBlock: 0
         }, function (error, event) {
-            /*For debugging purposes 
-            console.log(event);
-            console.log(this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress'] ));
-            console.log(this.state.rows);
-            console.log(event.returnValues['plasticBottleAddress']);
-            */
             let index = this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress']);
             this.updateRow(index, event.returnValues['status']);
         }.bind(this))
             .on('error', console.error);
 
-
+            // Get all deployed plastic bales SC addresses 
             trackingContract.events.plasticBaleCompleted({
                 fromBlock: 0
             }, function (error, event) {
@@ -70,6 +61,7 @@ class recyclerPage extends Component {
                 console.log(plasticbaleAddr);
                 const plasticBaleSC = plasticBaleContract(plasticbaleAddr);
 
+                // Fetch recycler rewards 
                 plasticBaleSC.events.recyclerRewarded({
                     filter: { recycler: accounts[0] },
                     fromBlock: 0
@@ -79,10 +71,21 @@ class recyclerPage extends Component {
                     this.setState({
                         rewards: this.state.rewards + event.returnValues['etherReward'],
                     });
-    
-    
+
                 }.bind(this))
                     .on('error', console.error);
+
+                    //Update status purchases
+                    plasticBaleSC.events.updateStatusBuyer({
+                        filter: { plasticBottleAddress: this.state.bottlesLogged },
+                        fromBlock: 0
+                    }, function (error, event) {
+                        let index = this.state.bottlesLogged.indexOf(event.returnValues['plasticBottleAddress']);
+                        this.updateRow(index, event.returnValues['status']);
+
+                        }.bind(this))
+                        .on('error', console.error);
+
     
             }.bind(this))
                 .on('error', console.error);
