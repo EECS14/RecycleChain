@@ -179,7 +179,7 @@ class show extends Component {
                 <div className='Tracking'>
                     <h1>You are currently tracking {this.props.address}</h1>
                     <br/>
-                </div>
+               
 
 
                 <VerticalTimeline>
@@ -209,7 +209,7 @@ class show extends Component {
 
                     >
                         <h3 className="vertical-timeline-element-title">Sorted</h3>
-                        <h4 className="vertical-timeline-element-subtitle">Address: {this.state.sortingFacilityAddr}</h4>
+                        <h4 className="vertical-timeline-element-subtitle">Sorting Facility: {this.state.sortingFacilityAddr}</h4>
                         <p>
                         Sorting Facility: {this.state.sortingFacilityName} <br/>
                         Location: {this.state.sortingFacilityLoc} <br/>
@@ -227,7 +227,7 @@ class show extends Component {
 
                     >
                         <h3 className="vertical-timeline-element-title">Purchased</h3>
-                        <h4 className="vertical-timeline-element-subtitle">Address: {this.state.buyerAddr}</h4>
+                        <h4 className="vertical-timeline-element-subtitle">Buyer: {this.state.buyerAddr}</h4>
                         <p>
                         Buyer: {this.state.buyerName} <br/>
                         Location: {this.state.buyerLocation} <br/>
@@ -237,7 +237,7 @@ class show extends Component {
                     </VerticalTimelineElement>
         
                     </VerticalTimeline>
-
+                    </div>
 
   
             </Layout>
