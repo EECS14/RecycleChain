@@ -15,13 +15,6 @@ class startAuction extends Component {
             errorMessage: '',
             hasNoError: false,
             startDate: new Date(),
-            registrationSCAddr: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
-            open: false,
-            totalBidders: 0,
-            highestBid: 0,
-            highestBidder: 'No bids placed',
-            highestBidderAddress: '',
-            notOver: true,
             loading: false
 
         };
@@ -45,85 +38,9 @@ class startAuction extends Component {
     }
 
 
-    componentDidMount = async () => {
-        //open is T, render statsictc 
-        //open is F, render create bale info
-
-        const accounts = await web3.eth.getAccounts();
-        const plasticBaleSC = plasticBaleContract(this.props.address);
-        //console.log(this.props.address);
-
-        var isOpen = false;
-        var biddersnumber = 0;
-        var highestbid = 0;
-        var closingTime = 0;
-
-        plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
-            console.log(events);
-
-            const myfunction = (item) => {
-
-                if (item.event === 'auctionStarted' && this.props.address === item.returnValues['baleAddress']) {
-                    isOpen = true;
-                    highestbid = item.returnValues['startingAmount'];
-                    closingTime = item.returnValues['closingTime'];
-                    console.log(closingTime);
-
-                } else if (item.event === 'bidderRegistered') {
-                    biddersnumber++;
-
-                } else if (item.event === 'bidderExited') {
-                    biddersnumber--;
-
-                } else if (item.event === 'bidPlaced') {
-                    highestbid = item.returnValues['amount'];
-                    this.findHighestBidder(item.returnValues['biddeAddress']);
-
-                }
-
-            };
-
-            events.forEach(myfunction);
-
-            this.setState({
-                open: isOpen,
-                totalBidders: biddersnumber,
-                highestBid: highestbid
-            });
-
-        });
-
-        /*
-        const currentTime = Math.ceil(new Date().getTime() / 1000);
-        console.log(currentTime);
-        if (closingTime < currentTime) {
-            this.endAuction();
-        } */
-
-    };
-
-
-    findHighestBidder = async (address) => {
-
-        const accounts = await web3.eth.getAccounts();
-        await registerContract.methods
-            .getBuyerDetails(address).call(function (error, result) {
-                this.setState({
-                    highestBidder: result[1],
-                    highestBidderAddress: result[0],
-                });
-
-            }.bind(this));
-
-    };
-
-
-
 
     onStartAuction = async (event) => {
         event.preventDefault();
-
-        //web3.eth.handleRevert = true;
 
         //1. Extract time from date
         //2. Conver to Milliseconds
@@ -153,7 +70,7 @@ class startAuction extends Component {
     };
 
 
-    onEndAuction = async (event) => {
+   /* onEndAuction = async (event) => {
 
         event.preventDefault();
 
@@ -173,13 +90,11 @@ class startAuction extends Component {
         }
 
         this.setState({ loading: false });
-    };
+    }; */ 
 
 
 
     render() {
-
-        const { open, notOver } = this.state;
 
         return (
             <Layout>
@@ -187,66 +102,7 @@ class startAuction extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
-                { open && notOver && (
-
-                    <div className='statistic'>
-
-                        <h1>Live Auction</h1>
-
-                        <h2> Plastic Bale being auctioned:  <h3>{this.props.address}</h3> </h2>
-
-                        <br />
-
-                        <div className='AuctionContainer'>
-
-                            <Statistic.Group widths='three'>
-                                <Statistic>
-                                    <Statistic.Value text>
-                                        {this.state.highestBid}
-                                        <br />
-                            Ether
-                            </Statistic.Value>
-                                    <Statistic.Label>Highest Bid</Statistic.Label>
-                                </Statistic>
-
-                                <Statistic>
-                                    <Statistic.Value>
-                                        <Icon name='users' /> {this.state.totalBidders}
-                                    </Statistic.Value>
-                                    <Statistic.Label>Total Bidders</Statistic.Label>
-                                </Statistic>
-
-                                <br />
-
-                                <Statistic>
-                                    <Statistic.Value text>
-                                        <Icon name='user' /> {this.state.highestBidder}
-                                        {/*this.state.highestBidderAddress*/}
-                                    </Statistic.Value>
-                                    <Statistic.Label>Highest Bidder</Statistic.Label>
-                                </Statistic>
-                            </Statistic.Group>
-
-                        </div>
-
-                        <br />
-                        <br />
-                        <br />
-                        <Grid>
-                            <Grid.Row centered>
-                                <Grid.Column width={6} textAlign="center">
-                                    <Button loading={this.state.loading} onClick={this.onEndAuction}>Close Auction </Button>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-
-                    </div>
-
-                )}
-
-
-
-                { !open && (
+                
 
                     <div className='setAuction'>
 
@@ -292,7 +148,7 @@ class startAuction extends Component {
                         </Container>
 
                     </div>
-                )}
+            
 
 
 
