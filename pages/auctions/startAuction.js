@@ -70,27 +70,7 @@ class startAuction extends Component {
     };
 
 
-   /* onEndAuction = async (event) => {
-
-        event.preventDefault();
-
-        this.setState({ loading: true });
-
-        try {
-            const accounts = await web3.eth.getAccounts();
-            const plasticBaleSC = plasticBaleContract(this.props.address);
-            await plasticBaleSC.methods.endAuction().send({ from: accounts[0], gas: 250983 });
-            this.setState({ notOver: false });
-
-        } catch (err) {
-            // REVERT REASON IS ALMOST SHOWN HERE
-            console.log(err);
-            this.setState({ errorMessage: err });
-            this.setState({ hasError: false });
-        }
-
-        this.setState({ loading: false });
-    }; */ 
+   
 
 
 

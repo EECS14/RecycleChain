@@ -44,9 +44,7 @@ class viewbales extends Component {
     };
 
     
-    handleClick = (address) => {
-
-    };
+    
 
 
 
@@ -55,7 +53,7 @@ class viewbales extends Component {
     renderBales() {
         this.setState((prevState) => {
             const items = { header: this.state.plasticBaleAddr, description:  `Production Time: ` + this.state.productionTime, fluid: true, extra:  
-            <Button basic color='green' onClick={this.handleClick(this.state.plasticBaleAddr)}>
+            <Button basic color='green'>
             Start Auction
             </Button> 
           };

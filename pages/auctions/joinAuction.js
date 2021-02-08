@@ -41,6 +41,7 @@ class joinAuction extends Component {
         var biddersnumber = 0;
         var highestbid = 0;
         var isJoin = false;
+        var closingTime; 
 
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
@@ -54,6 +55,7 @@ class joinAuction extends Component {
 
                 } else if (item.event === 'auctionStarted') {
                     highestbid = item.returnValues['startingAmount'];
+                    closingTime = new Date(item.returnValues['closingTime'] *1000).toString();
 
                 } else if (item.event === 'bidderExited') {
                     //console.log(item);
@@ -78,6 +80,14 @@ class joinAuction extends Component {
 
 
         });
+
+ 
+        const currentTime = new Date();
+        console.log(currentTime); 
+        if (closingTime < currentTime)
+            this.endAuction(); //Deploy new contract with no modifier 
+
+
 
 
     };
@@ -183,6 +193,28 @@ class joinAuction extends Component {
 
     };
 
+    /* onEndAuction = async (event) => {
+
+        event.preventDefault();
+
+        this.setState({ loading: true });
+
+        try {
+            const accounts = await web3.eth.getAccounts();
+            const plasticBaleSC = plasticBaleContract(this.props.address);
+            await plasticBaleSC.methods.endAuction().send({ from: accounts[0], gas: 250983 });
+            this.setState({ notOver: false });
+
+        } catch (err) {
+            // REVERT REASON IS ALMOST SHOWN HERE
+            console.log(err);
+            this.setState({ errorMessage: err });
+            this.setState({ hasError: false });
+        }
+
+        this.setState({ loading: false });
+    }; */ 
+
 
     render() {
 
@@ -198,7 +230,31 @@ class joinAuction extends Component {
                     <h1>Live Auction</h1>
                     <h2> Plastic Bale being auctioned:
                  <h3> {this.props.address} </h3> </h2>
-                    <br />
+                    
+
+                    <section className='timer'>
+                    <div>
+                        <section>
+                            <p>60</p>
+                            <p><small>Days</small></p>
+                        </section>
+                        <span>:</span>
+                        <section>
+                            <p>60</p>
+                            <p><small>Hours</small></p>
+                        </section>
+                        <span>:</span><section>
+                            <p>60</p>
+                            <p><small>Minutes</small></p>
+                        </section>
+                        <span>:</span><section>
+                            <p>60</p>
+                            <p><small>Seconds</small></p>
+                        </section>
+                    </div>
+                    </section>
+
+                    <br/>
 
                     <div className='AuctionContainer'>
 

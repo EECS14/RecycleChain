@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import plasticBaleContract from '../../ethereum/plasticBale';
@@ -65,7 +65,9 @@ class viewauctions extends Component {
     renderAuctions = () => {
         // Add more information here like the seller name 
         this.setState((prevState) => {
-            let items = { header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Ether` };
+            let items = { header: this.state.auctionAddr, description: `Starting Price: ` +this.state.startingPrice + ` Ether`, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra:  <Button basic color='green'>
+               Join Auction
+                </Button>  };
             return { cards: [...prevState.cards, items] };
 
         });
