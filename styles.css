@@ -94,38 +94,7 @@ div{
   text-align: center;
 }
 
-
 /*Seller Page - Auction (startAuction.js ) CSS*/
 .setAuction h1{
   text-align: center;
-}
-/*buyers page (joinAuction.js)*/
-.timer {
-  padding-left:10em;
-  padding-right:10em;
- 
-  }
-    
-.timer div:last-child{
-  border: 1px solid white; 
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  border-radius: 3px;
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-  margin-top:3em; 
-  padding: 3em; 
-  text-align: center;
-}
-
-section p:first-child, .timer div:last-child span{
-font: 3em;
-}
-
-@media screen and (max-width: 480px){
-  .timer div:last-child{
-    margin-left: 2em; 
-    margin-right: 2em; 
-    padding: 3em 1em; 
-  }
 }
