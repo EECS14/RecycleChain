@@ -5,7 +5,7 @@ import plasticBaleContract from '../../ethereum/plasticBale';
 import registerContract from '../../ethereum/register';
 import Layout from '../../components/Layout';
 import dynamic from 'next/dynamic';
-const DateCountdown = dynamic( () => import('react-date-countdown-timer'),{  ssr: false })
+const DateCountdown = dynamic(() => import('react-date-countdown-timer'), { ssr: false })
 
 class joinAuction extends Component {
     constructor(props) {
@@ -45,7 +45,10 @@ class joinAuction extends Component {
         var highestbid = 0;
         var isJoin = false;
         var time = ''; //closing time
-        var ct =0; // temp closing date
+        var firstPart='';
+        var secondPart='';
+        var ct = 0; // temp closing date
+        
 
 
 
@@ -60,10 +63,21 @@ class joinAuction extends Component {
 
                 } else if (item.event === 'auctionStarted') {
                     highestbid = item.returnValues['startingAmount'];
-                    time = new Date(item.returnValues['closingTime']*1000);
+
+                    //1. Get closing time from event
+                    time = new Date(item.returnValues['closingTime'] * 1000);
                     console.log(time);
-                    ct = time.toString(); // Closing Date
-                    console.log(ct);
+                    //2. Formating the date for the date counter input
+                    const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+                    firstPart= time.toLocaleDateString('en-US', options);
+                    console.log(firstPart);
+                    //3. Get orginal GMT time from the var time
+                    secondPart = time.toString().slice(15, 24); 
+                    secondPart = secondPart.concat(" GMT+04:00 ");
+                    console.log(secondPart);
+                    //4. concat the two strings into the desired form
+                    ct = firstPart.concat(secondPart);
+                    console.log(ct); 
 
 
                 } else if (item.event === 'bidderExited') {
@@ -229,11 +243,11 @@ class joinAuction extends Component {
                 {console.log(this.props.address)}
                 <div className='statistic'>
                     <h1>Live Auction</h1>
-                    
+
                     <div className='countdown'>
-                    <DateCountdown dateTo='March 27, 2021 00:00:00 GMT+03:00' 
-                    dateFrom={new Date()} 
-                    callback={this.endAuction} /> 
+                        <DateCountdown dateTo={this.state.closingTime}
+                            dateFrom={new Date()}
+                            callback={this.endAuction} />
                     </div>
 
                     <h2> Plastic Bale being auctioned:
@@ -286,7 +300,7 @@ class joinAuction extends Component {
                     </Grid.Row>
                 </Grid>
                 ) : null}
-                
+
 
                 {join && (
 
