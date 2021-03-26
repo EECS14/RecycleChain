@@ -98,3 +98,13 @@ div{
 .setAuction h1{
   text-align: center;
 }
+
+/*Buyer Page - Auction (joinAuction) CSS*/
+.countdown{
+  background-color: #eaf0ec35;
+  text-align: center;
+  min-height: 1em;
+  font-size: 20px;
+  /*text-shadow:2px 2px 5px rgb(242, 243, 242);*/
+
+}

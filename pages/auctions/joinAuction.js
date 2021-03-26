@@ -4,6 +4,8 @@ import web3 from '../../ethereum/web3';
 import plasticBaleContract from '../../ethereum/plasticBale';
 import registerContract from '../../ethereum/register';
 import Layout from '../../components/Layout';
+import dynamic from 'next/dynamic';
+const DateCountdown = dynamic( () => import('react-date-countdown-timer'),{  ssr: false })
 
 class joinAuction extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class joinAuction extends Component {
             loading: false,
             totalBidders: 0,
             highestBid: 0,
+            closingTime: '',
             highestBidder: 'No bids placed',
             highestBidderAddress: '',
             bid: '',
@@ -41,6 +44,9 @@ class joinAuction extends Component {
         var biddersnumber = 0;
         var highestbid = 0;
         var isJoin = false;
+        var time = ''; //closing time
+        var ct =0; // temp closing date
+
 
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
@@ -54,6 +60,11 @@ class joinAuction extends Component {
 
                 } else if (item.event === 'auctionStarted') {
                     highestbid = item.returnValues['startingAmount'];
+                    time = new Date(item.returnValues['closingTime']*1000);
+                    console.log(time);
+                    ct = time.toString(); // Closing Date
+                    console.log(ct);
+
 
                 } else if (item.event === 'bidderExited') {
                     //console.log(item);
@@ -73,7 +84,8 @@ class joinAuction extends Component {
             this.setState({
                 totalBidders: biddersnumber,
                 highestBid: highestbid,
-                join: isJoin
+                join: isJoin,
+                closingTime: ct
             });
 
 
@@ -180,7 +192,28 @@ class joinAuction extends Component {
 
         this.setState({ loading3: false });
 
+    };
 
+    onEndAuction = async (event) => {
+
+        event.preventDefault();
+
+        this.setState({ loading: true });
+
+        try {
+            const accounts = await web3.eth.getAccounts();
+            const plasticBaleSC = plasticBaleContract(this.props.address);
+            await plasticBaleSC.methods.endAuction().send({ from: accounts[0], gas: 250983 });
+            this.setState({ notOver: false });
+
+        } catch (err) {
+            // REVERT REASON IS ALMOST SHOWN HERE
+            console.log(err);
+            this.setState({ errorMessage: err });
+            this.setState({ hasError: false });
+        }
+
+        this.setState({ loading: false });
     };
 
 
@@ -196,6 +229,13 @@ class joinAuction extends Component {
                 {console.log(this.props.address)}
                 <div className='statistic'>
                     <h1>Live Auction</h1>
+                    
+                    <div className='countdown'>
+                    <DateCountdown dateTo='March 27, 2021 00:00:00 GMT+03:00' 
+                    dateFrom={new Date()} 
+                    callback={this.endAuction} /> 
+                    </div>
+
                     <h2> Plastic Bale being auctioned:
                  <h3> {this.props.address} </h3> </h2>
                     <br />
