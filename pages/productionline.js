@@ -41,6 +41,7 @@ class manufacturingMachinePage extends Component {
             bottleQR: '',
             errorMessage: '',
             hasNoError: false,
+            loading: false, 
             QRcodePic: false
         };
     }
@@ -53,12 +54,18 @@ class manufacturingMachinePage extends Component {
         event.preventDefault(); // prevents the browser from submitting the form immediately
 
         const accounts = await web3.eth.getAccounts();
+        
+        this.setState({ loading: true, errorMessage: '' });
 
         try {
 
             await bottleContract.methods
                 .registerBottle(this.state.registerSCAddress, this.state.bottleType, this.state.bottleColor, this.state.bottleSize)
                 .send({ from: accounts[0] });
+
+            this.state.bottleQR = await bottleContract.methods.getBottleAddress().call(); 
+            console.log(this.state.bottleQR);
+            this.setState({ QRcodePic: true });
 
         } catch (err) {
 
@@ -70,15 +77,9 @@ class manufacturingMachinePage extends Component {
         // if errorMsg is empty, registration is successful
         if (!this.state.errorMessage)
             this.setState({ hasNoError: true });
+        this.setState({ loading: false });
 
     };
-
-    onGenerate = async (event) => {
-        this.state.bottleQR = await bottleContract.methods.getBottleAddress().call();
-        console.log(this.state.bottleQR);
-        this.setState({ QRcodePic: true });
-
-    }
 
     handleChangeType = (e, { value }) => this.setState({ bottleType: value })
     handleChangeColor = (e, { value }) => this.setState({ bottleColor: value })
@@ -130,17 +131,13 @@ class manufacturingMachinePage extends Component {
 
                                         <Message success header="Success!" content="QR code generated successfully!" />
 
-
-                                        <Button type='submit'>Submit</Button>
+                                        <Button loading={this.state.loading} type='submit'>Submit</Button>
                                     </Form>
 
                                     <label>{this.state.bottleQR}</label>
                                     <h1>{this.state.QRcodePic == true ? 
                                     <QrCode value={this.state.bottleQR} QrCode size={'400'} /> : ''} </h1>
 
-                                    <Form onSubmit={this.onGenerate}>
-                                        <Button type='submit'>Generate QR Code</Button>
-                                    </Form>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
@@ -151,3 +148,16 @@ class manufacturingMachinePage extends Component {
     }
 }
 export default manufacturingMachinePage; 
+
+/*
+//<Button type='submit'>Submit</Button> 
+    onGenerate = async (event) => {
+        this.state.bottleQR = await bottleContract.methods.getBottleAddress().call();
+        console.log(this.state.bottleQR);
+        this.setState({ QRcodePic: true });
+
+    }
+                                        <Form onSubmit={this.onGenerate}>
+                                        <Button type='submit'>Generate QR Code</Button>
+                                    </Form>
+    */ //(old)
