@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
 import trackingContract from '../../ethereum/tracking';
 import plasticBaleContract from '../../ethereum/plasticBale';
@@ -78,6 +78,7 @@ class viewauctions extends Component {
 
         return (
             <Layout>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />

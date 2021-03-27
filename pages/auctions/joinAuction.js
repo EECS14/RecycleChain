@@ -6,6 +6,7 @@ import registerContract from '../../ethereum/register';
 import Layout from '../../components/Layout';
 import dynamic from 'next/dynamic';
 const DateCountdown = dynamic(() => import('react-date-countdown-timer'), { ssr: false })
+import axios from 'axios';
 
 class joinAuction extends Component {
     constructor(props) {
@@ -22,7 +23,11 @@ class joinAuction extends Component {
             highestBidderAddress: '',
             bid: '',
             loading2: false,
-            loading3: false
+            loading3: false,
+            cryptos: [],
+            dollarValue: 0,
+            dollars: false,
+            eth: true,
         };
 
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -101,6 +106,13 @@ class joinAuction extends Component {
 
         });
 
+
+        axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH&tsyms=USD')
+            .then(res => {
+                const cryptos = res.data;
+                console.log(cryptos);
+                this.setState({ cryptos: cryptos });
+            })
 
     };
 
@@ -226,19 +238,34 @@ class joinAuction extends Component {
         this.setState({ loading: false });
     };
 
+    convertToEther = () => {
+        this.setState({ dollars: false, eth: true });
+        
+    };
+
+    convertToDollars = () => {
+
+        var dollar = this.state.highestBid;
+        dollar = (dollar * this.state.cryptos.ETH.USD).toFixed(2);
+        console.log(dollar);
+
+        this.setState({ dollarValue: dollar, dollars: true, eth: false });
+
+    };
+
 
 
 
     render() {
 
-        const { join } = this.state;
+        const { join, dollars, eth } = this.state;
 
         return (
             <Layout>
                 <link rel="stylesheet"
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
-                {console.log(this.props.address)}
+
                 <div className='statistic'>
                     <h1>Live Auction</h1>
 
@@ -254,14 +281,33 @@ class joinAuction extends Component {
                     <div className='AuctionContainer'>
 
                         <Statistic.Group widths='three'>
-                            <Statistic>
-                                <Statistic.Value text>
-                                    {this.state.highestBid}
-                                    <br />
-                            Ether
+
+                            {dollars == true && eth == false ? (<div>
+                                <Statistic>
+                                    <Statistic.Value text>
+                                        {this.state.dollarValue}
+                                        <br />
+                            USD
                             </Statistic.Value>
-                                <Statistic.Label>Highest Bid</Statistic.Label>
-                            </Statistic>
+                                    <Statistic.Label>Highest Bid</Statistic.Label>
+                                </Statistic>
+
+                            </div>)
+                                : (<div>
+                                    <Statistic>
+                                        <Statistic.Value text>
+                                            {this.state.highestBid}
+                                            <br />
+                                ETH
+                                </Statistic.Value>
+                                        <Statistic.Label>Highest Bid</Statistic.Label>
+                                    </Statistic>
+    
+                                </div>)}
+
+                        
+
+
 
                             <Statistic>
                                 <Statistic.Value>
@@ -287,7 +333,19 @@ class joinAuction extends Component {
 
                 <br />
                 <br />
+
+
+                <div className='conversionButtons'>
+                    <Button.Group size='large'>
+                        <Button onClick={this.convertToEther}> Ether </Button>
+                        <Button.Or />
+                        <Button onClick={this.convertToDollars}>Dollars</Button>
+                    </Button.Group>
+                </div>
+
                 <br />
+                <br />
+
 
                 {join === false ? (<Grid>
                     <Grid.Row centered>
