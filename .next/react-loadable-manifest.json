@@ -8,7 +8,7 @@
   "react-date-countdown-timer": [
     {
       "id": "./node_modules/react-date-countdown-timer/build/index.js",
-      "file": "static/chunks/2.js"
+      "file": "static/chunks/1.js"
     }
   ]
 }

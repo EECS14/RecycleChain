@@ -28,11 +28,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/auctions/joinAuction.js"
-    ],
-    "/auctions/viewauctions": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/auctions/viewauctions.js"
     ]
   },
   "ampFirstPages": []
