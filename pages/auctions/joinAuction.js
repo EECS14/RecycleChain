@@ -226,6 +226,13 @@ class joinAuction extends Component {
         this.setState({ loading: false });
     };
 
+    convertToEther = () => {
+
+        
+    };
+
+    convertToDollars = () => {};
+
 
 
 
@@ -287,7 +294,19 @@ class joinAuction extends Component {
 
                 <br />
                 <br />
+           
+
+                <div className='conversionButtons'>
+                <Button.Group size='large'>
+                    <Button Click={this.convertToEther}> Ether </Button>
+                    <Button.Or />
+                    <Button onClick={this.convertToDollars}>Dollars</Button>
+                </Button.Group>
+                </div>
+
                 <br />
+                <br />
+
 
                 {join === false ? (<Grid>
                     <Grid.Row centered>

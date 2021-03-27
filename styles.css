@@ -106,5 +106,8 @@ div{
   min-height: 1em;
   font-size: 20px;
   /*text-shadow:2px 2px 5px rgb(242, 243, 242);*/
+}
 
+.conversionButtons{
+  text-align: center;
 }
