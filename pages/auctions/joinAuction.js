@@ -17,7 +17,7 @@ class joinAuction extends Component {
             loading: false,
             totalBidders: 0,
             highestBid: 0,
-            closingTime: '',
+            closingTime: 0,
             highestBidder: 'No bids placed',
             highestBidderAddress: '',
             bid: '',
@@ -45,12 +45,9 @@ class joinAuction extends Component {
         var highestbid = 0;
         var isJoin = false;
         var time = ''; //closing time
-        var firstPart='';
-        var secondPart='';
-        var ct = 0; // temp closing date
-        
-
-
+        var firstPart = '';
+        var secondPart = '';
+        var ct = ''; // temp closing date
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
 
@@ -68,17 +65,16 @@ class joinAuction extends Component {
                     time = new Date(item.returnValues['closingTime'] * 1000);
                     console.log(time);
                     //2. Formating the date for the date counter input
-                    const options = {  year: 'numeric', month: 'long', day: 'numeric' };
-                    firstPart= time.toLocaleDateString('en-US', options);
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    firstPart = time.toLocaleDateString('en-US', options);
                     console.log(firstPart);
                     //3. Get orginal GMT time from the var time
-                    secondPart = time.toString().slice(15, 24); 
-                    secondPart = secondPart.concat(" GMT+04:00 ");
+                    secondPart = time.toString().slice(15, 24);
+                    secondPart = secondPart.concat(" GMT+04:00");
                     console.log(secondPart);
                     //4. concat the two strings into the desired form
                     ct = firstPart.concat(secondPart);
-                    console.log(ct); 
-
+                    console.log(ct);
 
                 } else if (item.event === 'bidderExited') {
                     //console.log(item);
@@ -99,7 +95,7 @@ class joinAuction extends Component {
                 totalBidders: biddersnumber,
                 highestBid: highestbid,
                 join: isJoin,
-                closingTime: ct
+                closingTime: ct.toString()
             });
 
 
@@ -231,6 +227,8 @@ class joinAuction extends Component {
     };
 
 
+
+
     render() {
 
         const { join } = this.state;
@@ -245,8 +243,7 @@ class joinAuction extends Component {
                     <h1>Live Auction</h1>
 
                     <div className='countdown'>
-                        <DateCountdown dateTo={this.state.closingTime}
-                            dateFrom={new Date()}
+                        <DateCountdown dateTo={this.state.closingTime.toString()}
                             callback={this.endAuction} />
                     </div>
 
