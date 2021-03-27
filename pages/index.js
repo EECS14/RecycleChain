@@ -6,7 +6,8 @@ To run the app, use the command npm run dev
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import Layout from '../components/Layout';
-//import buildingsImg from '../resources/images/buildings.jpg'; // does not work for some reason
+import Image from 'next/image'; 
+
 
 export default class index extends Component {
     constructor(props) {
@@ -65,8 +66,9 @@ export default class index extends Component {
                     {(activeItem === 'about') && (
                         <div>
                             <div className="about">
-                                {/*(
-                                <img src='../images/blockchain.jpg' alt="Blockchain"/> )*/}
+
+                                <Image className="logo" src='/blockchain.jpg' alt="Blockchain" width="200" height="200"/> 
+                                
                                 <h1>RecycleChain</h1>
                                 <p>Recycle Chain is a system that tokenizes recycleable plastic waste to provide transparent post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. Recyclers who participate in recycling are rewarded with Ether!
                                 </p>

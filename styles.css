@@ -26,6 +26,14 @@ div{
     padding-left: 20px;
   }
 
+  .about.Image{
+    margin-left: 500px;
+    margin-right: 500px;
+    position: relative;
+    top: -3px;
+    width: 50%;
+  }
+
   .feature p{
     align-content: center;
     background-color: #fefefe18;
@@ -36,6 +44,8 @@ div{
     min-height: 3em;
     padding-left: 20px;
   }
+
+
 
   /*Registration Page CSS*/
   .Registration h1 {
