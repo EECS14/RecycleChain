@@ -25,7 +25,9 @@ class sortingmachine extends Component {
             hasNoError: false,
             bottlesLimit: '',
             errorMessage1: '',
-            loading: false
+            loading: false,
+            loadingPic:false,
+            IPFSPic: false
         };
     }
 
@@ -99,24 +101,37 @@ class sortingmachine extends Component {
         event.stopPropagation()
         event.preventDefault();
         const file = event.target.files[0]
-        let reader = new window.FileReader() // he used const instead of let
+        let reader = new window.FileReader() 
         reader.readAsArrayBuffer(file)
-        reader.onloadend = () => this.convertToBuffer(reader)    
+        reader.onloadend = async () => { //file is converted to a buffer for upload to IPFS
+            const buffer = await Buffer.from(reader.result);
+            this.setState({buffer});
+            console.log('buffer', this.state.buffer)}   
       };//Capture File
-      
-    convertToBuffer = async(reader) => {
-        //file is converted to a buffer for upload to IPFS
-        const buffer = await Buffer.from(reader.result);
-        //set this buffer -using es6 syntax
-        this.setState({buffer});
-        console.log('buffer', this.state.buffer)
-    };// converToBuffer
 
     onUpload = async(event) =>  {
-        event.preventDefault()
+        event.preventDefault();
+
+        // to upload image to IPFS
         const result = await ipfs.add(this.state.buffer);
         this.setState({ ipfsHash: result.path })
         console.log('ifpsHash', this.state.ipfsHash)
+        
+        const accounts = await web3.eth.getAccounts();
+        this.setState({ loadingPic: true, errorMessage1: '' });
+
+        //to upload image to blockcahin
+        try {
+            await trackingContract.methods
+                .setBaleIPFSHash(this.state.ipfsHash)
+                .send({ from: accounts[0] });
+            this.setState({ IPFSPic: true });
+        } catch (err) {
+            this.setState({ errorMessage1: err.message });
+
+        }
+        
+       this.setState({ loadingPic: false });
     }
 
 
@@ -138,11 +153,6 @@ class sortingmachine extends Component {
                         <Grid>
                             <Grid.Row centered>
                                 <Grid.Column width={6} textAlign="center">
-                                    <Form onSubmit={this.onUpload}>
-                                        <input type='file' onChange={this.captureFile}/>
-                                        <input type='submit' />
-                                    </Form>
-                                    <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt=""/>
 
                                     <Form onSubmit={this.onSetBaleLimit} error={!!this.state.errorMessage1} >
                                         <Form.Field>
@@ -150,8 +160,17 @@ class sortingmachine extends Component {
                                             <Input value={this.state.bottlesLimit}
                                                 onChange={event => this.setState({ bottlesLimit: event.target.value })} />
                                         </Form.Field>
-
                                         <Button loading={this.state.loading} type='submit'>Set Limit</Button>
+                                    </Form>
+
+                                    <Form onSubmit={this.onUpload } error={!!this.state.errorMessage}>
+                                        <Form.Field>
+                                            <label>Upload Plastic Bale Picture</label>
+                                            <Input type='file'
+                                                onChange={this.captureFile}/>
+                                        </Form.Field>
+                                        <Button loading={this.state.loadingPic} type='submit'>Upload Picture</Button>
+                                        <Message error header="Error!" content={this.state.errorMessage} />
                                     </Form>
 
                                     <Form error={!!this.state.errorMessage} success={this.state.hasNoError} >
@@ -175,6 +194,11 @@ class sortingmachine extends Component {
                                         </div>
 
                                     </Form>
+
+                                    <label>{this.state.IPFSPic == true ? 
+                                    <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" class="center"/> : ''} 
+                                    </label>
+                                    
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
