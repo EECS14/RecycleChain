@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0; 
-
+//(new) contain all things related to ipfs
 
  interface RegisterSC{
       
@@ -9,18 +9,20 @@ pragma solidity ^0.5.0;
 contract PlasticBale{
     
 
-    address[] public plasticBale; 
-    address payable[] public contributors; 
+     address[] public plasticBale; 
+     address payable[] public contributors; 
      address payable[] public tempArray; 
      uint public contribution;  //Added here
+     string public baleHash; //(new)
    
- // Bid variables 
+   
       bool public isOpen; 
       uint public highestBid; 
       address payable public highestBidder; 
       uint public startTime; 
       uint public endTime; 
-
+      address payable public auctionOwner;
+      uint totalBidders; 
   
   struct buyer{
       bool isExist; 
@@ -28,32 +30,36 @@ contract PlasticBale{
       uint deposit; 
   }
   
-  //Bidder[BuyerAddress]
+  
+  
   mapping(address=>buyer) bidder; 
   
-  //Seller is the auctionOwner 
-   address payable public auctionOwner;
-   
-   // Bidders are the Buyers 
-   uint totalBidders; 
+ 
+  
     
-    constructor(address[] memory _plasticBale, address payable[] memory _contributors, address payable seller ) public {
+    constructor(address[] memory _plasticBale, address payable[] memory _contributors, address payable seller, string memory _baleHash ) public { //(new) added IPFSHash
       plasticBale = _plasticBale; 
       contributors = _contributors; 
       auctionOwner = seller; 
+      baleHash = _baleHash; //(new)
       totalBidders = 0; 
-  }  
+        }  
     
     
     modifier onlyOwner{
-        require(msg.sender == auctionOwner, "Auction owner is not authorized"); 
+        require(msg.sender == auctionOwner, 
+        "Auction owner is not authorized"); 
         _; 
     }
-    
-    
+    modifier onlyBidder(address registerContractAddr){
+        RegisterSC registerSC = RegisterSC(registerContractAddr); 
+        require(registerSC.isBuyerExist(msg.sender), 
+        "Bidder is not registered"); 
+        _;                                                                      
+    }
     
     event bidderRegistered (address indexed baleAddress, address indexed bidderAddress); 
-    event auctionStarted (address indexed baleAddress, uint startingAmount, uint closingTime); 
+    event auctionStarted (address indexed baleAddress, uint startingAmount, uint closingTime, string baleHash); //(new) baleHash
     event bidPlaced(address indexed baleAddress, address indexed biddeAddress, uint amount);
     event bidderExited(address indexed baleAddress, address indexed bidderAddress); 
     event auctionEnded (address indexed baleAddress,address highestBidder, uint highestBid , uint closingTime); 
@@ -61,11 +67,6 @@ contract PlasticBale{
     event updateStatusBuyer(address buyer, address indexed plasticBottleAddress, string status, uint time); 
     
     
-    modifier onlyBidder(address registerContractAddr){
-        RegisterSC registerSC = RegisterSC(registerContractAddr); 
-        require(registerSC.isBuyerExist(msg.sender), "Bidder is not registered"); 
-        _;                                                                        
-    }
     function addBidder(address registerContractAddr, address bidderAddr) onlyBidder (registerContractAddr) public {
         
     require(bidder[bidderAddr].isExist == false, "Bidder already joined the Auction.");
@@ -92,7 +93,7 @@ contract PlasticBale{
         endTime = closingTime; 
        
        // Contract address is the bale address 
-        emit auctionStarted(address(this), startPrice, closingTime); 
+        emit auctionStarted(address(this), startPrice, closingTime, baleHash); //(new) baleHash
     }
     
     function placeBid(address registerContractAddr, uint amount)  onlyBidder(registerContractAddr) payable public{
@@ -128,10 +129,10 @@ contract PlasticBale{
     }
     
     
-    function endAuction() public{
+    function endAuction() onlyOwner public{
         
         require( isOpen, "Auction is not avalible.");
-        //require(endTime < now, "Auction duration is not up yet.");
+        require(endTime < now, "Auction duration is not up yet.");
         require(highestBidder != address(0), "No bids have been placed"); 
         
         isOpen = false; 
