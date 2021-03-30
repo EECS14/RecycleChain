@@ -142,6 +142,7 @@ class sortingmachine extends Component {
                                         <input type='file' onChange={this.captureFile}/>
                                         <input type='submit' />
                                     </Form>
+                                    <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt=""/>
 
                                     <Form onSubmit={this.onSetBaleLimit} error={!!this.state.errorMessage1} >
                                         <Form.Field>
