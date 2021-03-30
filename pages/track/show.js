@@ -17,7 +17,6 @@ class show extends Component {
             disposeDate: '',
             recyclerAddr: '',
             sortedActive: false,
-            sortedDisabled: true,
             sortDate: '',
             sortingFacilityName: '',
             sortingFacilityLoc: '',
@@ -29,7 +28,7 @@ class show extends Component {
             buyerLocation: '',
             buyerBusiness: '',
             purchaseActive: false,
-            purchaseDisabled: true
+           
         };
     }
 
@@ -73,7 +72,7 @@ class show extends Component {
             var date = time.toString();
             this.setState({ sortDate: date });
             this.FetchSellerDetails();
-            this.setState({ sortedActive: true, sortedDisabled: false });
+            this.setState({ sortedActive: true });
         }.bind(this))
             .on('error', console.error);
 
@@ -140,7 +139,7 @@ class show extends Component {
                 var date = time.toString();
                 this.setState({ purchaseDate: date });
                 this.FetchBuyerDetails();
-                this.setState({ purchaseActive: true, purchaseDisabled: false });
+                this.setState({ purchaseActive: true });
 
             }.bind(this))
                 .on('error', console.error);
@@ -168,7 +167,7 @@ class show extends Component {
 
     render() {
 
-        const { disposeDate } = this.state;
+        const { disposeDate, purchaseActive, sortedActive} = this.state;
 
         return (
             <Layout>
@@ -181,8 +180,7 @@ class show extends Component {
                     <br/>
                
 
-
-                <VerticalTimeline>
+                <VerticalTimeline layout='1-column-left'>
                     <VerticalTimelineElement
                         className="vertical-timeline-element--work"
                         iconStyle={{ background: 'rgb(66, 195, 99)', color: '#fff' }}
@@ -199,42 +197,51 @@ class show extends Component {
     </p>
                     </VerticalTimelineElement>
 
-                    <VerticalTimelineElement
-                        className="vertical-timeline-element--work"
-                        iconStyle={{ background: 'rgb(66, 195, 99)', color: '#fff' }}
-                        icon={<svg width="22" height="22" viewBox="0 0 20 20">
-                        <path d="M10.5 20h-10.5v-13l5 3.33v-3.33l5 3.33v-3.33l5 3.33v-10.33h5v20h-9.5z"></path>
-                        </svg>}
-                        visible={this.state.sortedActive }
+                    {sortedActive == true ? (
+                        <div>
+                            <VerticalTimelineElement
+                                className="vertical-timeline-element--work"
+                                iconStyle={{ background: 'rgb(66, 195, 99)', color: '#fff' }}
+                                icon={<svg width="22" height="22" viewBox="0 0 20 20">
+                                    <path d="M10.5 20h-10.5v-13l5 3.33v-3.33l5 3.33v-3.33l5 3.33v-10.33h5v20h-9.5z"></path>
+                                </svg>}
+                                visible={this.state.sortedActive}
 
-                    >
-                        <h3 className="vertical-timeline-element-title">Sorted</h3>
-                        <h4 className="vertical-timeline-element-subtitle">Sorting Facility: {this.state.sortingFacilityAddr}</h4>
-                        <p>
-                        Sorting Facility: {this.state.sortingFacilityName} <br/>
-                        Location: {this.state.sortingFacilityLoc} <br/>
+                            >
+                                <h3 className="vertical-timeline-element-title">Sorted</h3>
+                                <h4 className="vertical-timeline-element-subtitle">Sorting Facility: {this.state.sortingFacilityAddr}</h4>
+                                <p>
+                                    Sorting Facility: {this.state.sortingFacilityName} <br />
+                        Location: {this.state.sortingFacilityLoc} <br />
                         Date: {this.state.sortDate}
-    </p>
-                    </VerticalTimelineElement>
+                                </p>
+                            </VerticalTimelineElement>
 
-                    <VerticalTimelineElement
-                        className="vertical-timeline-element--work"
-                        iconStyle={{ background: 'rgb(66, 195, 99)', color: '#fff' }}
-                        icon={<svg width="22" height="22" viewBox="0 0 32 32 ">
-                        <path d="M15.925 23.96l-9.819-5.8 9.817 13.84 9.827-13.84-9.829 5.8zM16.075 0l-9.821 16.297 9.82 5.805 9.82-5.8z"></path>
-                        </svg>}
-                        visible={ this.state.purchaseActive }
+                        </div>) : null}
 
-                    >
-                        <h3 className="vertical-timeline-element-title">Purchased</h3>
-                        <h4 className="vertical-timeline-element-subtitle">Buyer: {this.state.buyerAddr}</h4>
-                        <p>
-                        Buyer: {this.state.buyerName} <br/>
-                        Location: {this.state.buyerLocation} <br/>
-                        Recycled to: {this.state.buyerBusiness} <br/>
+
+                        {purchaseActive == true ? (<div>
+                            <VerticalTimelineElement
+                                className="vertical-timeline-element--work"
+                                iconStyle={{ background: 'rgb(66, 195, 99)', color: '#fff' }}
+                                icon={<svg width="22" height="22" viewBox="0 0 32 32 ">
+                                    <path d="M15.925 23.96l-9.819-5.8 9.817 13.84 9.827-13.84-9.829 5.8zM16.075 0l-9.821 16.297 9.82 5.805 9.82-5.8z"></path>
+                                </svg>}
+                                visible={this.state.purchaseActive}
+
+                            >
+                                <h3 className="vertical-timeline-element-title">Purchased</h3>
+                                <h4 className="vertical-timeline-element-subtitle">Buyer: {this.state.buyerAddr}</h4>
+                                <p>
+                                    Buyer: {this.state.buyerName} <br />
+                        Location: {this.state.buyerLocation} <br />
+                        Recycled to: {this.state.buyerBusiness} <br />
                         Date: {this.state.purchaseDate}
-    </p>
-                    </VerticalTimelineElement>
+                                </p>
+                            </VerticalTimelineElement>
+
+                        </div>) : null}
+
         
                     </VerticalTimeline>
                     </div>
