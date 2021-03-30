@@ -163,14 +163,13 @@ class sortingmachine extends Component {
                                         <Button loading={this.state.loading} type='submit'>Set Limit</Button>
                                     </Form>
 
-                                    <Form onSubmit={this.onUpload } error={!!this.state.errorMessage}>
+                                    <Form onSubmit={this.onUpload }>
                                         <Form.Field>
                                             <label>Upload Plastic Bale Picture</label>
                                             <Input type='file'
                                                 onChange={this.captureFile}/>
                                         </Form.Field>
                                         <Button loading={this.state.loadingPic} type='submit'>Upload Picture</Button>
-                                        <Message error header="Error!" content={this.state.errorMessage} />
                                     </Form>
 
                                     <Form error={!!this.state.errorMessage} success={this.state.hasNoError} >
