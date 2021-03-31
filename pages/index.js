@@ -6,21 +6,78 @@ To run the app, use the command npm run dev
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import Layout from '../components/Layout';
-import Image from 'next/image'; 
+import Image from 'next/image';
+import { Pie } from 'react-chartjs-2';
+import trackingContract from '../ethereum/tracking';
 
 
 export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'about'
+            activeItem: 'about',
+            recycledBottles: 0, 
+            notRecycledBottles: 0
         }
     }
+
+    componentDidMount = async () => {
+
+        var disposed = 0;
+        var sorted = 0;
+ 
+        trackingContract.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
+
+            const myfunction = (item) => {
+
+                if (item.event === 'updateStatusRecycler') {
+                    disposed++;
+                    
+                } else if (item.event === 'updateStatusMachine') {
+                    sorted++;
+
+                } 
+
+            };
+
+            events.forEach(myfunction);
+
+            this.setState({
+               recycledBottles: sorted,
+               notRecycledBottles: disposed
+            });
+
+
+        });
+
+
+
+    };
+
+
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
         const { activeItem } = this.state
+
+        const state = {
+            labels: ['Recycled', 'Not Recycled'],
+            datasets: [
+                {
+                    label: 'Plastic bottles',
+                    backgroundColor: [
+                        '#E88B0C',
+                        '#0B98E3'
+                    ],
+                    hoverBackgroundColor: [
+                        '#B4701E',
+                        '#296B8E'
+                    ],
+                    data: [this.state.recycledBottles, this.state.notRecycledBottles]
+                }
+            ]
+        }
 
         return (
             <Layout>
@@ -67,8 +124,8 @@ export default class index extends Component {
                         <div>
                             <div className="about">
 
-                                <Image className="logo" src='/blockchain.jpg' alt="Blockchain" width="200" height="200"/> 
-                                
+                                <Image className="logo" src='/blockchain.jpg' alt="Blockchain" width="200" height="200" />
+
                                 <h1>RecycleChain</h1>
                                 <p>Recycle Chain is a system that tokenizes recycleable plastic waste to provide transparent post-consumer plastic waste management and real-time tracking of disposed plastic waste to different stakeholders. Recyclers who participate in recycling are rewarded with Ether!
                                 </p>
@@ -84,28 +141,28 @@ export default class index extends Component {
                                 <p>Transaction performed by the system can  be viewed publicly on Etherscan</p>
                             </div>
 
-                            <br/>
+                            <br />
 
                             <div className="feature">
                                 <h4>Cryptographically Protected</h4>
                                 <p>Transactions are digitally signed by users  private key</p>
                             </div>
 
-                            <br/>
+                            <br />
 
                             <div className="feature">
                                 <h4>No Deletion or Alteration</h4>
                                 <p>System records are stored on Ethereum Blockchain</p>
                             </div>
 
-                            <br/>
+                            <br />
 
                             <div className="feature">
                                 <h4>Distributed Control</h4>
                                 <p>System is hosted on a private Ethereum Network encompassed on stakeholder nodes.</p>
                             </div>
 
-                            <br/>
+                            <br />
 
                             {/* insert img */}
 
@@ -113,26 +170,25 @@ export default class index extends Component {
                     )}
 
                     {(activeItem === 'stats') && (
-                        <div className="statistics">
-                            <div className="statistic">
-                                <h1>9.4K</h1>
-                                <h6>Bottles recycled</h6>
-                            </div>
+                        <div>
+                            <Pie
+                                data={state}
+                                options={{
+                                    title: {
+                                        display: true,
+                                        text: 'Average UAE Plastic Bottles Recycling Per Month',
+                                        fontSize: 20
+                                    },
+                                    animation:{
+                                        animateScale: true
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'right'
+                                    }
+                                }}
+                            />
 
-                            <div className="statistic">
-                                <h1>234</h1>
-                                <h6>Rewarded users</h6>
-                            </div>
-
-                            <div className="statistic">
-                                <h1>87+</h1>
-                                <h6>Countries</h6>
-                            </div>
-
-                            <div className="statistic">
-                                <h1>$58</h1>
-                                <h6>Revenue per hour</h6>
-                            </div>
                         </div>
                     )}
 
