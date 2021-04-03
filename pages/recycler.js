@@ -163,11 +163,6 @@ class recyclerPage extends Component {
                         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                     />
 
-                    <Card header='Rewards' description={this.state.rewards} meta='ETH' centered='true' />
-
-                    <br />
-
-
                     <Grid>
                         <Grid.Row centered>
                             <Grid.Column textAlign="center">
@@ -192,6 +187,8 @@ class recyclerPage extends Component {
 
 
                     <br />
+
+                    <h3 style={{textAlign:'center'}}>Bottle history:</h3>
 
                     <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                         <Table unstackable size='small'>
@@ -220,6 +217,12 @@ class recyclerPage extends Component {
                     </div>
 
                 </div>
+
+                <h3 style={{textAlign:'center'}}>Total rewards:</h3>
+
+                <Card header='Rewards' description={this.state.rewards} meta='ETH' centered='true' />
+
+                <br />
 
             </Layout>
 

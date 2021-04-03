@@ -301,9 +301,10 @@ class registrationPage extends Component {
                                                 </Form.Field>
 
                                                 <Form.Field >
-                                                    <label>Sorting Machines Address</label>
+                                                    <label>Number of Sorting Machines</label>
                                                     <input type="number" name="quantity" min="1" max="7" placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
                                                     <div>
+                                                    <label>Sorting Machine Adresses</label>
                                                         {this.renderInputs(this.state.inputSize)}
                                                     </div>
                                                 </Form.Field>
