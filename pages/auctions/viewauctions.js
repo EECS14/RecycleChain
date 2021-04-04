@@ -14,7 +14,8 @@ class viewauctions extends Component {
             cards: [],
             closingTime: '',
             startingPrice: '',
-            auctionAddr: ''
+            auctionAddr: '',
+            auctionIPFS:''
         };
     }
 
@@ -31,6 +32,7 @@ class viewauctions extends Component {
             //1. Fetch plastic bale addresses which are contract addresses/auction addresses from plasticBaleCompleted
             const plasticbaleAddr = event.returnValues['plasticbale'];
             console.log(plasticbaleAddr);
+
             //2. Create a new instance 
             const plasticBaleSC = plasticBaleContract(plasticbaleAddr);
             //3. Check auctionStarted events 
@@ -46,7 +48,8 @@ class viewauctions extends Component {
                 this.setState({
                     auctionAddr: event.returnValues['baleAddress'],
                     closingTime: date,
-                    startingPrice: event.returnValues['startingAmount']
+                    startingPrice: event.returnValues['startingAmount'],
+                    auctionIPFS: event.returnValues['baleHash']
                 });
 
                 //5. Render card on webpage
@@ -65,7 +68,7 @@ class viewauctions extends Component {
     renderAuctions = () => {
         // Add more information here like the seller name 
         this.setState((prevState) => {
-            let items = { header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Ether` };
+            let items = { image: this.state.auctionIPFS, header: this.state.auctionAddr, description: <a>Auction Details</a>, fluid: true, meta: `Closing Time: ` + this.state.closingTime , extra: `Starting Price: ` +this.state.startingPrice + ` Ether` };
             return { cards: [...prevState.cards, items] };
 
         });
@@ -84,24 +87,29 @@ class viewauctions extends Component {
                 />
 
                 <div className='Buyer'>
-
-                   
-                <h1>Welcome to Buyer Page</h1>
-                <h2>Open Auctions</h2>
-                <Card.Group>
-                {this.state.cards.map(items => (
-                    <Link route={`/auctions/viewauctions/${items.header}`}>
+                    <h1>Welcome to Buyer Page</h1>
+                    <h2>Open Auctions</h2>
+                    <Card.Group>
+                        {this.state.cards.map(items => (
+                            <Link route={`/auctions/viewauctions/${items.header}`}>
                         
-                       <Card header={items.header}
-                            stackable='true'
-                            meta={items.meta}
-                            extra = { items.extra }
-                            description = { items.description }
-                            fluid = {items.fluid } />
+                                <Card 
+                                image={`https://ipfs.io/ipfs/${items.image}`}
+                                header={items.header}
+                                stackable='true'
+                                meta={items.meta}
+                                extra = { items.extra }
+                                description = { items.description }
+                                fluid = {items.fluid }
+                                
+                                style={{
+                                    'overflow': 'hidden'
+                                }}
+                                />
 
-                    </Link>
-        )) }      </Card.Group>
-       
+                            </Link>
+                        )) }
+                    </Card.Group>
                  </div>
             </Layout>
         );

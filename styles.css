@@ -89,6 +89,10 @@ div{
   text-align: center;
 }
 
+.statistic{
+  text-align: center;
+}
+
 .statistic title h3{
   font-size: 20px;
 }
@@ -110,14 +114,38 @@ div{
 }
 
 /*Buyer Page - Auction (joinAuction) CSS*/
-.countdown{
-  background-color: #eaf0ec35;
-  text-align: center;
-  min-height: 1em;
-  font-size: 20px;
-  /*text-shadow:2px 2px 5px rgb(242, 243, 242);*/
-}
+
 
 .conversionButtons{
   text-align: center;
 }
+
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+}
+
+#clockdiv > div{
+  padding: 10px;
+  border-radius: 3px;
+  background: #00BF96;
+  display: inline-block;
+  
+}
+
+#clockdiv div > span{
+  padding: 15px;
+  border-radius: 3px;
+  background: #00816A;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 16px;
+}
+

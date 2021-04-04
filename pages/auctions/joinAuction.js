@@ -31,6 +31,8 @@ class joinAuction extends Component {
         };
 
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.getTimeRemaining = this.getTimeRemaining.bind(this);
+        
     }
 
 
@@ -50,9 +52,7 @@ class joinAuction extends Component {
         var highestbid = 0;
         var isJoin = false;
         var time = ''; //closing time
-        var firstPart = '';
-        var secondPart = '';
-        var ct = ''; // temp closing date
+       
 
         plasticBaleSC.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
 
@@ -69,17 +69,8 @@ class joinAuction extends Component {
                     //1. Get closing time from event
                     time = new Date(item.returnValues['closingTime'] * 1000);
                     console.log(time);
-                    //2. Formating the date for the date counter input
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    firstPart = time.toLocaleDateString('en-US', options);
-                    console.log(firstPart);
-                    //3. Get orginal GMT time from the var time
-                    secondPart = time.toString().slice(15, 24);
-                    secondPart = secondPart.concat(" GMT+04:00");
-                    console.log(secondPart);
-                    //4. concat the two strings into the desired form
-                    ct = firstPart.concat(secondPart);
-                    console.log(ct);
+                    this.initializeClock('clockdiv', time);
+                
 
                 } else if (item.event === 'bidderExited') {
                     //console.log(item);
@@ -100,7 +91,7 @@ class joinAuction extends Component {
                 totalBidders: biddersnumber,
                 highestBid: highestbid,
                 join: isJoin,
-                closingTime: ct.toString()
+                closingTime: time
             });
 
 
@@ -115,6 +106,56 @@ class joinAuction extends Component {
             })
 
     };
+
+
+
+    // Returns a reusable object
+    getTimeRemaining = (endtime) => {
+
+        const total = Date.parse(endtime) - Date.parse(new Date());
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+        return {
+            total,
+            days,
+            hours,
+            minutes,
+            seconds
+        };
+    };
+
+
+
+      initializeClock(id, endtime) {
+        const clock = document.getElementById(id);
+        const daysSpan = clock.querySelector('.days');
+        const hoursSpan = clock.querySelector('.hours');
+        const minutesSpan = clock.querySelector('.minutes');
+        const secondsSpan = clock.querySelector('.seconds');
+      
+         const updateClock = () => {
+          const t = this.getTimeRemaining(endtime);
+      
+          daysSpan.innerHTML = t.days;
+          hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+          minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+          secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+      
+          if (t.total <= 0) {
+            clearInterval(timeinterval);
+            this.onEndAuction();
+          }
+        };
+    
+        updateClock();
+        const timeinterval = setInterval(updateClock, 1000);
+      }
+      
+
+
 
     onJoinAuction = async (event) => {
         event.preventDefault();
@@ -216,9 +257,9 @@ class joinAuction extends Component {
 
     };
 
-    onEndAuction = async (event) => {
+    onEndAuction = async () => {
 
-        event.preventDefault();
+       
 
         this.setState({ loading: true });
 
@@ -240,7 +281,7 @@ class joinAuction extends Component {
 
     convertToEther = () => {
         this.setState({ dollars: false, eth: true });
-        
+
     };
 
     convertToDollars = () => {
@@ -254,11 +295,9 @@ class joinAuction extends Component {
     };
 
 
-
-
     render() {
 
-        const { join, dollars, eth } = this.state;
+        const { join, dollars, eth, closingTime } = this.state;
 
         return (
             <Layout>
@@ -269,10 +308,26 @@ class joinAuction extends Component {
                 <div className='statistic'>
                     <h1>Live Auction</h1>
 
-                    <div className='countdown'>
-                        <DateCountdown dateTo={this.state.closingTime.toString()}
-                            callback={this.endAuction} />
+                    <div id="clockdiv">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">Days</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">Hours</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">Minutes</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">Seconds</div>
+                        </div>
                     </div>
+
+
 
                     <h2> Plastic Bale being auctioned:
                  <h3> {this.props.address} </h3> </h2>
@@ -302,10 +357,10 @@ class joinAuction extends Component {
                                 </Statistic.Value>
                                         <Statistic.Label>Highest Bid</Statistic.Label>
                                     </Statistic>
-    
+
                                 </div>)}
 
-                        
+
 
 
 

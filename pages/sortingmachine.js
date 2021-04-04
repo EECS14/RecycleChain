@@ -7,6 +7,7 @@ const QRReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 import web3 from '../ethereum/web3';
 import trackingContract from '../ethereum/tracking';
 import Layout from '../components/Layout';
+import ipfs from './ipfs';
 
 class sortingmachine extends Component {
     constructor(props) {
@@ -15,16 +16,22 @@ class sortingmachine extends Component {
             productionMachine: false,
             sortingMachine: false,
             result: '',
+            buffer:'',  //(new)
+            ipfsHash: null, //(new)
             qr: false,
-            sellerAddress: '0x334b12DF37984A449b57BAE3F4120f70be177be0',
+            sellerAddress: '0x33b5dCc58986e735d7718692e36E18d00a8Ac1C7',
             registerSCAddress: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
             errorMessage: '',
             hasNoError: false,
             bottlesLimit: '',
             errorMessage1: '',
-            loading: false
+            loading: false,
+            loadingPic:false,
+            IPFSPic: false
         };
     }
+
+
 
     // QR reader functions 
     handleScan = async (data) => {
@@ -89,6 +96,44 @@ class sortingmachine extends Component {
     };
 
 
+    //(new)
+    captureFile =(event) => {
+        event.stopPropagation()
+        event.preventDefault();
+        const file = event.target.files[0]
+        let reader = new window.FileReader() 
+        reader.readAsArrayBuffer(file)
+        reader.onloadend = async () => { //file is converted to a buffer for upload to IPFS
+            const buffer = await Buffer.from(reader.result);
+            this.setState({buffer});
+            console.log('buffer', this.state.buffer)}   
+      };//Capture File
+
+    onUpload = async(event) =>  {
+        event.preventDefault();
+
+        // to upload image to IPFS
+        const result = await ipfs.add(this.state.buffer);
+        this.setState({ ipfsHash: result.path })
+        console.log('ifpsHash', this.state.ipfsHash)
+        
+        const accounts = await web3.eth.getAccounts();
+        this.setState({ loadingPic: true, errorMessage1: '' });
+
+        //to upload image to blockcahin
+        try {
+            await trackingContract.methods
+                .setBaleIPFSHash(this.state.ipfsHash)
+                .send({ from: accounts[0] });
+            this.setState({ IPFSPic: true });
+        } catch (err) {
+            this.setState({ errorMessage1: err.message });
+
+        }
+        
+       this.setState({ loadingPic: false });
+    }
+
 
     render() {
 
@@ -118,6 +163,15 @@ class sortingmachine extends Component {
                                         <Button loading={this.state.loading} type='submit'>Set Limit</Button>
                                     </Form>
 
+                                    <Form onSubmit={this.onUpload }>
+                                        <Form.Field>
+                                            <label>Upload Plastic Bale Picture</label>
+                                            <Input type='file'
+                                                onChange={this.captureFile}/>
+                                        </Form.Field>
+                                        <Button loading={this.state.loadingPic} type='submit'>Upload Picture</Button>
+                                    </Form>
+
                                     <Form error={!!this.state.errorMessage} success={this.state.hasNoError} >
                                         <div className="Scanner" >
                                             <br /> <br />
@@ -139,6 +193,11 @@ class sortingmachine extends Component {
                                         </div>
 
                                     </Form>
+
+                                    <label>{this.state.IPFSPic == true ? 
+                                    <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" class="center"/> : ''} 
+                                    </label>
+                                    
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

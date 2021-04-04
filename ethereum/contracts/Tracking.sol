@@ -1,14 +1,13 @@
 pragma solidity ^0.5.0; 
-
+//(new) contain all things related to ipfs
  interface RegisterSC{
        function getSellerSortingmMachineDetails(address addr) external view returns ( address [] memory); 
     }
     
 
 contract Tracking{
-    
-    //state variables - stored permanently in contract storage 
-   
+
+    string public IPFSHash; //(new)
     string public status;
     address public caller; 
      
@@ -22,44 +21,43 @@ contract Tracking{
      //constructor - initilize state variables
     constructor() public{
         status = 'NoStatus'; 
+        IPFSHash = 'NoPicture'; //(new)
         bottlesSortedCounter = 0;
     }
     
-    //events
+   
     event updateStatusRecycler(address indexed recycler, address indexed plasticBottleAddress, string  status, uint  time);
     event updateStatusMachine(address indexed plasticBottleAddress, address indexed sellerAddress, string  status, uint time); 
-    event plasticBaleCompleted(address [] plasticBale, address payable [] plasticBaleContributorsAddresses,  address indexed sellerAddress, PlasticBale plasticbale, uint256 bottlesInBaleNo,  uint time ); 
+    event plasticBaleCompleted(address [] plasticBale, address payable [] plasticBaleContributorsAddresses,  address indexed sellerAddress, 
+    PlasticBale plasticbale, uint256 bottlesInBaleNo, string IPFSHash,  uint time); //(new) added string IPFSHash
     
     
     modifier sortingMachineOnly (address registerContractAddr, address sellerAddr){
-        
         address[] memory tempArray; 
-
-       RegisterSC registerSC = RegisterSC(registerContractAddr); //pass contract address 
-       tempArray = registerSC.getSellerSortingmMachineDetails(sellerAddr); // pass address of sorting facility-seller
-      
-      
-       for(uint256 i=0; i< tempArray.length; i++){ //only registered sorting machines can update the status of the bottle 
+       RegisterSC registerSC = RegisterSC(registerContractAddr); 
+       tempArray = registerSC.getSellerSortingmMachineDetails(sellerAddr); 
+       for(uint256 i=0; i< tempArray.length; i++){ 
        
          if (msg.sender == tempArray[i])
           _;
           
        }
-        
-   }
+         }
    
+   mapping(address=>address payable) bottleToRecycler; 
+    
+    
 
-    function setBottlesSortedLimit (uint256 _bottlesSortedLimit) public {  // Can be changed based on the sorting facility production goals 
+    function setBottlesSortedLimit (uint256 _bottlesSortedLimit) public {  
         bottlesSortedLimit = _bottlesSortedLimit;
-        
+          }
+    
+    function setBaleIPFSHash (string memory _IPFSHash) public { //(new) 
+        IPFSHash = _IPFSHash;
     }
     
-    //Key: bottle address - bottleToRecycler[BottleAddress] = RecyclerAddress
-    mapping(address=>address payable) bottleToRecycler; 
-    
-    
     function updateStatusDisposed (address plasticBottleAddress) public{
-        bottleToRecycler[plasticBottleAddress] = msg.sender; //save recycler's address
+        bottleToRecycler[plasticBottleAddress] = msg.sender; 
         status = 'Disposed'; 
         emit updateStatusRecycler (msg.sender, plasticBottleAddress, status, now);
     }
@@ -78,12 +76,12 @@ contract Tracking{
       
     }
     
+    
     function createPlasticBale(address payable sellerAddr) public {
          bottlesSortedCounter =0; 
-         PlasticBale newBale = new PlasticBale(plasticBale, plasticBaleContributorsAddresses, sellerAddr);
+         PlasticBale newBale = new PlasticBale(plasticBale, plasticBaleContributorsAddresses, sellerAddr, IPFSHash);//(new) added IPFSHash
          deployedPlasticBales.push(address(newBale)); 
-         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, sellerAddr, newBale, bottlesSortedLimit,  now); 
-        
+         emit plasticBaleCompleted (plasticBale,plasticBaleContributorsAddresses, sellerAddr, newBale, bottlesSortedLimit, IPFSHash,  now); //(new) added IPFSHash
     }
     
     function getDeployedBales() public view returns (address[] memory){

@@ -4,51 +4,5 @@
       "id": "./node_modules/next/dist/client/dev/noop.js",
       "file": "static/chunks/0.js"
     }
-  ],
-  "react.qrcode.generator": [
-    {
-      "id": "./node_modules/qr.js/index.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/8BitByte.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/BitBuffer.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/ErrorCorrectLevel.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/Polynomial.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/QRCode.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/RSBlock.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/math.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/mode.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/qr.js/lib/util.js",
-      "file": "static/chunks/2.js"
-    },
-    {
-      "id": "./node_modules/react.qrcode.generator/es/index.js",
-      "file": "static/chunks/2.js"
-    }
   ]
 }

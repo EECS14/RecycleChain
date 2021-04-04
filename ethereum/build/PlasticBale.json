@@ -17,6 +17,11 @@
           "internalType": "address payable",
           "name": "seller",
           "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_baleHash",
+          "type": "string"
         }
       ],
       "payable": false,
@@ -74,6 +79,12 @@
           "internalType": "uint256",
           "name": "closingTime",
           "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "baleHash",
+          "type": "string"
         }
       ],
       "name": "auctionStarted",
@@ -221,6 +232,21 @@
           "internalType": "address payable",
           "name": "",
           "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "baleHash",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
         }
       ],
       "payable": false,

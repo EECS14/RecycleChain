@@ -12,6 +12,7 @@ class viewbales extends Component {
         this.state = {
             plasticBaleAddr: '',
             productionTime: '',
+            plasticBaleIPFS: '',
             cards: []
 
         };
@@ -32,7 +33,8 @@ class viewbales extends Component {
             var date = time.toString(); 
             this.setState({
                 plasticBaleAddr: event.returnValues['plasticbale'],
-                productionTime: date
+                productionTime: date,
+                plasticBaleIPFS: event.returnValues['IPFSHash'],
             });
 
             //2. Render bale info to the page 
@@ -50,11 +52,9 @@ class viewbales extends Component {
 
 
 
-
-
     renderBales() {
         this.setState((prevState) => {
-            const items = { header: this.state.plasticBaleAddr, description:  `Production Time: ` + this.state.productionTime, fluid: true, extra:  
+            const items = { image: this.state.plasticBaleIPFS, header: this.state.plasticBaleAddr, description:  `Production Time: ` + this.state.productionTime, fluid: true, extra:  
             <Button basic color='green' onClick={this.handleClick(this.state.plasticBaleAddr)}>
             Start Auction
             </Button> 
@@ -73,20 +73,28 @@ class viewbales extends Component {
 
                 <div className='Seller'>
 
-            <h1>Welcome to Seller Page</h1>
-                <h2>Plastic Bales produced at Your Facility</h2>
-                <Card.Group>
-                {this.state.cards.map(items => (
-                    <Link route={`/auctions/viewbales/${items.header}`}>
-                        <Card header={items.header}
-                            description={items.description}
-                            fluid={items.fluid} 
-                            extra={items.extra}/>
-                    </Link>
-                ))}
-                      </Card.Group>
+                    <h1>Welcome to Seller Page</h1>
+                    <h2>Plastic Bales produced at Your Facility</h2>
+                    <Card.Group>
+                        {this.state.cards.map(items => (
+                            <Link route={`/auctions/viewbales/${items.header}`}>
+                                <Card 
+                                image={`https://ipfs.io/ipfs/${items.image}`}
+                                header={items.header}
+                                description={items.description}
+                                fluid={items.fluid} 
+                                extra={items.extra}
+                                
+                                style={{
+                                    'overflow': 'hidden'
+                                }}
+                                />
 
-                      </div>
+                            </Link>
+                        ))}
+                    </Card.Group>
+
+                </div>
             </Layout>
         );
     }

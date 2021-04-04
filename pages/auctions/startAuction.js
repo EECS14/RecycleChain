@@ -123,6 +123,7 @@ class startAuction extends Component {
                                                     timeIntervals={20}
                                                     timeCaption="time"
                                                     dateFormat="MM/dd/yyyy h:mm aa"
+                                                
                                                 />
                                             </Form.Field>
 

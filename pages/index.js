@@ -36,7 +36,7 @@ export default class index extends Component {
         }
             .features, .statistics{
                 display: grid;
-                grid-template-columns: 250px 250px;
+                grid-template-columns: 50% 50%;
                 grid-auto-rows: 150px;
                 column-gap: 15px;
                 row-gap: 15px;
@@ -127,12 +127,6 @@ export default class index extends Component {
                                 <div className="feature">
                                     <h4>Distributed Control</h4>
                                     <p>System is hosted on a private Ethereum Network encompassed on stakeholder nodes.</p>
-                                </div>
-                            </div>
-
-                            <div className="sideImg" style={{float:'right'}}>
-                                <div className="center">
-                                    <Image className="logo" src='/blockchain_map.jpeg' alt="Blockchain" width="380" height="380" />
                                 </div>
                             </div>
                             

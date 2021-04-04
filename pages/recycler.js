@@ -190,19 +190,19 @@ class recyclerPage extends Component {
 
                     <h3 style={{textAlign:'center'}}>Bottle history:</h3>
 
-                    <div className='BottleTable' style={{ 'width': '40%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
-                        <Table unstackable size='small'>
+                    <div className='BottleTable' style={{ 'width': '90%', 'margin-left':'auto', 'margin-right':'auto'}}>
+                        <Table unstackable size='small' fixed singleLine>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Plasitc Bottle Address</Table.HeaderCell>
-                                    <Table.HeaderCell>Status</Table.HeaderCell>
+                                    <Table.HeaderCell width={16}>Plasitc Bottle Address</Table.HeaderCell>
+                                    <Table.HeaderCell width={6}>Status</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
                                 {this.state.rows.map(bottle => (
                                     <Link route={`/track/${bottle.addr}`}>
                                         <Table.Row id={this.state.rows.length} key={this.state.rows.lengt}>
-                                            <Table.Cell selectable>
+                                            <Table.Cell selectable style={{'overflow': 'hidden'}}>
                                                 <a>
                                                     {bottle.addr}
                                                 </a>
