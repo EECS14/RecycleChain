@@ -7,20 +7,77 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 import Image from 'next/image'; 
-
+import { Pie } from 'react-chartjs-2';
+import trackingContract from '../ethereum/tracking';
 
 export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'about'
+            activeItem: 'about',
+            recycledBottles: 0, 
+            notRecycledBottles: 0
+
         }
     }
+
+    componentDidMount = async () => {
+
+        var disposed = 0;
+        var sorted = 0;
+ 
+        trackingContract.getPastEvents("allEvents", { fromBlock: 0, toBlock: 'latest' }, (error, events) => {
+
+            const myfunction = (item) => {
+
+                if (item.event === 'updateStatusRecycler') {
+                    disposed++;
+                    
+                } else if (item.event === 'updateStatusMachine') {
+                    sorted++;
+
+                } 
+
+            };
+
+            events.forEach(myfunction);
+
+            this.setState({
+               recycledBottles: sorted,
+               notRecycledBottles: disposed
+            });
+
+
+        });
+
+
+
+    };
+
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
         const { activeItem } = this.state
+        const state = {
+            labels: ['Recycled', 'Not Recycled'],
+            datasets: [
+                {
+                    label: 'Plastic bottles',
+                    backgroundColor: [
+                        '#E88B0C',
+                        '#0B98E3'
+                    ],
+                    hoverBackgroundColor: [
+                        '#B4701E',
+                        '#296B8E'
+                    ],
+                    data: [this.state.recycledBottles, this.state.notRecycledBottles]
+                }
+            ]
+        }
+
+
 
         return (
             <Layout>
@@ -137,26 +194,25 @@ export default class index extends Component {
                         <div className="statSection">
                             <h2>Statistics</h2>
                             <br/>
-                            <div className="statistics" style={{width:'50%', margin:'auto'}}>
-                                <div className="statistic">
-                                    <h1>9.4K</h1>
-                                    <p>Bottles recycled</p>
-                                </div>
-
-                                <div className="statistic">
-                                    <h1>234</h1>
-                                    <p>Rewarded users</p>
-                                </div>
-
-                                <div className="statistic">
-                                    <h1>87+</h1>
-                                    <p>Countries</p>
-                                </div>
-
-                                <div className="statistic">
-                                    <h1>$58</h1>
-                                    <p>Revenue per hour</p>
-                                </div>
+                            <div>
+                            <Pie
+                                data={state}
+                                options={{
+                                    title: {
+                                        display: true,
+                                        text: 'Average UAE Plastic Bottles Recycling Per Month',
+                                        fontSize: 20
+                                    },
+                                    animation:{
+                                        animateScale: true
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'right'
+                                    }
+                                }}
+                            />
+                                
                             </div>
                         </div>
                     )}
