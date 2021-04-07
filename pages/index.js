@@ -151,7 +151,7 @@ export default class index extends Component {
                         <div>
                             <div className="about" style={{padding:'0'}}>
                                 <div className="center">
-                                    <Image className="logo" src='/blockchain.jpg' alt="Blockchain" width="200" height="200" />
+                                    <Image className="logo" src='/blockchain.png' alt="Blockchain" width="200" height="200" />
                                 </div>
                                 
                                 <h1>RecycleChain</h1>
