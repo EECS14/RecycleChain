@@ -9,6 +9,7 @@ import Layout from '../components/Layout';
 import Image from 'next/image'; 
 import { Pie } from 'react-chartjs-2';
 import trackingContract from '../ethereum/tracking';
+import Footer from '../components/Footer';
 
 export default class index extends Component {
     constructor(props) {
@@ -218,6 +219,7 @@ export default class index extends Component {
                     )}
 
                 </div>
+                <Footer/>
             </Layout>
         )
     }
