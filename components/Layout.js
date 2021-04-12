@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 import Header from './Header';
-import Footer from './Footer';
 
 export default (props) => {
     return (
         <Container style={{  'min-height': '100vh', 'position': 'relative' }}>
             <Header />
             {props.children}
-            <Footer />
+            
         </Container>
     );
 };
