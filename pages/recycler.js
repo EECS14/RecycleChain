@@ -199,11 +199,12 @@ class recyclerPage extends Component {
                             <Grid>
                                 <Grid.Row centered>
                                     <Grid.Column textAlign="center">
-                                        <div className="Scanner" style={{ 'width': '25%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
-                                            <h2>Dispose a Plastic Bottle  </h2>
-                                            <Button className="QrReader" onClick={this.onScan} > Scan QR Code</Button>
+                                        <div className="Scanner">
+                                            <h2 style={{ 'text-align': 'center',  'padding-top': '45px'}} >Aim at QR code to dispose water bottle </h2>
+                                            <Button className="QrReader" onClick={this.onScan} > Scan</Button>
                                             <br />
-                                            <div> {this.state.qr === true ? (
+                                            <br />
+                                            <div style={{  'margin': 'auto', 'display': 'block',  'padding-left': '100px' }} > {this.state.qr === true ? (
                                                 <QRReader
                                                     delay={300}
                                                     onError={this.handleError}
@@ -223,8 +224,8 @@ class recyclerPage extends Component {
 
 
                     {(activeItem === 'history') && (
-                        <div>
-                            <h3 style={{ textAlign: 'center' }}>Bottle history:</h3>
+                        <div style={{'padding-top': '45px'}}>
+                            <h3 style={{ textAlign: 'center' }}>Bottle history</h3>
 
                             <div className='BottleTable' style={{ 'width': '90%', 'margin-left': 'auto', 'margin-right': 'auto' }}>
                                 <Table unstackable size='small' fixed singleLine>
@@ -259,7 +260,7 @@ class recyclerPage extends Component {
 
                     {(activeItem === 'rewards') && (
                         <div>
-                            <h3 style={{ textAlign: 'center' }}>Total rewards:</h3>
+                            <h3 style={{ textAlign: 'center', 'padding-top': '45px' }}>Total rewards</h3>
 
                             <Card header='Rewards' description={this.state.rewards} meta='ETH' centered='true' />
 
