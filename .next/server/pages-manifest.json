@@ -2,8 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/auctions/viewauctions": "pages/auctions/viewauctions.js",
-  "/": "pages/index.js",
-  "/registration": "pages/registration.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/recycler": "pages/recycler.js",
+  "/track/show": "pages/track/show.js"
 }
