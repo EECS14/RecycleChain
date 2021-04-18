@@ -262,7 +262,7 @@ class recyclerPage extends Component {
                         <div>
                             <h3 style={{ textAlign: 'center', 'padding-top': '45px' }}>Total rewards</h3>
 
-                            <Card header='Rewards' description={this.state.rewards} meta='ETH' centered='true' />
+                            <Card header='Rewards' description={this.state.rewards - 0 } meta='ETH' centered='true' />
 
                         </div>
                     )}
