@@ -129,7 +129,7 @@ contract PlasticBale{
     }
     
     
-    function endAuction() onlyOwner public{
+    function endAuction() public{
         
         require( isOpen, "Auction is not avalible.");
         require(endTime < now, "Auction duration is not up yet.");
