@@ -440,7 +440,6 @@ class joinAuction extends Component {
 
                                         <br />
 
-                                        <p> You can only exit the auction if no bids were placed!</p>
                                         <Button loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
                                     </Grid.Column>
                                 </Grid.Row>
