@@ -61,7 +61,7 @@ export default class index extends Component {
     render() {
         const { activeItem } = this.state
         const state = {
-            labels: ['Recycled', 'Not Recycled'],
+            labels: ['Recycled', 'Produced'],
             datasets: [
                 {
                     label: 'Plastic bottles',
