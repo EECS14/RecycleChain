@@ -9,6 +9,9 @@ import trackingContract from '../ethereum/tracking';
 import Layout from '../components/Layout';
 import ipfs from './ipfs';
 
+// Eiman's sorting faciclity 1: 0x334b12DF37984A449b57BAE3F4120f70be177be0
+// Eimans's sorting facility 2: 0xCaa0Ec69c2b10A835d3567589b49cf9fad4C2Ba6
+
 class sortingmachine extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +22,7 @@ class sortingmachine extends Component {
             buffer:'',  //(new)
             ipfsHash: null, //(new)
             qr: false,
-            sellerAddress: '0x334b12DF37984A449b57BAE3F4120f70be177be0', // Hard coded Address
+            sellerAddress: '0xCaa0Ec69c2b10A835d3567589b49cf9fad4C2Ba6', // Hard coded Address
             registerSCAddress: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
             errorMessage: '',
             hasNoError: false,
@@ -177,11 +180,13 @@ class sortingmachine extends Component {
                                             <br /> <br />
                                           
                                             <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
-                                            <div> {this.state.qr === true ? (<QRReader
+                                            <br />
+                                            
+                                            <div > {this.state.qr === true ? (<QRReader
                                                 delay={300}
                                                 onError={this.handleError}
                                                 onScan={this.handleScan}
-                                                style={{ width: "35%" }}
+                                                style={{ width: "60%" }}
                                             />
                                             )
                                                 : ''} </div>
