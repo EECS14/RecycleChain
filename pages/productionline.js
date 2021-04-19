@@ -91,13 +91,13 @@ class manufacturingMachinePage extends Component {
         return (
             <Layout>
                 <div className='ProductionLine'>
-                    <h1> Weclome to Manufactuerer's Production Line Machine Page</h1>
+                    <h2>Production Line</h2>
                     <br />
                     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css" />
                     <Container>
                         <Grid>
                             <Grid.Row centered>
-                                <Grid.Column width={6} textAlign="center">
+                                <Grid.Column width={12} textAlign="center">
                                     <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                                         <Form.Field><label>Bottle Material:   </label>
                                             <Dropdown

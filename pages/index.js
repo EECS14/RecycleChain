@@ -4,7 +4,7 @@ To run the app, use the command npm run dev
 */
 
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Icon, Divider } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 import Image from 'next/image'; 
 import { Pie } from 'react-chartjs-2';
@@ -101,11 +101,13 @@ export default class index extends Component {
             }
             .feature {
                 height:100%;
+                padding:5px;
+                background-color:rgba(255,255,255, 0.4);
             }
 
             .feature p {
-                height:70%;
-                padding:10px;
+                padding:0px;
+                text-align:justify;
             }
 
             .statistic p{
@@ -129,7 +131,7 @@ export default class index extends Component {
                             onClick={this.handleItemClick}
                         >
                             About
-                </Menu.Item>
+                        </Menu.Item>
 
                         <Menu.Item
                             name='features'
@@ -137,7 +139,7 @@ export default class index extends Component {
                             onClick={this.handleItemClick}
                         >
                             Features
-                </Menu.Item>
+                        </Menu.Item>
 
                         <Menu.Item
                             name='stats'
@@ -145,7 +147,15 @@ export default class index extends Component {
                             onClick={this.handleItemClick}
                         >
                             Statistics
-                </Menu.Item>
+                        </Menu.Item>
+
+                        <Menu.Item
+                                    name='contact'
+                                    active={activeItem === 'contact'}
+                                    onClick={this.handleItemClick}
+                                >
+                                    Contact Us
+                        </Menu.Item>
                     </Menu>
 
                     {(activeItem === 'about') && (
@@ -218,8 +228,42 @@ export default class index extends Component {
                         </div>
                     )}
 
+                    {(activeItem === 'contact') && (
+                        <div className="contactSection">
+                            <h2>Contact Us</h2>
+                                <Grid container columns={2} relaxed>
+                                    <Grid.Row>
+                                        <Grid.Column width={1}>
+                                            <Icon circular inverted name='pin' color='teal' />
+                                        </Grid.Column>
+                                        <Grid.Column width={12}>
+                                            <p><strong>Khalifa University</strong> AlSaada St., Abu Dhabi, United Arab Emirates</p>
+                                        </Grid.Column>
+                                    </Grid.Row>
+
+                                    <Grid.Row>
+                                        <Grid.Column width={1}>
+                                            <Icon circular inverted name='mail' color='teal' />
+                                        </Grid.Column>
+                                        <Grid.Column width={12}>
+                                            <p><strong>EECS14</strong> @ku.ac.ae</p>
+                                        </Grid.Column>
+                                    </Grid.Row>
+
+                                    <Grid.Row>
+                                        <Grid.Column width={1}>
+                                            <Icon circular inverted name='phone' color='teal' />
+                                        </Grid.Column>
+                                        <Grid.Column width={12}>
+                                            <p><strong>+971 (2)</strong> 312 3333</p>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                        </div>
+                    )}
+
                 </div>
-                <Footer/>
+                
             </Layout>
         )
     }

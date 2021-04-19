@@ -5,10 +5,10 @@ import { Menu } from 'semantic-ui-react';
 import { Link } from '../routes';
 export default () => {
     return (
-        <div className="topMenu" style={{'width':'100%', 'overflow':'auto', 'white-space':'nowrap', 'background-color':'white', 'border-radius':'0px 0px 15px 15px', 'margin-bottom':'15px'}}>
+        <div className="topMenu" style={{'width':'100%', 'overflow':'auto', 'white-space':'nowrap', 'background-color':'#289672', 'border-radius':'0px 0px 15px 15px', 'margin-bottom':'15px'}}>
             <Link route='/'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -18,7 +18,7 @@ export default () => {
 
             <Link route='/registration'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -28,7 +28,7 @@ export default () => {
 
             <Link route='/productionline'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -38,7 +38,7 @@ export default () => {
 
             <Link route='/recycler'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -48,7 +48,7 @@ export default () => {
 
             <Link route='/auctions/viewbales'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -58,7 +58,7 @@ export default () => {
             
             <Link route='/sortingmachine'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',
@@ -68,7 +68,7 @@ export default () => {
 
             <Link route='/auctions/viewauctions'>
                 <a className='item' style={{'display': 'inline-block',
-                'color': 'black',
+                'color': 'white',
                 'font-family': 'Lato,\'Helvetica Neue\',Arial,Helvetica,sans-serif',
                 'font-weight':'bold',
                 'text-align': 'center',

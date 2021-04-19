@@ -174,7 +174,6 @@ class registrationPage extends Component {
 
             <Layout>
                 <div className="Registration ">
-                    <h1>Welcome to Goverment Entity Page</h1>
                     <link rel="stylesheet"
                         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                     />
@@ -193,7 +192,7 @@ class registrationPage extends Component {
                             <Container>
                                 <Grid>
                                     <Grid.Row centered>
-                                        <Grid.Column width={6} textAlign="center">
+                                        <Grid.Column width={12} textAlign="center">
                                             <Form onSubmit={this.onRegisterManu} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                                                 <Form.Field>
                                                     <label>Manufacturer Name</label>
@@ -237,7 +236,7 @@ class registrationPage extends Component {
                             <Container>
                                 <Grid>
                                     <Grid.Row centered>
-                                        <Grid.Column width={6} textAlign="center">
+                                        <Grid.Column width={12} textAlign="center">
                                             <Form onSubmit={this.onRegisterBuyer} error={!!this.state.errorMessage1} success={this.state.hasNoError1} >
                                                 <Form.Field>
                                                     <label>Buyer Name</label>
@@ -281,7 +280,7 @@ class registrationPage extends Component {
                             <Container>
                                 <Grid>
                                     <Grid.Row centered>
-                                        <Grid.Column width={6} textAlign="center">
+                                        <Grid.Column width={12} textAlign="center">
                                             <Form onSubmit={this.onRegisterSeller} error={!!this.state.errorMessage2} success={this.state.hasNoError2}>
                                                 <Form.Field >
                                                     <label>Sorting Facility Name</label>

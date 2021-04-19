@@ -161,12 +161,12 @@ class recyclerPage extends Component {
         return (
             <Layout>
                 <div className='Recycler'>
-                    <h1>Welcome to Recycler Page</h1>
+                    <h2>Recycler Page</h2>
                     <link rel="stylesheet"
                         href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                     />
 
-                    <Menu text>
+                    <Menu widths={3}>
                         <Menu.Item
                             name='scan'
                             active={activeItem === 'about'}

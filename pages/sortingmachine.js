@@ -149,13 +149,13 @@ class sortingmachine extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
                 <div className='SortingMachine'>
-                    <h1>Welcome to Sorting Machine Page</h1>
+                    <h2>Sorting Machine</h2>
                     <br/>
                 
                     <Container>
                         <Grid>
                             <Grid.Row centered>
-                                <Grid.Column width={6} textAlign="center">
+                                <Grid.Column width={12} textAlign="center">
 
                                     <Form onSubmit={this.onSetBaleLimit} error={!!this.state.errorMessage1} >
                                         <Form.Field>

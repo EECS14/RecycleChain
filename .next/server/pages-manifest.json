@@ -3,5 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/recycler": "pages/recycler.js",
-  "/track/show": "pages/track/show.js"
+  "/sortingmachine": "pages/sortingmachine.js"
 }

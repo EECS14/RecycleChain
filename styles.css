@@ -1,9 +1,19 @@
 /*Global CSS*/
 html, body {
-    background-color: #80b793f4 !important;
+    background-color: #f0f0f0 !important;
   }
 div{
   font-family: "Times New Roman", Times, serif;
+}
+
+h1, h2, h3{
+  color: #1e6f5c;
+}
+
+/*Top Menu*/
+/* Hide scrollbar for Chrome, Safari and Opera */
+.topMenu::-webkit-scrollbar {
+  display: none;
 }
 
 
@@ -57,11 +67,11 @@ div{
   }
 
  /*Production Line Machine Page CSS*/
- .ProductionLine h1 {
+ .ProductionLine h2 {
   text-align: center;
 }
 /*Sorting Machine Page CSS*/
-.SortingMachine h1 {
+.SortingMachine h1, h2 {
   text-align: center;
 }
 
