@@ -305,9 +305,87 @@ class joinAuction extends Component {
                     href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
                 />
 
-                <div className='statistic'>
-                    <h1>Live Auction</h1>
+                <div>
 
+                    <h2> Plastic Bale being auctioned:
+                 <h3 style={{'overflow': 'hidden', 'text-overflow': 'ellipsis'}}> {this.props.address} </h3> </h2>
+                    <br />
+
+                    <div className='AuctionContainer'>
+                        <Grid>
+                            <Grid.Row centered>
+                                <Grid.Column width={8} textAlign="center">
+
+                                    {dollars == true && eth == false ? (<div>
+                                        <Statistic inverted>
+                                            <Statistic.Value text>
+                                                {this.state.dollarValue}
+                                                <br />
+                                    USD
+                                            </Statistic.Value>
+                                            <Statistic.Label>Highest Bid</Statistic.Label>
+                                        </Statistic>
+
+                                    </div>)
+                                        : (<div>
+                                            <Statistic inverted>
+                                                <Statistic.Value text>
+                                                    {this.state.highestBid}
+                                                    <br />
+                                        ETH
+                                        </Statistic.Value>
+                                                <Statistic.Label>Highest Bid</Statistic.Label>
+                                            </Statistic>
+
+                                        </div>)}
+                                </Grid.Column>
+                                <Grid.Column width={8} textAlign="center">
+
+                                    <Statistic inverted>
+                                        <Statistic.Value>
+                                            <Icon name='users' /> {this.state.totalBidders}
+                                        </Statistic.Value>
+                                        <Statistic.Label>Total Bidders</Statistic.Label>
+                                    </Statistic>
+
+                                </Grid.Column>
+
+                            </Grid.Row>
+
+                            <Grid.Row centered>
+                                <Grid.Column width={12} textAlign="center">
+
+                                    <Statistic inverted>
+                                        <Statistic.Value text>
+                                            <Icon name='user' /> <br/> {this.state.highestBidder}
+                                            {/*this.state.highestBidderAddress*/}
+                                        </Statistic.Value>
+                                        <Statistic.Label>Highest Bidder</Statistic.Label>
+                                    </Statistic>
+
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+
+                        
+                    </div>
+                </div>
+
+                <h4 style={{'text-align': 'center'}}>View bids in:</h4>
+
+                <div className='conversionButtons'>
+                    <Button.Group size='large'>
+                        <Button onClick={this.convertToEther}> Ether </Button>
+                        <Button.Or />
+                        <Button onClick={this.convertToDollars}>Dollars</Button>
+                    </Button.Group>
+                </div>
+
+                <br />
+
+                <h4>Auction closing in:</h4>
+
+                <div className="statistic">
                     <div id="clockdiv">
                         <div>
                             <span class="days"></span>
@@ -326,86 +404,15 @@ class joinAuction extends Component {
                             <div class="smalltext">Seconds</div>
                         </div>
                     </div>
-
-
-
-                    <h2> Plastic Bale being auctioned:
-                 <h3> {this.props.address} </h3> </h2>
-                    <br />
-
-                    <div className='AuctionContainer'>
-
-                        <Statistic.Group widths='three'>
-
-                            {dollars == true && eth == false ? (<div>
-                                <Statistic>
-                                    <Statistic.Value text>
-                                        {this.state.dollarValue}
-                                        <br />
-                            USD
-                            </Statistic.Value>
-                                    <Statistic.Label>Highest Bid</Statistic.Label>
-                                </Statistic>
-
-                            </div>)
-                                : (<div>
-                                    <Statistic>
-                                        <Statistic.Value text>
-                                            {this.state.highestBid}
-                                            <br />
-                                ETH
-                                </Statistic.Value>
-                                        <Statistic.Label>Highest Bid</Statistic.Label>
-                                    </Statistic>
-
-                                </div>)}
-
-
-
-
-
-                            <Statistic>
-                                <Statistic.Value>
-                                    <Icon name='users' /> {this.state.totalBidders}
-                                </Statistic.Value>
-                                <Statistic.Label>Total Bidders</Statistic.Label>
-                            </Statistic>
-
-                            <br />
-
-                            <Statistic>
-                                <Statistic.Value text>
-                                    <Icon name='user' /> {this.state.highestBidder}
-                                    {/*this.state.highestBidderAddress*/}
-                                </Statistic.Value>
-                                <Statistic.Label>Highest Bidder</Statistic.Label>
-                            </Statistic>
-
-
-                        </Statistic.Group>
-                    </div>
                 </div>
 
-                <br />
-                <br />
-
-
-                <div className='conversionButtons'>
-                    <Button.Group size='large'>
-                        <Button onClick={this.convertToEther}> Ether </Button>
-                        <Button.Or />
-                        <Button onClick={this.convertToDollars}>Dollars</Button>
-                    </Button.Group>
-                </div>
-
-                <br />
-                <br />
+                    <br /><br/>
 
 
                 {join === false ? (<Grid>
                     <Grid.Row centered>
-                        <Grid.Column width={6} textAlign="center">
-                            <Button loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
+                        <Grid.Column width={12} textAlign="center">
+                            <Button color='olive' loading={this.state.loading} onClick={this.onJoinAuction}>Join Auction </Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -418,7 +425,7 @@ class joinAuction extends Component {
                         <Container>
                             <Grid>
                                 <Grid.Row centered>
-                                    <Grid.Column width={4} textAlign="center">
+                                    <Grid.Column width={12} textAlign="center">
                                         <Form onSubmit={this.onPlaceBid} error={!!this.state.errorMessage} success={this.state.hasNoError}>
 
                                             <Form.Field>
@@ -435,12 +442,12 @@ class joinAuction extends Component {
                                             <Message success header="Success!" content="Bid is Placed!" />
 
 
-                                            <Button loading={this.state.loading2} type='submit'>Place Bid</Button>
+                                            <Button color='olive' loading={this.state.loading2} type='submit'>Place Bid</Button>
                                         </Form>
 
                                         <br />
 
-                                        <Button loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
+                                        <Button color='red' loading={this.state.loading3} onClick={this.onExitAuction}>Exit Auction </Button>
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>

@@ -47,6 +47,7 @@ class registrationPage extends Component {
 
     renderInputs(value) {
         const inputs = [];
+        if(value>0) inputs.push(<label>Sorting Machine Adresses</label>);
         for (let i = 0; i < value; i++) {
             inputs.push(<div>
                 <Input value={this.state.sortingMachines[i]}
@@ -301,9 +302,8 @@ class registrationPage extends Component {
 
                                                 <Form.Field >
                                                     <label>Number of Sorting Machines</label>
-                                                    <input type="number" name="quantity" min="1" max="7" placeholder="Select number of machines in facility" onChange={(value) => this.handleOnChange(value)} />
+                                                    <input type="number" name="quantity" min="1" max="7" placeholder="Enter a number from 1 to 7" onChange={(value) => this.handleOnChange(value)} />
                                                     <div>
-                                                    <label>Sorting Machine Adresses</label>
                                                         {this.renderInputs(this.state.inputSize)}
                                                     </div>
                                                 </Form.Field>

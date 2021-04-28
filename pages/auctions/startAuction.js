@@ -106,12 +106,12 @@ class startAuction extends Component {
 
                     <div className='setAuction'>
 
-                        <h1>Set Bale's Auction Parameters: </h1>
+                        <h2>Set Bale's Auction Parameters: </h2>
 
                         <Container>
                             <Grid>
                                 <Grid.Row centered>
-                                    <Grid.Column width={6} textAlign="center">
+                                    <Grid.Column width={12} textAlign="center">
                                         <Form onSubmit={this.onStartAuction} error={!!this.state.errorMessage} success={this.state.hasNoError}>
                                             <Form.Field>
                                                 <label >Auction Closing Date and Time</label>
@@ -141,7 +141,7 @@ class startAuction extends Component {
                                             <Message success header="Success!" content="Auction is Open!" />
 
 
-                                            <Button loading={this.state.loading} type='submit'>Start Auction</Button>
+                                            <Button color='olive' loading={this.state.loading} type='submit'>Start Auction</Button>
                                         </Form>
                                     </Grid.Column>
                                 </Grid.Row>

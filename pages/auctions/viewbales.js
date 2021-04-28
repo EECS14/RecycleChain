@@ -73,8 +73,7 @@ class viewbales extends Component {
 
                 <div className='Seller'>
 
-                    <h1>Welcome to Seller Page</h1>
-                    <h2>Plastic Bales produced at Your Facility</h2>
+                    <h3>Plastic Bales produced at Your Facility</h3>
                     <Card.Group>
                         {this.state.cards.map(items => (
                             <Link route={`/auctions/viewbales/${items.header}`}>

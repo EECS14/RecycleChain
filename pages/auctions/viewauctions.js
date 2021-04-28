@@ -87,8 +87,7 @@ class viewauctions extends Component {
                 />
 
                 <div className='Buyer'>
-                    <h1>Welcome to Buyer Page</h1>
-                    <h2>Open Auctions</h2>
+                    <h3>Open Auctions</h3>
                     <Card.Group>
                         {this.state.cards.map(items => (
                             <Link route={`/auctions/viewauctions/${items.header}`}>

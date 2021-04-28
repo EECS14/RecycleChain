@@ -16,6 +16,9 @@ class sortingmachine extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectScan: true,
+            selectPicture: false,
+            selectSettings: false,
             productionMachine: false,
             sortingMachine: false,
             result: '',
@@ -140,7 +143,11 @@ class sortingmachine extends Component {
 
     render() {
 
-        const { qr } = this.state
+        const { qr,
+            selectScan,
+            selectPicture,
+            selectSettings
+        } = this.state
 
         return (
             <Layout>
@@ -150,54 +157,67 @@ class sortingmachine extends Component {
                 />
                 <div className='SortingMachine'>
                     <h2>Sorting Machine</h2>
-                    <br/>
+
+                    <Menu widths={3}>
+                        <Menu.Item name='Scan QR code' onClick={() => this.setState({ selectScan: true, selectPicture: false, selectSettings: false })} > Scan QR code </Menu.Item>
+                        <Menu.Item name='Upload picture' onClick={() => this.setState({ selectPicture: true, selectSettings: false, selectScan: false })} >  Upload picture </Menu.Item>
+                        <Menu.Item name='Settings' onClick={() => this.setState({ selectSettings: true, selectPicture: false, selectScan: false })} > Settings</Menu.Item>
+                    </Menu>
                 
                     <Container>
                         <Grid>
                             <Grid.Row centered>
                                 <Grid.Column width={12} textAlign="center">
 
-                                    <Form onSubmit={this.onSetBaleLimit} error={!!this.state.errorMessage1} >
-                                        <Form.Field>
-                                            <label>Number of Bottles in a Plastic Bale</label>
-                                            <Input value={this.state.bottlesLimit}
-                                                onChange={event => this.setState({ bottlesLimit: event.target.value })} />
-                                        </Form.Field>
-                                        <Button loading={this.state.loading} type='submit'>Set Limit</Button>
-                                    </Form>
+                                    {selectSettings && (
+                                        <Form onSubmit={this.onSetBaleLimit} error={!!this.state.errorMessage1} >
+                                            <Form.Field>
+                                                <label>Number of Bottles in a Plastic Bale</label>
+                                                <Input value={this.state.bottlesLimit}
+                                                    onChange={event => this.setState({ bottlesLimit: event.target.value })} />
+                                            </Form.Field>
+                                            <Button loading={this.state.loading} type='submit'>Set Limit</Button>
+                                        </Form>
+                                    )}
 
-                                    <Form onSubmit={this.onUpload }>
-                                        <Form.Field>
-                                            <label>Upload Plastic Bale Picture</label>
-                                            <Input type='file'
-                                                onChange={this.captureFile}/>
-                                        </Form.Field>
-                                        <Button loading={this.state.loadingPic} type='submit'>Upload Picture</Button>
-                                    </Form>
+                                    {selectPicture && (
+                                        <Form onSubmit={this.onUpload }>
+                                            <Form.Field>
+                                                <label>Upload Plastic Bale Picture</label>
+                                                <Input type='file'
+                                                    onChange={this.captureFile}/>
+                                            </Form.Field>
+                                            <Button loading={this.state.loadingPic} type='submit'>Upload Picture</Button>
+                                        </Form>
 
-                                    <Form error={!!this.state.errorMessage} success={this.state.hasNoError} >
-                                        <div className="Scanner" >
-                                            <br /> <br />
-                                          
-                                            <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
-                                            <br />
+                                    )}
+
+                                    {selectScan && (
+                                        <Form error={!!this.state.errorMessage} success={this.state.hasNoError} >
+                                            <div className="Scanner" >
+                                                <br /> <br />
                                             
-                                            <div > {this.state.qr === true ? (<QRReader
-                                                delay={300}
-                                                onError={this.handleError}
-                                                onScan={this.handleScan}
-                                                style={{ width: "60%" }}
-                                            />
-                                            )
-                                                : ''} </div>
+                                                <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
+                                                <br />
+                                                
+                                                <div > {this.state.qr === true ? (<QRReader
+                                                    delay={300}
+                                                    onError={this.handleError}
+                                                    onScan={this.handleScan}
+                                                    style={{ width: "60%" }}
+                                                />
+                                                )
+                                                    : ''} </div>
 
-                                            <Message error header="Error!" content={this.state.errorMessage} />
+                                                <Message error header="Error!" content={this.state.errorMessage} />
 
-                                            <Message success header="Success!" content="Plastic bottle status is updated successfully by sorting machine!" />
+                                                <Message success header="Success!" content="Plastic bottle status is updated successfully by sorting machine!" />
 
-                                        </div>
+                                            </div>
 
-                                    </Form>
+                                        </Form>
+
+                                    )}
 
                                     <label>{this.state.IPFSPic == true ? 
                                     <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" class="center"/> : ''} 
