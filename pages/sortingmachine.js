@@ -219,9 +219,10 @@ class sortingmachine extends Component {
 
                                     )}
 
+                                     {/*             
                                     <label>{this.state.IPFSPic == true ? 
                                     <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt="" class="center"/> : ''} 
-                                    </label>
+                                    </label> */}    
                                     
                                 </Grid.Column>
                             </Grid.Row>
