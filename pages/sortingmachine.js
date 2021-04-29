@@ -25,7 +25,7 @@ class sortingmachine extends Component {
             buffer:'',  //(new)
             ipfsHash: null, //(new)
             qr: false,
-            sellerAddress: '0xCaa0Ec69c2b10A835d3567589b49cf9fad4C2Ba6', // Hard coded Address
+            sellerAddress: '0x334b12DF37984A449b57BAE3F4120f70be177be0', // Hard coded Address
             registerSCAddress: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
             errorMessage: '',
             hasNoError: false,
@@ -161,7 +161,7 @@ class sortingmachine extends Component {
                     <Menu widths={3}>
                         <Menu.Item name='Scan QR code' onClick={() => this.setState({ selectScan: true, selectPicture: false, selectSettings: false })} > Scan QR code </Menu.Item>
                         <Menu.Item name='Upload picture' onClick={() => this.setState({ selectPicture: true, selectSettings: false, selectScan: false })} >  Upload picture </Menu.Item>
-                        <Menu.Item name='Settings' onClick={() => this.setState({ selectSettings: true, selectPicture: false, selectScan: false })} > Settings</Menu.Item>
+                        <Menu.Item name='Settings' onClick={() => this.setState({ selectSettings: true, selectPicture: false, selectScan: false })} > Set Plastic Bale Size</Menu.Item>
                     </Menu>
                 
                     <Container>
@@ -199,12 +199,13 @@ class sortingmachine extends Component {
                                             
                                                 <Button className="QrReader" style={{ 'vertical-align': 'middle' }} onClick={this.onScan} > Scan QR Code</Button>
                                                 <br />
+                                                <br />
                                                 
-                                                <div > {this.state.qr === true ? (<QRReader
+                                                <div style={{  'margin': 'auto', 'display': 'block',  'padding-left': '277px' }} > {this.state.qr === true ? (<QRReader
                                                     delay={300}
                                                     onError={this.handleError}
                                                     onScan={this.handleScan}
-                                                    style={{ width: "60%" }}
+                                                    style={{ width: "25%" }}
                                                 />
                                                 )
                                                     : ''} </div>
