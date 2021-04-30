@@ -204,12 +204,12 @@ class recyclerPage extends Component {
                                             <Button className="QrReader" onClick={this.onScan} > Scan</Button>
                                             <br />
                                             <br />
-                                            <div style={{  'margin': 'auto', 'display': 'block',  'padding-left': '100px' }} > {this.state.qr === true ? (
+                                            <div style={{  'margin': 'auto', 'display': 'block',  'padding-left': '400px' }} > {this.state.qr === true ? (
                                                 <QRReader
                                                     delay={300}
                                                     onError={this.handleError}
                                                     onScan={this.handleScan}
-                                                    style={{ width: "60%" }}
+                                                    style={{ width: "25%" }}
                                                 />
                                             )
                                                 : ''} </div>

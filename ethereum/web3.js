@@ -4,6 +4,7 @@ Primary provider is MetaMask
 */
 import Web3 from 'web3'; 
 
+
 //current provider is the provider injected by MetaMask 
 let web3;
 
@@ -17,6 +18,6 @@ if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
   // We are on the server *OR* the user is not running metamask
   const provider = new Web3.providers.HttpProvider( 'https://ropsten.infura.io/v3/a5dc022ed8df4754b509e1f289d10b05');
   web3 = new Web3(provider);
-} 
+}  
 
 export default web3;

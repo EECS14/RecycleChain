@@ -25,7 +25,7 @@ class sortingmachine extends Component {
             buffer:'',  //(new)
             ipfsHash: null, //(new)
             qr: false,
-            sellerAddress: '0x334b12DF37984A449b57BAE3F4120f70be177be0', // Hard coded Address
+            sellerAddress: '0xCaa0Ec69c2b10A835d3567589b49cf9fad4C2Ba6', // Hard coded Address
             registerSCAddress: '0x7126ec4f68added009015a1f5ac718c4896faa2e',
             errorMessage: '',
             hasNoError: false,
